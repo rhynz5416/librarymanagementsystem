@@ -626,7 +626,7 @@ public class NEWSPAPERRETURN extends javax.swing.JFrame {
 
                 String tempbarcode = txt_Return_newspaperAccNo.getText();
 
-                String query = "SELECT * FROM `tbl_newsaccession` WHERE accession = '"+tempbarcode+"' and category_id='"+Global_Variable.category_id+"'";
+                String query = "SELECT * FROM `tbl_newsaccession` WHERE accession = '"+tempbarcode+"'";
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM d");
 
                 st = con.dbconn().prepareStatement(query);
@@ -694,7 +694,7 @@ public class NEWSPAPERRETURN extends javax.swing.JFrame {
         ResultSet rs;
         String query;
         try {
-            query = "select * from `tbl_librarynewspaper` where ISBNBarcode='" + Barcode + "' and category_id=" + Global_Variable.category_id;
+            query = "select * from `tbl_librarynewspaper` where ISBNBarcode='" + Barcode + "'";
             st = null;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);

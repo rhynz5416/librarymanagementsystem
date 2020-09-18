@@ -38,18 +38,16 @@ public class BOOKBORROW extends javax.swing.JFrame {
         txtborrowBookTitle.setEnabled(false);
         txtborrowBookAuthor.setEnabled(false);
         txtborrowBookPublisher.setEnabled(false);
-        txtborrowBookSection.setEnabled(false);
-        //txtBorrowRCBarcode.setEditable(false);
+        txtborrowBookSection.setEnabled(false); 
         txtBorrowRCBarcode.setEnabled(false);
         txtbookBorrowName.setEnabled(false);
         txtbookBorrowGender.setEnabled(false);
         txtbookBorrowAddress.setEnabled(false);
         txtbookBorrowType.setEnabled(false);
-        copies.setEnabled(false);
-
+        copies.setEnabled(false); 
     }
 
-    //this is for geeting a current date
+    //this is for getting a current date
     void showBookDate() {
         Date d = new Date();
         SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
@@ -73,7 +71,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
     //to get the query of book from the database
     public ArrayList<C_LibraryMaterialBook> getBookList() {
         ArrayList<C_LibraryMaterialBook> Material = new ArrayList<C_LibraryMaterialBook>();
-        String query = "select * from `tbl_librarybook` where category_id='" + Global_Variable.category_id + "'";
+        String query = "select * from `tbl_librarybook` where ISBNBarcode='" + Global_Variable.BookId + "'";
         ResultSet rs;
 
         try {
@@ -434,7 +432,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
         ResultSet rs = null;
         Statement st = null;
         //dbConn con = new dbConn();
-        String query = "SELECT * FROM `tbl_clientregistration` where ClientBarcode = '"+txtBorrowRCBarcode.getText()+"' and category_id ='"+Global_Variable.category_id+"'" ;
+        String query = "SELECT * FROM `tbl_clientregistration` where ClientBarcode = '"+txtBorrowRCBarcode.getText()+"'" ;
         SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
         Calendar now = Calendar.getInstance();
         Date l = null, a = null, b = null;
@@ -468,7 +466,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
 
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + borrowoutside.getText() + "','" + Global_Variable.category_id + "')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + borrowoutside.getText() + "')";
                             executesqlQuery(queries, "Transaction Added");
 
                             try {
@@ -481,7 +479,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
                                 //   SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
                                 String dated = s.format(daterequired.getDate());
 
-                                String querys = "INSERT INTO `tbl_borrowoutside` VALUES ('" + Global_Variable.outbookId + "','" + books.getText() + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + dated + "','" + Global_Variable.category_id + "','" + labelDate.getText() + "','" + labeltime.getText() + "')";
+                                String querys = "INSERT INTO `tbl_borrowoutside` VALUES ('" + Global_Variable.outbookId + "','" + books.getText() + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + dated + "','" + labelDate.getText() + "','" + labeltime.getText() + "')";
                                 executesqlQuery(querys, "Book Borrowed");
                                 txtborrowBookAccNo.setText("");
 
@@ -519,9 +517,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-
+        } 
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtBorrowRCBarcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBorrowRCBarcodeKeyReleased
@@ -530,8 +526,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
         SimpleDateFormat dds = new SimpleDateFormat("MM-dd-yyyy");
         String barcode = "", name = "", gender = "", address = "", type = "", dateregis = "", dateexpire = "";
         dateregis = dds.format(d);
-        dateexpire = dds.format(d);
-        // String barcode="",name="",age="",gender="",address="",type="",dateregis="",dateexpire="";
+        dateexpire = dds.format(d); 
         long a = 0;
         SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
 
@@ -594,73 +589,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBorrowRCBarcodeKeyReleased
 
     private void txtBorrowRCBarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBorrowRCBarcodeActionPerformed
-        //txtBorrowRCBarcodeActionPerformed
-        /*daterequired.setEnabled(true);
-        Date d = new Date();
-        SimpleDateFormat dds = new SimpleDateFormat("MMM d, yyyy");
-        String barcode = "", name = "", gender = "", address = "", type = "", dateregis = "", dateexpire = "";
-        dateregis = dds.format(d);
-        dateexpire = dds.format(d);
-        // String barcode="",name="",age="",gender="",address="",type="",dateregis="",dateexpire="";
-        long a = 0;
-        SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
-
-        if (validateRCBarcode(txtBorrowRCBarcode.getText())) {
-            try {
-                Connection cn = null;
-                Statement st = null;
-                ResultSet rs = null;
-                String tempbarcode = txtBorrowRCBarcode.getText();
-                String query = "SELECT * FROM `tbl_clientregistration` WHERE ClientBarcode= " + tempbarcode;
-
-                cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
-                st = cn.prepareStatement(query);
-                rs = st.executeQuery(query);
-
-                try {
-                    if (rs.next()) {
-                        //to display the data inside the txtfields
-                        barcode = rs.getString("ClientBarcode");
-                        txtBorrowRCBarcode.setText(barcode);
-
-                        name = rs.getString("Name");
-                        txtbookBorrowName.setText(name);
-
-                        gender = rs.getString("Gender");
-                        txtbookBorrowGender.setText(gender);
-
-                        address = rs.getString("Address");
-                        txtbookBorrowAddress.setText(address);
-
-                        type = rs.getString("ClientType");
-                        txtbookBorrowType.setText(type);
-
-                        dateregis = rs.getString("DateIssued");
-                        dateexpire = rs.getString("DateExpired");
-
-                    }
-                } catch (Exception ex) {
-                    if (a > 0) {
-                        txtBorrowRCBarcode.setText(barcode);
-                        txtbookBorrowName.setText(name);
-                        txtbookBorrowGender.setText(gender);
-                        txtbookBorrowAddress.setText(address);
-                        txtbookBorrowType.setText(type);
-
-                        a = s.parse(dateexpire).getTime() - s.parse(dateregis).getTime();
-                        JOptionPane.showMessageDialog(null, a + "");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Your account has already expired!!!");
-                    }
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-
-        } else {
-            txtBorrowRCBarcode.setText("");
-            JOptionPane.showMessageDialog(null, "Readers Card Barcode doesn't exist");
-        }*/
+     
     }//GEN-LAST:event_txtBorrowRCBarcodeActionPerformed
 
     private void borrowoutsideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrowoutsideActionPerformed
@@ -670,7 +599,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
         labelStatus.setText(txtborrowBookBarcode.getText() + " with accession number " + txtborrowBookAccNo.getText() + " is now: ");
         status.setText("borrowed");
 
-        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + status.getText() + "','" + Global_Variable.category_id + "')";
+        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + status.getText() + "')";
         executesqlQuery(quer, "Monitored");
 
 
@@ -683,7 +612,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
         labelStatus.setText(txtborrowBookBarcode.getText() + " with accession number " + txtborrowBookAccNo.getText() + " is now: ");
         status.setText("borrowed");
 
-        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + status.getText() + "','" + Global_Variable.category_id + "')";
+        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + status.getText() + "')";
         executesqlQuery(quer, "Monitored");
 
     }//GEN-LAST:event_borrowinsideActionPerformed
@@ -697,12 +626,6 @@ public class BOOKBORROW extends javax.swing.JFrame {
     }//GEN-LAST:event_txtborrowBookTitleActionPerformed
 
     private void txtborrowBookBarcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtborrowBookBarcodeKeyReleased
-
-        //   try {
-        //       getReserved();
-        //   } catch (Exception e) {
-        //       e.printStackTrace();
-        //   }
         try {
             availability();
         } catch (Exception e) {
@@ -712,8 +635,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
             status();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
+        } 
         txtborrowBookTitle.setEditable(false);
         txtborrowBookAuthor.setEditable(false);
         txtborrowBookPublisher.setEditable(false);
@@ -732,7 +654,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
 
             ResultSet rs = null;
             String tempbarcode = txtborrowBookBarcode.getText();
-            String query = "SELECT * FROM `tbl_librarybook` WHERE ISBNBarcode ='" + tempbarcode + "' and category_id ='" + Global_Variable.category_id + "' ";
+            String query = "SELECT * FROM `tbl_librarybook` WHERE ISBNBarcode ='" + tempbarcode + "'";
 
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
@@ -803,7 +725,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
     private void txtborrowBookAccNoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtborrowBookAccNoKeyReleased
          String accession = txtborrowBookAccNo.getText();
         try {
-            String query = "SELECT * FROM `tbl_bookaccessions` WHERE accessID='" + accession + "'and category_id='" + Global_Variable.category_id + "' ";
+            String query = "SELECT * FROM `tbl_bookaccessions` WHERE accessID='" + accession + "'";
             ResultSet rs;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
@@ -868,7 +790,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
     private void txtborrowBookAccNoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtborrowBookAccNoActionPerformed
         String accession = txtborrowBookAccNo.getText();
         try {
-            String query = "SELECT * FROM `tbl_bookaccessions` WHERE accessID='" + accession + "'and category_id='" + Global_Variable.category_id + "' ";
+            String query = "SELECT * FROM `tbl_bookaccessions` WHERE accessID='" + accession + "'";
             ResultSet rs;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
@@ -927,77 +849,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        /*  try {
-         String tempbarcode = txtborrowBookBarcode.getText();
-         String querya = "SELECT * FROM `tbl_librarybook` WHERE ISBNBarcode ='" + tempbarcode + "' and category_id ='" + Global_Variable.category_id + "' ";
-
-         st = con.dbconn().createStatement();
-         rs = st.executeQuery(querya);
-         try {
-         if (rs.next()) {
-
-         //to display the data inside the txtfields
-         String barcodes = rs.getString("ISBNBarcode");
-         txtborrowBookBarcode.setText(barcodes);
-
-         validatebookType();
-
-         String title = rs.getString("BookTitle");
-         txtborrowBookTitle.setText(title);
-
-         String author = rs.getString("BookAuthor");
-         txtborrowBookAuthor.setText(author);
-
-         String pubisher = rs.getString("BookPublisher");
-         txtborrowBookPublisher.setText(pubisher);
-
-         String section = rs.getString("BookType");
-         txtborrowBookSection.setText(section);
-
-         String copy = rs.getString("NoOfCopies");
-         copies.setText(copy);
-
-         String a = copies.getText();
-         int accesss = Integer.valueOf(a);
-
-         if (accesss == 0) {
-         JOptionPane.showMessageDialog(null, "Oppss.. The book copies are already borrowed");
-         txtborrowBookBarcode.setText("");
-         txtborrowBookAccNo.setText("");
-         txtborrowBookTitle.setText("");
-         txtborrowBookAuthor.setText("");
-         txtborrowBookPublisher.setText("");
-         txtborrowBookSection.setText("");
-         txtBorrowRCBarcode.setText("");
-         txtbookBorrowName.setText("");
-         txtbookBorrowGender.setText("");
-         txtbookBorrowAddress.setText("");
-         txtbookBorrowType.setText("");
-         daterequired.setDateFormatString("");
-         copies.setText("");
-         } else {
-         a = Integer.toString(--accesss);
-         copy = a;
-         copies.setText(copy);
-         }
-
-         }
-
-         } catch (Exception ex) {
-         ex.printStackTrace();
-         }
-         txtborrowBookBarcode.getText();
-         txtborrowBookTitle.getText();
-         txtborrowBookAuthor.getText();
-         txtborrowBookPublisher.getText();
-         txtborrowBookSection.getText();
-         copies.getText();
-
-         } catch (Exception ex) {
-         ex.printStackTrace();
-         }*/
-
+ 
     }//GEN-LAST:event_txtborrowBookAccNoActionPerformed
 
     private void txtborrowBookAccNoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtborrowBookAccNoFocusLost
@@ -1010,7 +862,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
         ResultSet rs = null;
         Statement st = null;
         //dbConn con = new dbConn();
-        String query = "SELECT * FROM `tbl_clientregistration` where ClientBarcode = '"+txtBorrowRCBarcode.getText()+"' and category_id ='"+Global_Variable.category_id+"'" ;
+        String query = "SELECT * FROM `tbl_clientregistration` where ClientBarcode = '"+txtBorrowRCBarcode.getText()+"'" ;
         SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
         Calendar now = Calendar.getInstance();
         Date l = null, a = null, b = null;
@@ -1044,7 +896,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
 
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + borrowinside.getText() + "','" + Global_Variable.category_id + "')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + borrowinside.getText() + "')";
                             executesqlQuery(queries, "Transaction Added");
 
                             try {
@@ -1060,7 +912,7 @@ public class BOOKBORROW extends javax.swing.JFrame {
                                 e.printStackTrace();
                             }
                             try {
-                                String querya = "INSERT INTO `tbl_borrowinside` VALUES ('" + Global_Variable.inbookId + "','" + books.getText() + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + copies.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + Global_Variable.category_id + "','" + labelDate.getText() + "','" + labeltime.getText() + "')";
+                                String querya = "INSERT INTO `tbl_borrowinside` VALUES ('" + Global_Variable.inbookId + "','" + books.getText() + "','" + txtborrowBookAccNo.getText() + "','" + txtborrowBookBarcode.getText() + "','" + copies.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + labelDate.getText() + "','" + labeltime.getText() + "')";
                                 executesqlQuery(querya, "Book Borrowed");
 
                                 txtborrowBookBarcode.setText("");

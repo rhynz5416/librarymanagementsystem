@@ -9,15 +9,12 @@ import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.ResultSet; 
 import java.sql.Statement;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Vector; 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -44,8 +41,7 @@ public class JOURNAL extends javax.swing.JFrame {
 
         header.add("id");
         header.add("ISBNBarcode");
-        header.add("J_Title");
-        header.add("Lib_Id");
+        header.add("J_Title"); 
         header.add("Copies");
         header.add("Status");
         header.add("Availability");
@@ -75,13 +71,12 @@ public class JOURNAL extends javax.swing.JFrame {
 
         tbl_journal.removeColumn(tbl_journal.getColumnModel().getColumn(0));
         tbl_access.removeColumn(tbl_access.getColumnModel().getColumn(0));
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
 
     public ArrayList<C_LibraryMaterialJournal> getJournalList() {
         ArrayList<C_LibraryMaterialJournal> journal = new ArrayList<C_LibraryMaterialJournal>();
-        String query = "select * from `tbl_journal` where category_id ='" + Global_Variable.category_id + "'";
+        String query = "select * from `tbl_journal` where ISBNBarcode ='" + Global_Variable.CdId + "'";
         ResultSet sr;
         try {
             st = null;
@@ -139,9 +134,7 @@ public class JOURNAL extends javax.swing.JFrame {
             row[0] = journs.get(b).getaccession();
             mode.addRow(row);
         }
-    }
-    //for journal query
-
+    } 
     public void executeSqlquery(String query, String message) {
         try {
             st = null;
@@ -643,7 +636,7 @@ public class JOURNAL extends javax.swing.JFrame {
             int access = Integer.valueOf(a);
             a = Integer.toString(++access);
 
-            String queries = "Insert into tbl_journalaccession values ('" + Global_Variable.accjournalId + "','" + txtaccession.getText() + "','" + txtBarcode.getText() + "','" + txtJournalTitle.getText() + "','" + txtAuthor.getText() + "','" + txtPublisher.getText() + "','"+total.getText()+"','" + Global_Variable.category_id + "')";
+            String queries = "Insert into tbl_journalaccession values ('" + Global_Variable.accjournalId + "','" + txtaccession.getText() + "','" + txtBarcode.getText() + "','" + txtJournalTitle.getText() + "','" + txtAuthor.getText() + "','" + txtPublisher.getText() + "','"+total.getText()+"')";
             executeSqlquery(queries, "Data Successfully Added");
             CountJournal();
             txtaccession.setText(a);
@@ -655,9 +648,7 @@ public class JOURNAL extends javax.swing.JFrame {
             executeSqlquery(queriy, "updated");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-
+        } 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtaccessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtaccessionActionPerformed
@@ -737,8 +728,7 @@ public class JOURNAL extends javax.swing.JFrame {
                 available.setSelectedItem(avail);
             }
         } catch (Exception e) {
-            e.printStackTrace();
-
+            e.printStackTrace(); 
         }
         CountJournal();
         int choice = JOptionPane.showConfirmDialog(null, "Add accession number?");
@@ -747,12 +737,10 @@ public class JOURNAL extends javax.swing.JFrame {
             txtaccession.setEnabled(true);
             tbl_access.setEnabled(false);
             txtaccession.getText();
-        }
-
+        } 
     }//GEN-LAST:event_tbl_journalMouseClicked
 
     private void btnclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearActionPerformed
-
         dateJournal.setDateFormatString("");
         txtJournalTitle.setText("");
         txtAuthor.setText("");
@@ -777,23 +765,20 @@ public class JOURNAL extends javax.swing.JFrame {
         txtPublisher.setText("");
         txtedNo.setText("");
         txtpagevol.setText("");
-        txtplace.setText("");
-
+        txtplace.setText(""); 
         txtsource.setText("");
         txtBarcode.setText("");
         updatejour.setText("");
     }//GEN-LAST:event_btndeleteActionPerformed
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
-
         if (txtBarcode.getText().trim().isEmpty() || txtJournalTitle.getText().trim().isEmpty() || txtAuthor.getText().trim().isEmpty() || txtPublisher.getText().trim().isEmpty() || txtedNo.getText().trim().isEmpty() || txtpagevol.getText().trim().isEmpty() || txtplace.getText().trim().isEmpty() || txtsource.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Fields cannot be empty");
-        } else {
-
+        } else { 
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             String datecd = s.format(dateJournal.getDate());
 
-            String query = "INSERT INTO `tbl_journal` VALUES ('" + Global_Variable.JournalId + "','" + txtBarcode.getText() + "','" + datecd + "','" + txtJournalTitle.getText() + "','" + txtAuthor.getText() + "','" + txtPublisher.getText() + "','" + txtedNo.getText() + "','" + txtpagevol.getText() + "','" + txtplace.getText() + "','" + Yearjournal.getYear() + "','" + txtsource.getText() + "','" + Global_Variable.category_id + "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
+            String query = "INSERT INTO `tbl_journal` VALUES ('" + Global_Variable.JournalId + "','" + txtBarcode.getText() + "','" + datecd + "','" + txtJournalTitle.getText() + "','" + txtAuthor.getText() + "','" + txtPublisher.getText() + "','" + txtedNo.getText() + "','" + txtpagevol.getText() + "','" + txtplace.getText() + "','" + Yearjournal.getYear() + "','" + txtsource.getText() + "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
             executeSqlquery(query, "added");
 
             dateJournal.setDateFormatString("");
@@ -826,8 +811,7 @@ public class JOURNAL extends javax.swing.JFrame {
         int i = evt.getKeyChar();
         if (i == KeyEvent.VK_0 || i == KeyEvent.VK_9) {
             txtsource.setText("");
-            JOptionPane.showMessageDialog(null, "Cannot input integer");
-
+            JOptionPane.showMessageDialog(null, "Cannot input integer"); 
         }
     }//GEN-LAST:event_txtsourceKeyTyped
 
@@ -843,8 +827,7 @@ public class JOURNAL extends javax.swing.JFrame {
         int i = evt.getKeyChar();
         if (i == KeyEvent.VK_0 || i == KeyEvent.VK_9) {
             txtplace.setText("");
-            JOptionPane.showMessageDialog(null, "Cannot input integer");
-
+            JOptionPane.showMessageDialog(null, "Cannot input integer"); 
         }
     }//GEN-LAST:event_txtplaceKeyTyped
 
@@ -856,8 +839,7 @@ public class JOURNAL extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
-            evt.consume();
-
+            evt.consume(); 
         }
     }//GEN-LAST:event_txtpagevolKeyTyped
 
@@ -865,8 +847,7 @@ public class JOURNAL extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
-            evt.consume();
-
+            evt.consume(); 
         }
     }//GEN-LAST:event_txtedNoKeyTyped
 
@@ -874,8 +855,7 @@ public class JOURNAL extends javax.swing.JFrame {
         int i = evt.getKeyChar();
         if (i == KeyEvent.VK_0 || i == KeyEvent.VK_9) {
             txtAuthor.setText("");
-            JOptionPane.showMessageDialog(null, "Cannot input integer");
-
+            JOptionPane.showMessageDialog(null, "Cannot input integer"); 
         }
     }//GEN-LAST:event_txtAuthorKeyTyped
 
@@ -883,8 +863,7 @@ public class JOURNAL extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
-            evt.consume();
-
+            evt.consume(); 
         }
     }//GEN-LAST:event_txtBarcodeKeyTyped
 
@@ -896,8 +875,7 @@ public class JOURNAL extends javax.swing.JFrame {
         int i = evt.getKeyChar();
         if (i == KeyEvent.VK_0 || i == KeyEvent.VK_9) {
             txtPublisher.setText("");
-            JOptionPane.showMessageDialog(null, "Cannot input integer");
-
+            JOptionPane.showMessageDialog(null, "Cannot input integer"); 
         }
     }//GEN-LAST:event_txtPublisherKeyTyped
 
@@ -914,24 +892,16 @@ public class JOURNAL extends javax.swing.JFrame {
     }//GEN-LAST:event_txtJournalTitleActionPerformed
 
     private void txtsearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchKeyReleased
-        String temp1 = txtsearch.getText() + "%";
-        //int temp2 = Integer.parseInt(txtsearch.getText()+"%");
-
+        String temp1 = txtsearch.getText() + "%"; 
         data = theSearch("Select * from tbl_journal where ISBNBarcode like '" + temp1 + "' || J_Title like '" + temp1 + "'");
-
-        tbl_journal.setModel(new javax.swing.table.DefaultTableModel(data, header));
-
+        tbl_journal.setModel(new javax.swing.table.DefaultTableModel(data, header)); 
         tbl_journal.removeColumn(tbl_journal.getColumnModel().getColumn(0));
     }//GEN-LAST:event_txtsearchKeyReleased
 
     private void searchAccessKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchAccessKeyReleased
-        String temp1 = searchAccess.getText() + "%";
-        //int temp2 = Integer.parseInt(txtsearch.getText()+"%");
-
+        String temp1 = searchAccess.getText() + "%";  
         datas = SearchAccession("Select * from tbl_journalaccession where accession like '" + temp1 + "' || ISBNBarcode like '" + temp1 + "'");
-
-        tbl_access.setModel(new javax.swing.table.DefaultTableModel(datas, headers));
-
+        tbl_access.setModel(new javax.swing.table.DefaultTableModel(datas, headers)); 
         tbl_access.removeColumn(tbl_access.getColumnModel().getColumn(0));
     }//GEN-LAST:event_searchAccessKeyReleased
 
@@ -952,7 +922,7 @@ public class JOURNAL extends javax.swing.JFrame {
         updatejour.setEnabled(true);
 
         try {
-            String query = "UPDATE `tbl_journal` SET `id`='" + Global_Variable.JournalId + "',`ISBNBarcode`='" + txtBarcode.getText() + "',`DateAcquisition`='" + updatejour.getText() + "',`J_Title`='" + txtJournalTitle.getText() + "',`J_Author`='" + txtAuthor.getText() + "',`J_Publisher`='" + txtPublisher.getText() + "',`EditionNumber`='" + txtedNo.getText() + "',`Pagevol`='" + txtpagevol.getText() + "',`Place`='" + txtplace.getText() + "',`Year`='" + Yearjournal.getYear() + "',`Source`='" + txtsource.getText() + "',`category_id`='" + Global_Variable.category_id + "',`NoOfCopies`='" + total.getText() + "',`Status`='" + status1.getSelectedItem() + "',`days`='" + days.getSelectedItem() + "',`Availability`='" + available.getSelectedItem() + "' WHERE ISBNBarcode=" + txtBarcode.getText();
+            String query = "UPDATE `tbl_journal` SET `id`='" + Global_Variable.JournalId + "',`ISBNBarcode`='" + txtBarcode.getText() + "',`DateAcquisition`='" + updatejour.getText() + "',`J_Title`='" + txtJournalTitle.getText() + "',`J_Author`='" + txtAuthor.getText() + "',`J_Publisher`='" + txtPublisher.getText() + "',`EditionNumber`='" + txtedNo.getText() + "',`Pagevol`='" + txtpagevol.getText() + "',`Place`='" + txtplace.getText() + "',`Year`='" + Yearjournal.getYear() + "',`Source`='" + txtsource.getText() + "' ,`NoOfCopies`='" + total.getText() + "',`Status`='" + status1.getSelectedItem() + "',`days`='" + days.getSelectedItem() + "',`Availability`='" + available.getSelectedItem() + "' WHERE ISBNBarcode=" + txtBarcode.getText();
             executeSqlquery(query, "Updated");
         } catch (Exception e) {
             e.printStackTrace();
@@ -1040,12 +1010,10 @@ public class JOURNAL extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-    }
-
+    } 
     private boolean validateBarcode(String Barcode) {
         boolean queue = false;
-        ResultSet rs;
-        //String barcode = adminbarcode.getText();
+        ResultSet rs; 
         String query;
         try {
             query = "select id from `tbl_journalaccession` where accession='" + Barcode + "'";
@@ -1053,10 +1021,8 @@ public class JOURNAL extends javax.swing.JFrame {
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
             if (rs.next()) {
-                queue = true;
-                //rs.getString("adminBarcode");
-            }
-
+                queue = true; 
+            } 
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1134,9 +1100,8 @@ public class JOURNAL extends javax.swing.JFrame {
                 jour.add(rs.getString(12));
                 jour.add(rs.getString(13));
                 jour.add(rs.getString(14));
-                jour.add(rs.getString(16));
-                journal.add(jour);
-
+                jour.add(rs.getString(15));
+                journal.add(jour); 
             }
         } catch (Exception e) {
 

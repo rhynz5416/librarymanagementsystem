@@ -18,11 +18,9 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
+import javax.swing.table.DefaultTableModel; 
 
-public class NEWSPAPER extends javax.swing.JFrame {
-
+public class NEWSPAPER extends javax.swing.JFrame { 
     Statement st;
     ResultSet rs;
     dbConn con = new dbConn();
@@ -43,8 +41,7 @@ public class NEWSPAPER extends javax.swing.JFrame {
 
         header.add("id");
         header.add("ISBNBarcode");
-        header.add("Headline");
-        header.add("Lib_Id");
+        header.add("Headline"); 
         header.add("Copies");
         header.add("Status");
         header.add("Availability");
@@ -69,11 +66,10 @@ public class NEWSPAPER extends javax.swing.JFrame {
         tbl_news.removeColumn(tbl_news.getColumnModel().getColumn(0));
         tbl_searchNews.removeColumn(tbl_searchNews.getColumnModel().getColumn(0));
         setExtendedState(JFrame.MAXIMIZED_BOTH);  
-    }
-
+    } 
     public ArrayList<C_LibraryMaterialNewspaper> getnewspaperList() {
         ArrayList<C_LibraryMaterialNewspaper> papernews = new ArrayList<C_LibraryMaterialNewspaper>();
-        String query = "select * from `tbl_librarynewspaper` where category_id ='" + Global_Variable.category_id + "'";
+        String query = "select * from `tbl_librarynewspaper` where ISBNBarcode ='" + Global_Variable.NewspaperId + "'";
         ResultSet rs;
         try {
             st = null;
@@ -89,8 +85,7 @@ public class NEWSPAPER extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         return papernews;
-    }
-
+    } 
     //for newspaper table
     public void LibraryNewspaper() {
         ArrayList<C_LibraryMaterialNewspaper> news = getnewspaperList();
@@ -122,8 +117,7 @@ public class NEWSPAPER extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         return access;
-    }
-
+    } 
     //for  newspaper query
     private void executeSqLQuery(String query, String message) {
         try {
@@ -151,8 +145,7 @@ public class NEWSPAPER extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
+    } 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -547,27 +540,23 @@ public class NEWSPAPER extends javax.swing.JFrame {
 
     private void tbl_newsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_newsMouseClicked
         updateDte.show();
-        dateNewspaper.hide();
-        
+        dateNewspaper.hide(); 
         jComboBox_newspaper_Type.setEnabled(true);
         jTextField_N_Heading.setEnabled(true);
         jTextField_N_Volume.setEnabled(true);
         status1.setEnabled(true);
         days.setEnabled(true);
         available.setEnabled(true);
-        txtnewsBarcode.setEnabled(true);
-        
+        txtnewsBarcode.setEnabled(true); 
         Connection cn = null;
         Statement st = null;
-        ResultSet rs = null;
-
+        ResultSet rs = null; 
         jButton_newspaper_edit.setEnabled(true);
         jButton_newspaper_delete.setEnabled(true);
 
         try {
             int row = tbl_news.getSelectedRow();
             String cell_click = (tbl_news.getModel().getValueAt(row, 1).toString());
-
             String query = "Select * from tbl_librarynewspaper where ISBNBarcode = '" + cell_click + "'";
 
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
@@ -599,20 +588,15 @@ public class NEWSPAPER extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-
+            e.printStackTrace(); 
+        } 
         CountNewspaper();
         int choice;
-        choice = JOptionPane.showConfirmDialog(null, "Add accession number?");
-
+        choice = JOptionPane.showConfirmDialog(null, "Add accession number?"); 
         if (choice == JOptionPane.YES_OPTION) {
             txtaccession.setEnabled(true);
-            tbl_news.setEnabled(false);
-
-            txtaccession.getText();
-
+            tbl_news.setEnabled(false); 
+            txtaccession.getText(); 
         }
     }//GEN-LAST:event_tbl_newsMouseClicked
 
@@ -632,8 +616,7 @@ public class NEWSPAPER extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
-            evt.consume();
-
+            evt.consume(); 
         }
     }//GEN-LAST:event_jTextField_N_VolumeKeyTyped
 
@@ -644,9 +627,7 @@ public class NEWSPAPER extends javax.swing.JFrame {
     private void searchAccessKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchAccessKeyReleased
         String temp1 = searchAccess.getText() + "%";
         datas = SearchAccession("Select * from tbl_newsaccession where accession like '" + temp1 + "' || ISBNBarcode like '" + temp1 + "'");
-
         tbl_searchNews.setModel(new javax.swing.table.DefaultTableModel(datas, headers));
-
         tbl_searchNews.removeColumn(tbl_searchNews.getColumnModel().getColumn(0));
     }//GEN-LAST:event_searchAccessKeyReleased
 
@@ -697,8 +678,7 @@ public class NEWSPAPER extends javax.swing.JFrame {
             available.setSelectedItem("");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
+        } 
     }//GEN-LAST:event_jButton_newspaper_editActionPerformed
 
     private void jButton_newspaper_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_newspaper_saveActionPerformed
@@ -709,7 +689,7 @@ public class NEWSPAPER extends javax.swing.JFrame {
 
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             String dateBook = s.format(dateNewspaper.getDate());
-            String query = "INSERT INTO `tbl_librarynewspaper` VALUES ('" + Global_Variable.NewspaperId + "','" + txtnewsBarcode.getText() + "','" + jComboBox_newspaper_Type.getSelectedItem() + "','" + jTextField_N_Heading.getText() + "','" + jTextField_N_Volume.getText() + "','" + dateBook + "','" + Global_Variable.category_id + "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
+            String query = "INSERT INTO `tbl_librarynewspaper` VALUES ('" + Global_Variable.NewspaperId + "','" + txtnewsBarcode.getText() + "','" + jComboBox_newspaper_Type.getSelectedItem() + "','" + jTextField_N_Heading.getText() + "','" + jTextField_N_Volume.getText() + "','" + dateBook + "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
             executeSqLQuery(query, "Added");
             
             txtnewsBarcode.setText("");
@@ -737,39 +717,32 @@ public class NEWSPAPER extends javax.swing.JFrame {
         try {
             String a = txtaccession.getText();
             int access = Integer.valueOf(a);
-            a = Integer.toString(++access);
-
-            String queries = "Insert into tbl_newsaccession values ('" + Global_Variable.accnewspaperId + "','" + txtaccession.getText() + "','" + txtnewsBarcode.getText() + "','"+jTextField_N_Heading.getText()+"','"+jTextField_N_Volume.getText()+"','"+total.getText()+"','"+Global_Variable.category_id+"')";
+            a = Integer.toString(++access);  
+            String queries = "Insert into tbl_newsaccession values ('" + Global_Variable.accnewspaperId + "','" + txtaccession.getText() + "','" + txtnewsBarcode.getText() + "','"+jTextField_N_Heading.getText()+"','"+jTextField_N_Volume.getText()+"','"+total.getText()+"')";
             executeSqLQuery(queries, "Data Successfully Added");
             CountNewspaper();
             txtaccession.setText(a);
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
+        } 
         try {
             String query = "UPDATE `tbl_librarynewspaper` SET  `NoOfCopies` ='" + total.getText() + "' WHERE  `ISBNBarcode` =" + txtnewsBarcode.getText();
             executeSqLQuery(query, "updated");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
+        } 
     }//GEN-LAST:event_saveAccessActionPerformed
 
     private void seacrhnewsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_seacrhnewsKeyReleased
-        String temp1 = seacrhnews.getText() + "%";
-
+        String temp1 = seacrhnews.getText() + "%"; 
         data = theSearch("Select * from tbl_librarynewspaper where ISBNBarcode like '" + temp1 + "' || NHeading like '" + temp1 + "'");
-
         tbl_news.setModel(new javax.swing.table.DefaultTableModel(data, header));
-
         tbl_news.removeColumn(tbl_news.getColumnModel().getColumn(0));
     }//GEN-LAST:event_seacrhnewsKeyReleased
 
     private void btnPrintnewsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintnewsActionPerformed
         MessageFormat header = new MessageFormat("Newspaper Reports");
         MessageFormat footer = new MessageFormat("page{0,number,integer}");
-
         try {
             tbl_news.print(JTable.PrintMode.FIT_WIDTH, header, footer);
         } catch (java.awt.print.PrinterException e) {
@@ -780,7 +753,6 @@ public class NEWSPAPER extends javax.swing.JFrame {
     private void btnprintAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnprintAccessActionPerformed
         MessageFormat header = new MessageFormat("Newspaper Accession with ISBNBarcode Reports");
         MessageFormat footer = new MessageFormat("page{0,number,integer}");
-
         try {
             tbl_searchNews.print(JTable.PrintMode.FIT_WIDTH, header, footer);
         } catch (java.awt.print.PrinterException e) {
@@ -800,7 +772,6 @@ public class NEWSPAPER extends javax.swing.JFrame {
     }//GEN-LAST:event_updateDteKeyReleased
 
     private void txtnewsBarcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnewsBarcodeKeyReleased
-
         jComboBox_newspaper_Type.setEnabled(true);
         jTextField_N_Heading.setEnabled(true);
         jTextField_N_Volume.setEnabled(true);
@@ -930,7 +901,7 @@ public class NEWSPAPER extends javax.swing.JFrame {
                 news.add(rs.getString(7));
                 news.add(rs.getString(8));
                 news.add(rs.getString(9));
-                news.add(rs.getString(11));
+                news.add(rs.getString(10));
                 newspaper.add(news);
 
             }

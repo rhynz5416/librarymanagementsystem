@@ -34,8 +34,7 @@ public class REGISTERADMIN extends javax.swing.JFrame {
         header.add("Firstname");
         header.add("Middlename");
         header.add("Lastname");
-        header.add("Gender");
-        header.add("Lib_Id");
+        header.add("Gender"); 
 
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -49,10 +48,9 @@ public class REGISTERADMIN extends javax.swing.JFrame {
         gender.setEnabled(false);
         txtuser.setEnabled(false);
         pass.setEnabled(false);
-        conpass.setEnabled(false);
-
-    }
-
+        conpass.setEnabled(false); 
+    } 
+    
     private void executesqlQuery(String query, String message) {
         try {
             st = null;
@@ -62,20 +60,17 @@ public class REGISTERADMIN extends javax.swing.JFrame {
                 Conn connecti = new Conn();
                 data = connecti.getAdmin();
                 //for setting the table for model
-                tbl_adminReg.setModel(new javax.swing.table.DefaultTableModel(data, header));
-
+                tbl_adminReg.setModel(new javax.swing.table.DefaultTableModel(data, header)); 
                 tbl_adminReg.removeColumn(tbl_adminReg.getColumnModel().getColumn(0));
 
                 JOptionPane.showMessageDialog(null, "Data " + message + " successfully");
             } else {
                 JOptionPane.showMessageDialog(null, "Data " + message + ".");
             }
-        } catch (Exception ex) {
-
+        } catch (Exception ex) { 
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-    }
-
+    } 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -398,11 +393,11 @@ public class REGISTERADMIN extends javax.swing.JFrame {
         if (adminBarcode.getText().trim().isEmpty() || txtadd.getText().trim().isEmpty() || txtage.getText().trim().isEmpty() || txtfname.getText().trim().isEmpty() || txtfuname.getText().trim().isEmpty() || txtmname.getText().trim().isEmpty() || txtuser.getText().trim().isEmpty() || conpass.getPassword().toString().trim().isEmpty() || pass.getPassword().toString().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please Fill up the fields");
         } else {
-            String q = "INSERT INTO `tbl_login` VALUES ('" + Global_Variable.log_id + "','" + Global_Variable.category_id + "','" + adminBarcode.getText() + "','" + txtfuname.getText() + "','" + txtuser.getText() + "','" + String.valueOf(conpass.getPassword()) + "')";
+            String q = "INSERT INTO `tbl_login` VALUES ('" + Global_Variable.log_id + "','" + adminBarcode.getText() + "','" + txtfuname.getText() + "','" + txtuser.getText() + "','" + String.valueOf(conpass.getPassword()) + "')";
             executesqlQuery(q, " Admin Updated");
             try {
                 String tempbarcode = adminBarcode.getText();
-                String query = "INSERT INTO `tbl_admin` VALUES ('" + Global_Variable.admin_id + "','" + tempbarcode + "','" + txtfname.getText() + "','" + txtmname.getText() + "','" + txtfuname.getText() + "','" + txtage.getText() + "','" + gender.getSelectedItem() + "','" + txtadd.getText() + "','" + txtuser.getText() + "','" + String.valueOf(pass.getPassword().toString()) + "','" + String.valueOf(conpass.getPassword().toString()) + "','" + Global_Variable.category_id + "')";
+                String query = "INSERT INTO `tbl_admin` VALUES ('" + Global_Variable.admin_id + "','" + tempbarcode + "','" + txtfname.getText() + "','" + txtmname.getText() + "','" + txtfuname.getText() + "','" + txtage.getText() + "','" + gender.getSelectedItem() + "','" + txtadd.getText() + "','" + txtuser.getText() + "','" + String.valueOf(pass.getPassword().toString()) + "','" + String.valueOf(conpass.getPassword().toString()) + "')";
                 executesqlQuery(query, "Admin added");
 
                 adminBarcode.setText("");
@@ -458,7 +453,6 @@ public class REGISTERADMIN extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPrintActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-
         String query = "DELETE FROM `tbl_admin` WHERE `adminBarcode` ='" + adminBarcode.getText() + "'";
         executesqlQuery(query, "deleted");
 
@@ -499,10 +493,7 @@ public class REGISTERADMIN extends javax.swing.JFrame {
 
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
             st = cn.prepareStatement(query);
-            rs = st.executeQuery(query);
-
-            SimpleDateFormat s = new SimpleDateFormat("yyyy MMM d");
-
+            rs = st.executeQuery(query); 
             if (rs.next()) {
                 //to display the data inside the txtfields
                 String barcode = rs.getString("adminBarcode");
@@ -533,12 +524,9 @@ public class REGISTERADMIN extends javax.swing.JFrame {
                 pass.setText(passs);
 
                 String confirm = rs.getString("ConfirmPass");
-                conpass.setText(confirm);
-
-            }
-
-        } catch (Exception e) {
-
+                conpass.setText(confirm); 
+            } 
+        } catch (Exception e) { 
             e.printStackTrace();
         }
     }//GEN-LAST:event_tbl_adminRegMouseClicked
@@ -559,7 +547,7 @@ public class REGISTERADMIN extends javax.swing.JFrame {
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         btnsave.setEnabled(true);
         try {
-            String q = "UPDATE `tbl_admin` SET `adminBarcode`='" + adminBarcode.getText() + "',`Firstname`='" + txtfname.getText() + "',`MiddleName`='" + txtmname.getText() + "',`Lastname`='" + txtfuname.getText() + "',`Age`='" + txtage.getText() + "',`Gender`='" + gender.getSelectedItem() + "',`Address`='" + txtadd.getText() + "',`Username`='" + txtuser.getText() + "',`Password`='" + String.valueOf(pass.getPassword()) + "',`ConfirmPass`='" + String.valueOf(conpass.getPassword()) + "',`LibCategory`='" + Global_Variable.category_id + "' WHERE adminBarcode=" + adminBarcode.getText();
+            String q = "UPDATE `tbl_admin` SET `adminBarcode`='" + adminBarcode.getText() + "',`Firstname`='" + txtfname.getText() + "',`MiddleName`='" + txtmname.getText() + "',`Lastname`='" + txtfuname.getText() + "',`Age`='" + txtage.getText() + "',`Gender`='" + gender.getSelectedItem() + "',`Address`='" + txtadd.getText() + "',`Username`='" + txtuser.getText() + "',`Password`='" + String.valueOf(pass.getPassword()) + "',`ConfirmPass`='" + String.valueOf(conpass.getPassword()) + "' WHERE adminBarcode=" + adminBarcode.getText();
             executesqlQuery(q, "Updated");
 
             adminBarcode.setText("");
@@ -582,12 +570,10 @@ public class REGISTERADMIN extends javax.swing.JFrame {
             gender.setEnabled(false);
             txtuser.setEnabled(false);
             pass.setEnabled(false);
-            conpass.setEnabled(false);
-
+            conpass.setEnabled(false); 
         } catch (Exception e) {
-
-        }
-
+             e.printStackTrace();
+        } 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void adminBarcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminBarcodeKeyReleased
@@ -617,13 +603,11 @@ public class REGISTERADMIN extends javax.swing.JFrame {
             getToolkit().beep();
             evt.consume();
             JOptionPane.showMessageDialog(null, "Cannot input letters");
-        }
-       
+        } 
     }//GEN-LAST:event_txtageKeyTyped
 
     private void txtageKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtageKeyReleased
-      
-
+       
     }//GEN-LAST:event_txtageKeyReleased
 
     private void txtmnameKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtmnameKeyTyped
@@ -669,13 +653,11 @@ public class REGISTERADMIN extends javax.swing.JFrame {
     private Vector<Vector<String>> theSearch(String sqlSearch) {
         Vector<Vector<String>> admin = new Vector<Vector<String>>();
         Connection con = null;
-        Statement st = null;
-
+        Statement st = null; 
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
             st = con.createStatement();
-            ResultSet rs = st.executeQuery(sqlSearch);
-
+            ResultSet rs = st.executeQuery(sqlSearch); 
             while (rs.next()) {
                 Vector<String> Admin = new Vector<String>();
 
@@ -684,17 +666,14 @@ public class REGISTERADMIN extends javax.swing.JFrame {
                 Admin.add(rs.getString(3));
                 Admin.add(rs.getString(4));
                 Admin.add(rs.getString(5));
-                Admin.add(rs.getString(7));
-                Admin.add(rs.getString(12));
+                Admin.add(rs.getString(7)); 
                 admin.add(Admin);
             }
-        } catch (Exception e) {
-
+        } catch (Exception e) { 
             JOptionPane.showMessageDialog(null, e.toString());
         }
         return admin;
-    }
-
+    } 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adminBarcode;
     private javax.swing.JLabel book;

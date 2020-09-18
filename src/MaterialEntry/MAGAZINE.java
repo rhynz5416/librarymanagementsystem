@@ -41,8 +41,7 @@ public class MAGAZINE extends javax.swing.JFrame {
 
         header.add("id");
         header.add("ISBNBarcode");
-        header.add("M_Title");
-        header.add("Lib_Id");
+        header.add("M_Title"); 
         header.add("Copies");
         header.add("Status");
         header.add("Availability");
@@ -75,7 +74,7 @@ public class MAGAZINE extends javax.swing.JFrame {
 
     public ArrayList<C_LibraryMaterialMagazine> getMagazineList() {
         ArrayList<C_LibraryMaterialMagazine> Mags = new ArrayList<C_LibraryMaterialMagazine>();
-        String query = "select * from `tbl_magazine` where category_id ='" + Global_Variable.category_id + "'";
+        String query = "select * from `tbl_magazine` where ISBNBarcode ='" + Global_Variable.MagazineId + "'";
         ResultSet rs;
         try {
             st = null;
@@ -91,8 +90,7 @@ public class MAGAZINE extends javax.swing.JFrame {
             e.printStackTrace();
         }
         return Mags;
-    }
-
+    } 
     //for magazine table
     public void LibraryMagazine() {
         ArrayList<C_LibraryMaterialMagazine> maGazine = getMagazineList();
@@ -103,8 +101,7 @@ public class MAGAZINE extends javax.swing.JFrame {
             row[2] = maGazine.get(i).getmagazineTitle();
 
             model.addRow(row);
-        }
-
+        } 
     }
 
     public ArrayList<C_MagazineAccession> getmagazineAccess() {
@@ -135,11 +132,9 @@ public class MAGAZINE extends javax.swing.JFrame {
             row[0] = maGazine.get(i).getaccession();
 
             model.addRow(row);
-        }
-
+        } 
     }
-    //for magazine query
-
+    //for magazine query 
     public void executeSqlQuery(String query, String message) {
         try {
             st = null;
@@ -167,8 +162,7 @@ public class MAGAZINE extends javax.swing.JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
+    } 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -640,8 +634,7 @@ public class MAGAZINE extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
-            evt.consume();
-
+            evt.consume(); 
         }
     }//GEN-LAST:event_txtBarcodeKeyTyped
 
@@ -653,8 +646,7 @@ public class MAGAZINE extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
-            evt.consume();
-
+            evt.consume(); 
         }
     }//GEN-LAST:event_txtedNumKeyTyped
 
@@ -662,8 +654,7 @@ public class MAGAZINE extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
-            evt.consume();
-
+            evt.consume(); 
         }
     }//GEN-LAST:event_txtpageVolKeyTyped
 
@@ -676,7 +667,6 @@ public class MAGAZINE extends javax.swing.JFrame {
     }//GEN-LAST:event_txtplaceKeyTyped
 
     private void btnclearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnclearMouseClicked
-
         magazineDate.setDateFormatString("");
         txtMagazineTitle.setText("");
         txtPublisher.setText("");
@@ -725,8 +715,7 @@ public class MAGAZINE extends javax.swing.JFrame {
         status1.setEnabled(false);
         available.setEnabled(false);
         yearMagazine.setEnabled(false);
-        updateDate.setEnabled(false);
-
+        updateDate.setEnabled(false); 
         try {
             String query = "UPDATE `tbl_magazine` SET `ISBNBarcode`='" + txtBarcode.getText() + "',`DateAcquisition`='" + updateDate.getText() + "',`M_Title`='" + txtMagazineTitle.getText() + "',`M_Publisher`='" + txtPublisher.getText() + "',`EditionNumber`='" + txtedNum.getText() + "',`PageVolume`='" + txtpageVol.getText() + "',`Place`='" + txtplace.getText() + "',`Year`='" + yearMagazine.getYear() + "'WHERE ISBNBarcode =" + txtBarcode.getText();
             executeSqlQuery(query, "Update");
@@ -741,8 +730,7 @@ public class MAGAZINE extends javax.swing.JFrame {
             updateDate.setText("");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
+        } 
     }//GEN-LAST:event_btneditActionPerformed
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
@@ -754,7 +742,7 @@ public class MAGAZINE extends javax.swing.JFrame {
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             String dateBook = s.format(magazineDate.getDate());
             String tempisbnBarcode = txtBarcode.getText();
-            String query = "INSERT INTO `tbl_magazine` VALUES ('" + Global_Variable.mat_id + "','" + tempisbnBarcode + "','" + dateBook + "','" + txtMagazineTitle.getText() + "','" + txtPublisher.getText() + "','" + txtedNum.getText() + "','" + txtpageVol.getText() + "','" + txtplace.getText() + "','" + yearMagazine.getYear() + "','" + Global_Variable.category_id + "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
+            String query = "INSERT INTO `tbl_magazine` VALUES ('" + Global_Variable.mat_id + "','" + tempisbnBarcode + "','" + dateBook + "','" + txtMagazineTitle.getText() + "','" + txtPublisher.getText() + "','" + txtedNum.getText() + "','" + txtpageVol.getText() + "','" + txtplace.getText() + "','" + yearMagazine.getYear() + "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
             executeSqlQuery(query, "Added");
 
             txtBarcode.setText("");
@@ -776,8 +764,7 @@ public class MAGAZINE extends javax.swing.JFrame {
             yearMagazine.setEnabled(false);
             status1.setEnabled(false);
             days.setEnabled(false);
-            available.setEnabled(false);*/
-
+            available.setEnabled(false);*/ 
         }
     }//GEN-LAST:event_btnsaveActionPerformed
 
@@ -860,8 +847,7 @@ public class MAGAZINE extends javax.swing.JFrame {
 
         if (choice == JOptionPane.YES_OPTION) {
             accession.setEnabled(true);
-            tbl_searchMag.setEnabled(false);
-
+            tbl_searchMag.setEnabled(false); 
             accession.getText();
 
         }
@@ -877,7 +863,7 @@ public class MAGAZINE extends javax.swing.JFrame {
             int access = Integer.valueOf(a);
             a = Integer.toString(++access);
 
-            String query = "Insert into tbl_magazineaccession values ('" + Global_Variable.accmagazineId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','"+txtMagazineTitle.getText()+"','"+txtedNum.getText()+"','"+txtPublisher.getText()+"','"+total.getText()+"','"+Global_Variable.category_id+"')";
+            String query = "Insert into tbl_magazineaccession values ('" + Global_Variable.accmagazineId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','"+txtMagazineTitle.getText()+"','"+txtedNum.getText()+"','"+txtPublisher.getText()+"','"+total.getText()+"')";
             executeSqlQuery(query, "Successfully Added");
             accession.setText(a);
             CountMagazine();
@@ -905,20 +891,15 @@ public class MAGAZINE extends javax.swing.JFrame {
 
     private void txtsearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchKeyReleased
         String temp1 = txtsearch.getText() + "%";
-
         data = theSearch("Select * from tbl_magazine where ISBNBarcode like '" + temp1 + "' || M_Title like '" + temp1 + "'");
-
         tbl_mag.setModel(new javax.swing.table.DefaultTableModel(data, header));
-
         tbl_mag.removeColumn(tbl_mag.getColumnModel().getColumn(0));
     }//GEN-LAST:event_txtsearchKeyReleased
 
     private void accessSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_accessSearchKeyReleased
         String temp1 = accessSearch.getText() + "%";
         datas = SearchAccession("Select * from tbl_magazineaccession where accession like '" + temp1 + "' || ISBNBarcode like '" + temp1 + "'");
-
         tbl_searchMag.setModel(new javax.swing.table.DefaultTableModel(datas, headers));
-
         tbl_searchMag.removeColumn(tbl_searchMag.getColumnModel().getColumn(0));
     }//GEN-LAST:event_accessSearchKeyReleased
 
@@ -926,7 +907,6 @@ public class MAGAZINE extends javax.swing.JFrame {
         MessageFormat header = new MessageFormat("Magazine Reports");
         MessageFormat footer = new MessageFormat("page{0,number,integer}");
         try {
-
             tbl_mag.print(JTable.PrintMode.FIT_WIDTH, header, footer);
         } catch (java.awt.print.PrinterException e) {
             System.err.format("can not print %s %n", e.getMessage());
@@ -937,7 +917,6 @@ public class MAGAZINE extends javax.swing.JFrame {
         MessageFormat header = new MessageFormat("Magazine accessions with ISBNBarcode Reports");
         MessageFormat footer = new MessageFormat("page{0,number,integer}");
         try {
-
             tbl_searchMag.print(JTable.PrintMode.FIT_WIDTH, header, footer);
         } catch (java.awt.print.PrinterException e) {
             System.err.format("can not print %s %n", e.getMessage());
@@ -995,7 +974,6 @@ public class MAGAZINE extends javax.swing.JFrame {
     private void CountMagazine() {
         try {
             String q = "SELECT COUNT(ISBNBarcode) AS ISBNBarcode FROM tbl_magazineaccession where ISBNBarcode =" + txtBarcode.getText();
-
             ResultSet rs;
             PreparedStatement ps = con.dbconn().prepareStatement(q);
             rs = ps.executeQuery();
@@ -1096,10 +1074,8 @@ public class MAGAZINE extends javax.swing.JFrame {
                 magz.add(rs.getString(10));
                 magz.add(rs.getString(11));
                 magz.add(rs.getString(12));
-                magz.add(rs.getString(14));
-
-                magazine.add(magz);
-
+                magz.add(rs.getString(13)); 
+                magazine.add(magz); 
             }
         } catch (Exception e) {
 
@@ -1123,8 +1099,7 @@ public class MAGAZINE extends javax.swing.JFrame {
                 MagazineAccess.add(rs.getString(1));
                 MagazineAccess.add(rs.getString(2));
                 MagazineAccess.add(rs.getString(3));
-                magazineaccess.add(MagazineAccess);
-
+                magazineaccess.add(MagazineAccess); 
             }
         } catch (Exception e) {
 

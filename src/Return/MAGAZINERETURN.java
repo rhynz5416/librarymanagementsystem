@@ -406,7 +406,7 @@ public class MAGAZINERETURN extends javax.swing.JFrame {
                         if (txt_Return_magazineBarcode.getText().trim().isEmpty() || txt_return_magazineRCBarcode.getText().trim().isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_return_magazineAccNo.getText() + "','" + txt_Return_magazineBarcode.getText() + "','" + txt_return_magazineRCBarcode.getText() + "','" + checkinside.getText() + "', '"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_return_magazineAccNo.getText() + "','" + txt_Return_magazineBarcode.getText() + "','" + txt_return_magazineRCBarcode.getText() + "','" + checkinside.getText() + "')";
                             executesqlQuery(queries, "Added");
 
                             try {
@@ -540,7 +540,7 @@ public class MAGAZINERETURN extends javax.swing.JFrame {
         labelstatus.setText(txt_Return_magazineBarcode.getText() + " with accession number " + txt_return_magazineAccNo.getText() + " is now: ");
         status.setText("available");
 
-        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_return_magazineAccNo.getText() + "','" + txt_Return_magazineBarcode.getText() + "','" + status.getText() + "','"+Global_Variable.category_id+"')";
+        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_return_magazineAccNo.getText() + "','" + txt_Return_magazineBarcode.getText() + "','" + status.getText() + "')";
         executesqlQuery(quer, "Monitored");
     }//GEN-LAST:event_checkinsideActionPerformed
 
@@ -610,7 +610,7 @@ public class MAGAZINERETURN extends javax.swing.JFrame {
                 ResultSet rs = null;
                 String tempbarcode = txt_return_magazineAccNo.getText();
 
-                String query = "SELECT * FROM `tbl_magazineaccession` WHERE accession= '"+tempbarcode+"' and category_id ='"+Global_Variable.category_id+"'" ;
+                String query = "SELECT * FROM `tbl_magazineaccession` WHERE accession= '"+tempbarcode+"'" ;
             //    SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM d");
                 st = con.dbconn().prepareStatement(query);
                 rs = st.executeQuery(query);
@@ -649,14 +649,14 @@ public class MAGAZINERETURN extends javax.swing.JFrame {
                             labelstatus.setText(txt_Return_magazineBarcode.getText() + " with accession number " + txt_return_magazineAccNo.getText() + " is now: ");
                             status.setText("available");
 
-                            String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_return_magazineAccNo.getText() + "','" + txt_Return_magazineBarcode.getText() + "','" + status.getText() + "','"+Global_Variable.category_id+"')";
+                            String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_return_magazineAccNo.getText() + "','" + txt_Return_magazineBarcode.getText() + "','" + status.getText() + "')";
                             executesqlQuery(quer, "Monitored");
                         } else if (choice == JOptionPane.NO_OPTION) {
                             txt_return_magazineRCBarcode.setEnabled(true);
                             labelstatus.setText(txt_Return_magazineBarcode.getText() + " with accession number " + txt_return_magazineAccNo.getText() + " is now: ");
                             status.setText("available");
 
-                            String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_return_magazineAccNo.getText() + "','" + txt_Return_magazineBarcode.getText() + "','" + status.getText() + "', '"+Global_Variable.category_id+"')";
+                            String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_return_magazineAccNo.getText() + "','" + txt_Return_magazineBarcode.getText() + "','" + status.getText() + "')";
                             executesqlQuery(quer, "Monitored");
                         } else if (choice == JOptionPane.CANCEL_OPTION) {
                             this.setVisible(true);
@@ -727,7 +727,7 @@ public class MAGAZINERETURN extends javax.swing.JFrame {
                 ResultSet rs = null;
                 String tempbarcode = txt_return_magazineAccNo.getText();
 
-                String query = "SELECT * FROM `tbl_magazineaccession` WHERE accession= '"+tempbarcode+"' and category_id ='"+Global_Variable.category_id+"'" ;
+                String query = "SELECT * FROM `tbl_magazineaccession` WHERE accession= '"+tempbarcode+"'" ;
             //    SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM d");
                 st = con.dbconn().prepareStatement(query);
                 rs = st.executeQuery(query);
@@ -799,7 +799,7 @@ public class MAGAZINERETURN extends javax.swing.JFrame {
         ResultSet rs;
         String query;
         try {
-            query = "select * from `tbl_magazine` where ISBNBarcode='" + Barcode + "' and category_id=" + Global_Variable.category_id;
+            query = "select * from `tbl_magazine` where ISBNBarcode='" + Barcode + "'";
             st = null;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);

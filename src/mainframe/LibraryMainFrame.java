@@ -26,29 +26,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class LibraryMainFrame extends javax.swing.JFrame {
-
- 
+public class LibraryMainFrame extends javax.swing.JFrame { 
+    
     public LibraryMainFrame() {
-        initComponents();
-      int i = Integer.parseInt(Global_Variable.category_id.toString());
-        if( i == 1){
-        ImageIcon iconLogo = new ImageIcon("Images/Congressional.jpg");
-        imag.setIcon(iconLogo);
-        }else if(i ==2){
+        initComponents(); 
         ImageIcon iconLogo = new ImageIcon("Images/bisub.png");
-        imag.setIcon(iconLogo);
-        }
+        imag.setIcon(iconLogo);  
         setExtendedState(JFrame.MAXIMIZED_BOTH);  
-    }
-
+    } 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         imag = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -84,14 +75,9 @@ public class LibraryMainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Lucida Fax", 1, 36)); // NOI18N
-        jLabel2.setText("LIBRARY BORROWING MANAGEMENT SYSTEM");
+        jLabel2.setText("BISU-BALILIHAN LIBRARY MANAGEMENT SYSTEM");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(540, 170, 890, 50);
-
-        jLabel3.setFont(new java.awt.Font("Lucida Fax", 1, 36)); // NOI18N
-        jLabel3.setText("WITH BARCODE TECHNOLOGY");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(680, 230, 620, 60);
+        jLabel2.setBounds(490, 200, 1010, 50);
         getContentPane().add(imag);
         imag.setBounds(790, 300, 800, 430);
 
@@ -388,17 +374,13 @@ public class LibraryMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu10MouseClicked
 
     private void clientregMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientregMouseClicked
- 
-       
-            try {
-                CLIENTREGISTRATION borrower = new CLIENTREGISTRATION();
-
-                borrower.setVisible(true);
-                borrower.setLocationRelativeTo(null);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-       
+        try {
+            CLIENTREGISTRATION borrower = new CLIENTREGISTRATION(); 
+            borrower.setVisible(true);
+            borrower.setLocationRelativeTo(null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } 
     }//GEN-LAST:event_clientregMouseClicked
 
     private void jMenu17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu17MouseClicked
@@ -523,12 +505,7 @@ public class LibraryMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu15MouseClicked
 
     private void jMenu12MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu12MenuSelected
-        /*try {
-            BOOK book = new BOOK();
-            book.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+         
     }//GEN-LAST:event_jMenu12MenuSelected
 
     private void jMenu12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu12MouseClicked
@@ -553,9 +530,8 @@ public class LibraryMainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu6ActionPerformed
 
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
-       int choicelogout;
-        choicelogout = JOptionPane.showConfirmDialog(null, "Do you really want to logout?");
-
+        int choicelogout;
+        choicelogout = JOptionPane.showConfirmDialog(null, "Do you really want to logout?"); 
         if (choicelogout == JOptionPane.YES_OPTION) {
             System.exit(0);
         } else if (choicelogout == JOptionPane.NO_OPTION) {
@@ -607,7 +583,6 @@ public class LibraryMainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu clientreg;
     private javax.swing.JLabel imag;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;

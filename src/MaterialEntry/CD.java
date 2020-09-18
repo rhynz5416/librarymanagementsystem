@@ -44,9 +44,8 @@ public class CD extends javax.swing.JFrame {
         headers = new Vector<String>();
 
         header.add("id");
-        header.add("ISBNBarcode");
-        header.add("BookTitle");
-        header.add("Lib_Id");
+        header.add("Barcode");
+        header.add("CD Title"); 
         header.add("Copies");
         header.add("Status");
         header.add("Availability");
@@ -80,7 +79,7 @@ public class CD extends javax.swing.JFrame {
     public ArrayList<C_LibraryMaterialCD> getcdList() {
         ArrayList<C_LibraryMaterialCD> CD = new ArrayList<C_LibraryMaterialCD>();
 
-        String query = "select * from `tbl_cd` where category_id ='" + Global_Variable.category_id + "'";
+        String query = "select * from `tbl_cd` where cd_Barcode ='" + Global_Variable.CdId + "'";
         ResultSet rs;
         try {
             st = null;
@@ -96,10 +95,8 @@ public class CD extends javax.swing.JFrame {
             a.printStackTrace();
         }
         return CD;
-    }
-    //for cd table
-
- public void LibraryCd() {
+    } 
+    public void LibraryCd() {
         ArrayList<C_LibraryMaterialCD> cD = getcdList();
         DefaultTableModel model = (DefaultTableModel) tble_cd.getModel();
         Object[] row = new Object[2];
@@ -109,8 +106,7 @@ public class CD extends javax.swing.JFrame {
             row[1] = cD.get(b).getcd_Title();
             model.addRow(row);
         }
-    }
-
+    } 
     public ArrayList<C_CDAccession> getAccess() {
         ArrayList<C_CDAccession> access = new ArrayList<C_CDAccession>();
 
@@ -130,8 +126,7 @@ public class CD extends javax.swing.JFrame {
             a.printStackTrace();
         }
         return access;
-    }
-
+    } 
     public void CdAccess() {
         ArrayList<C_CDAccession> accession = getAccess();
         DefaultTableModel model = (DefaultTableModel) tbl_access.getModel();
@@ -141,8 +136,7 @@ public class CD extends javax.swing.JFrame {
             row[0] = accession.get(b).getaccession();
             model.addRow(row);
         }
-    }
-
+    } 
     //for cd query
     public void executeSQlquery(String query, String message) {
         try {
@@ -169,10 +163,8 @@ public class CD extends javax.swing.JFrame {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-    }
-
+        } 
+    } 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -657,7 +649,7 @@ public class CD extends javax.swing.JFrame {
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             String datecd = s.format(dateCD.getDate());
             String tempcdBarcode = txtBarcode.getText();
-            String query = "INSERT INTO `tbl_cd` VALUES ('" + Global_Variable.CdId + "','" + tempcdBarcode + "','" + datecd + "','" + txtCdTitle.getText() + "','" + txtednum.getText() + "','" + txtplace.getText() + "','" + txtproducer.getText() + "','" + Year.getYear() + "','" + comboGenre.getSelectedItem()+ "','" + Global_Variable.category_id + "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
+            String query = "INSERT INTO `tbl_cd` VALUES ('" + Global_Variable.CdId + "','" + tempcdBarcode + "','" + datecd + "','" + txtCdTitle.getText() + "','" + txtednum.getText() + "','" + txtplace.getText() + "','" + txtproducer.getText() + "','" + Year.getYear() + "','" + comboGenre.getSelectedItem()+ "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
             executeSQlquery(query, "Added");
 
             dateCD.setDateFormatString("");
@@ -698,9 +690,7 @@ public class CD extends javax.swing.JFrame {
             executeSQlquery(query, "Updated");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-
+        } 
     }//GEN-LAST:event_btneditActionPerformed
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
@@ -739,13 +729,7 @@ public class CD extends javax.swing.JFrame {
         txtplace.setText("");
         txtproducer.setText("");
         comboGenre.setSelectedItem("");
-        txtBarcode.setText("");
-        
-        /*SimpleDateFormat s = new SimpleDateFormat("MMMM dd, yyyy");
-        String datecd = s.format(dateCD.getDate());
-        dateCD.getDateFormatString(datecd.toString());*/
-        
-        
+        txtBarcode.setText(""); 
     }//GEN-LAST:event_btnclearActionPerformed
 
     private void txtednumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtednumActionPerformed
@@ -756,8 +740,7 @@ public class CD extends javax.swing.JFrame {
         char c = evt.getKeyChar();
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
-            evt.consume();
-
+            evt.consume(); 
         }
     }//GEN-LAST:event_txtednumKeyTyped
 
@@ -797,14 +780,10 @@ public class CD extends javax.swing.JFrame {
             int row = tble_cd.getSelectedRow();
             String cell_click = (tble_cd.getModel().getValueAt(row, 1).toString());
 
-            String query = "Select * from tbl_cd where cd_Barcode = '" + cell_click + "'";
-
+            String query = "Select * from tbl_cd where cd_Barcode = '" + cell_click + "'"; 
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
             st = cn.prepareStatement(query);
-            rs = st.executeQuery(query);
-
-           // SimpleDateFormat s = new SimpleDateFormat("yyyy MMM d");
-
+            rs = st.executeQuery(query);  
             if (rs.next()) {
                 //to display the data inside the txtfields
                 String barcode = rs.getString("cd_Barcode");
@@ -838,25 +817,19 @@ public class CD extends javax.swing.JFrame {
                 days.setSelectedItem(day);
 
                 String availa = rs.getString("Availability");
-                available.setSelectedItem(availa);
-
+                available.setSelectedItem(availa); 
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        
+        } 
         int choice;
-        choice = JOptionPane.showConfirmDialog(null, "Add accession number?");
-
+        choice = JOptionPane.showConfirmDialog(null, "Add accession number?"); 
         if (choice == JOptionPane.YES_OPTION) {
             CountCD();
             accession.setEnabled(true);
-            tbl_access.setEnabled(false);
-
-            accession.getText();
-
-        }
-
+            tbl_access.setEnabled(false); 
+            accession.getText(); 
+        } 
     }//GEN-LAST:event_tble_cdMouseClicked
 
     private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
@@ -869,7 +842,7 @@ public class CD extends javax.swing.JFrame {
             int access = Integer.valueOf(a);
             a = Integer.toString(++access);
 
-            String queries = "Insert into tbl_cdaccession values ('" + Global_Variable.acccdId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','"+txtCdTitle.getText()+"','"+comboGenre.getSelectedItem()+"','"+total.getText()+"','"+Global_Variable.category_id+"')";
+            String queries = "Insert into tbl_cdaccession values ('" + Global_Variable.acccdId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','"+txtCdTitle.getText()+"','"+comboGenre.getSelectedItem()+"','"+total.getText()+"')";
             executeSQlquery(queries, "Data Successfully Added");
             accession.setText(a);
             CountCD();
@@ -887,12 +860,9 @@ public class CD extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtsearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsearchKeyReleased
-        String temp1 = txtsearch.getText() + "%";
-
+        String temp1 = txtsearch.getText() + "%"; 
         data = theSearch("Select * from tbl_cd where cd_Barcode like '" + temp1 + "' || cd_Title like '" + temp1 + "'|| Status like '"+temp1+"'");
-
-        tble_cd.setModel(new javax.swing.table.DefaultTableModel(data, header));
-
+        tble_cd.setModel(new javax.swing.table.DefaultTableModel(data, header)); 
         tble_cd.removeColumn(tble_cd.getColumnModel().getColumn(0));
     }//GEN-LAST:event_txtsearchKeyReleased
 
@@ -957,24 +927,6 @@ public class CD extends javax.swing.JFrame {
     }//GEN-LAST:event_accessionKeyReleased
 
     private void status1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_status1ItemStateChanged
-       /* switch (status1.getSelectedItem().toString()) {
-            case "Available":
-                days.setEnabled(true);
-                available.setEnabled(true);
-                break;
-            case "Damaged":
-                days.setEnabled(false);
-                available.setEnabled(false);
-                break;
-            case "Lost":
-                days.setEnabled(false);
-                available.setEnabled(false);
-                break;
-            default:
-                status1.setEnabled(false);
-                break;
-        }*/
-        
         switch(status1.getSelectedItem().toString()){
              case "Available":
                 days.setEnabled(true);
@@ -1040,8 +992,7 @@ public class CD extends javax.swing.JFrame {
 
     private boolean validateBarcode(String Barcode) {
         boolean queue = false;
-        ResultSet rs;
-        //String barcode = adminbarcode.getText();
+        ResultSet rs; 
         String query;
         try {
             query = "select id from `tbl_cdaccession` where accession='" + Barcode + "'";
@@ -1049,10 +1000,8 @@ public class CD extends javax.swing.JFrame {
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
             if (rs.next()) {
-                queue = true;
-                //rs.getString("adminBarcode");
-            }
-
+                queue = true; 
+            } 
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1109,12 +1058,10 @@ public class CD extends javax.swing.JFrame {
     private javax.swing.JTextField updateCD;
     // End of variables declaration//GEN-END:variables
    
-
-    private Vector<Vector<String>> theSearch(String sqlSearch) {
+     private Vector<Vector<String>> theSearch(String sqlSearch) {
         Vector<Vector<String>> cd = new Vector<Vector<String>>();
         Connection con = null;
-        Statement st = null;
-
+        Statement st = null; 
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
             st = con.createStatement();
@@ -1128,12 +1075,10 @@ public class CD extends javax.swing.JFrame {
                 cds.add(rs.getString(10));
                 cds.add(rs.getString(11));
                 cds.add(rs.getString(12));
-                cds.add(rs.getString(14));
-                cd.add(cds);
-
+                cds.add(rs.getString(13));
+                cd.add(cds); 
             }
-        } catch (Exception e) {
-
+        } catch (Exception e) { 
             JOptionPane.showMessageDialog(null, e.toString());
         }
         return cd;

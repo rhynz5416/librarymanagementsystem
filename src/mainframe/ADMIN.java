@@ -24,13 +24,10 @@ public class ADMIN extends javax.swing.JFrame {
     private Vector<Vector<String>> datas;
     private Vector<String> headers;
 
-    public ADMIN() throws Exception {
-
+    public ADMIN() throws Exception { 
         initComponents();
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-    }
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH); 
+    } 
     @SuppressWarnings("unchecked")
 
     private void executesqlQuery(String query, String message) {
@@ -247,8 +244,7 @@ public class ADMIN extends javax.swing.JFrame {
 
             String tempbarcode = txtadminbarcode.getText();
 
-            String query = "SELECT * FROM `tbl_login` WHERE adminBarcode= " + tempbarcode;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM d");
+            String query = "SELECT * FROM `tbl_login` WHERE adminBarcode= " + tempbarcode; 
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
             try {
@@ -264,8 +260,7 @@ public class ADMIN extends javax.swing.JFrame {
                     txtusername.setText(username);
 
                     String password = rs.getString("Password");
-                    txtpassword.setText(password);
-
+                    txtpassword.setText(password); 
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -273,7 +268,7 @@ public class ADMIN extends javax.swing.JFrame {
             txtadminbarcode.getText();
             txtadmin.getText();
             txtusername.getText();
-            txtpassword.getText();
+            txtpassword.getText(); 
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -299,8 +294,7 @@ public class ADMIN extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTrannsactMouseClicked
 
     private void searchTrannsactKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTrannsactKeyReleased
-        String temp1 = searchTrannsact.getText() + "%";
-        //String cat = Global_Variable.category_id + "%";
+        String temp1 = searchTrannsact.getText() + "%"; 
         switch (searchItem.getSelectedItem().toString()) {
             case "Borrow_Inside":
 
@@ -365,9 +359,7 @@ public class ADMIN extends javax.swing.JFrame {
             default:
                 searchItem.setEnabled(false);
                 break;
-        }
-
-
+        } 
     }//GEN-LAST:event_searchTrannsactKeyReleased
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed

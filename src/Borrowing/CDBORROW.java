@@ -66,7 +66,7 @@ public class CDBORROW extends javax.swing.JFrame {
     public ArrayList<C_LibraryMaterialCD> getcdList() {
         ArrayList<C_LibraryMaterialCD> CD = new ArrayList<C_LibraryMaterialCD>();
 
-        String query = "select * from `tbl_cd` where category-id=" + Global_Variable.category_id;
+        String query = "select * from `tbl_cd` where cd_Barcode=" + Global_Variable.CdId;
 
         ResultSet sr;
 
@@ -391,7 +391,7 @@ public class CDBORROW extends javax.swing.JFrame {
 
          String tempbarcode = txtBorrow_cdBarcode.getText();
 
-         String query = "SELECT * FROM `tbl_cd` WHERE cd_Barcode='"+tempbarcode+"' and category_id = '"+Global_Variable.category_id+"'";
+         String query = "SELECT * FROM `tbl_cd` WHERE cd_Barcode='"+tempbarcode+"'";
          SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 
          st = con.dbconn().createStatement();
@@ -465,7 +465,7 @@ public class CDBORROW extends javax.swing.JFrame {
 
                     String tempbarcode = txtBorrow_cdBarcode.getText();
 
-                    String query = "SELECT * FROM `tbl_cd` WHERE cd_Barcode='" + tempbarcode + "' and category_id = '" + Global_Variable.category_id + "'";
+                    String query = "SELECT * FROM `tbl_cd` WHERE cd_Barcode='" + tempbarcode + "'";
                     SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 
                     st = con.dbconn().createStatement();
@@ -672,7 +672,7 @@ public class CDBORROW extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
 
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtBorrow_cdAccNo.getText() + "','" + txtBorrow_cdBarcode.getText() + "','" + txt_Borrow_cdRCBarcode.getText() + "','" + borrowinside.getText() + "','"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtBorrow_cdAccNo.getText() + "','" + txtBorrow_cdBarcode.getText() + "','" + txt_Borrow_cdRCBarcode.getText() + "','" + borrowinside.getText() + "')";
                             executeSQlquery(queries, "Transaction Added");
                             try {
                                 String queri = "UPDATE `tbl_cd` SET  `NoOfCopies` ='" + copies.getText() + "' WHERE  `cd_Barcode` =" + txtBorrow_cdBarcode.getText();
@@ -681,7 +681,7 @@ public class CDBORROW extends javax.swing.JFrame {
                                 e.printStackTrace();
                             }
                             try {
-                                String querys = "INSERT INTO `tbl_borrowinside` VALUES ('" + Global_Variable.incdId + "','" + cd.getText() + "','" + txtBorrow_cdAccNo.getText() + "','" + txtBorrow_cdBarcode.getText() + "','" + copies.getText() + "','" + txt_Borrow_cdRCBarcode.getText() + "','" + Global_Variable.category_id + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
+                                String querys = "INSERT INTO `tbl_borrowinside` VALUES ('" + Global_Variable.incdId + "','" + cd.getText() + "','" + txtBorrow_cdAccNo.getText() + "','" + txtBorrow_cdBarcode.getText() + "','" + copies.getText() + "','" + txt_Borrow_cdRCBarcode.getText() + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
                                 executeSQlquery(querys, "CD Borrowed");
                                 txtBorrow_cdAccNo.setText("");
 
@@ -754,7 +754,7 @@ public class CDBORROW extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
 
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtBorrow_cdAccNo.getText() + "','" + txtBorrow_cdBarcode.getText() + "','" + txt_Borrow_cdRCBarcode.getText() + "','" + borrowoutside.getText() + "','"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtBorrow_cdAccNo.getText() + "','" + txtBorrow_cdBarcode.getText() + "','" + txt_Borrow_cdRCBarcode.getText() + "','" + borrowoutside.getText() + "')";
                             executeSQlquery(queries, "Transaction Added");
                             try {
                                 String queri = "UPDATE `tbl_cd` SET  `NoOfCopies` ='" + copies.getText() + "' WHERE  `cd_Barcode` =" + txtBorrow_cdBarcode.getText();
@@ -766,7 +766,7 @@ public class CDBORROW extends javax.swing.JFrame {
                             try {
 
                                 String dated = s.format(datereq.getDate());
-                                String querys = "INSERT INTO `tbl_borrowoutside` VALUES ('" + Global_Variable.outbookId + "','" + cd.getText() + "','" + txtBorrow_cdAccNo.getText() + "','" + txtBorrow_cdBarcode.getText() + "','" + txt_Borrow_cdRCBarcode.getText() + "','" + dated + "','" + Global_Variable.category_id + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
+                                String querys = "INSERT INTO `tbl_borrowoutside` VALUES ('" + Global_Variable.outbookId + "','" + cd.getText() + "','" + txtBorrow_cdAccNo.getText() + "','" + txtBorrow_cdBarcode.getText() + "','" + txt_Borrow_cdRCBarcode.getText() + "','" + dated + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
                                 executeSQlquery(querys, "CD Borrowed");
 
                                 txtBorrow_cdBarcode.setText("");
@@ -816,7 +816,7 @@ public class CDBORROW extends javax.swing.JFrame {
 
         String accession = txtBorrow_cdAccNo.getText();
         try {
-            String query = "SELECT * FROM `tbl_cdaccession` WHERE accession= '"+accession+"' and category_id='"+Global_Variable.category_id+"'";
+            String query = "SELECT * FROM `tbl_cdaccession` WHERE accession= '"+accession+"'";
             ResultSet rs;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
@@ -949,7 +949,7 @@ public class CDBORROW extends javax.swing.JFrame {
         ResultSet rs;
         String query;
         try {
-            query = "select * from `tbl_cd` where cd_Barcode='" + Barcode + "' and category_id =" + Global_Variable.category_id;
+            query = "select * from `tbl_cd` where cd_Barcode='" + Barcode + "'";
             st = null;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);

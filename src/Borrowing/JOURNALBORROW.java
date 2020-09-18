@@ -65,7 +65,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
     public ArrayList<C_LibraryMaterialJournal> getJournalList() {
         ArrayList<C_LibraryMaterialJournal> journal = new ArrayList<C_LibraryMaterialJournal>();
 
-        String query = "select * from `tbl_journal` where category_id=" + Global_Variable.category_id;
+        String query = "select * from `tbl_journal` where ISBNBarcode=" + Global_Variable.JournalId;
         ResultSet sr;
         try {
             st = con.dbconn().createStatement();
@@ -398,7 +398,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
   txtjournalBarcode.setEnabled(true);
         String accession = txtjournalAccNo.getText();
         try {
-            String query = "SELECT * FROM `tbl_journalaccession` WHERE accession= '"+accession+"' and category_id ='"+Global_Variable.category_id+"'";
+            String query = "SELECT * FROM `tbl_journalaccession` WHERE accession= '"+accession+"'";
             ResultSet rs;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
@@ -458,7 +458,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
             try {
                 ResultSet rs = null;
                 String tempbarcode = txtjournalBarcode.getText();
-                String query = "SELECT * FROM `tbl_journal` WHERE ISBNBarcode='" + tempbarcode + "' and category_id='" + Global_Variable.category_id + "' ";
+                String query = "SELECT * FROM `tbl_journal` WHERE ISBNBarcode='" + tempbarcode + "'";
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM d");
 
                 st = con.dbconn().createStatement();
@@ -548,7 +548,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
         labelStatus.setText(txtjournalBarcode.getText() + " with accession number " + txtjournalAccNo.getText() + " is now: ");
         status.setText("borrowed");
 
-        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','" + status.getText() + "','"+Global_Variable.category_id+"')";
+        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','" + status.getText() + "')";
         executeSqlquery(quer, "Monitored");
     }//GEN-LAST:event_borrowinsideActionPerformed
 
@@ -559,7 +559,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
         labelStatus.setText(txtjournalBarcode.getText() + " with accession number " + txtjournalAccNo.getText() + " is now: ");
         status.setText("borrowed");
 
-        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','" + status.getText() + "','"+Global_Variable.category_id+"')";
+        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','" + status.getText() + "')";
         executeSqlquery(quer, "Monitored");
     }//GEN-LAST:event_borrowoutsideActionPerformed
 
@@ -749,7 +749,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
 
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','" + txtjournalRCBarcode.getText() + "','" + borrowinside.getText() + "','"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','" + txtjournalRCBarcode.getText() + "','" + borrowinside.getText() + "')";
                             executeSqlquery(queries, "Transaction Added");
 
                             try {
@@ -761,7 +761,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
 
                             try {
 
-                                String queryz = "INSERT INTO `tbl_borrowinside` VALUES ('" + Global_Variable.injournalId + "','" + journal.getText() + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','"+copies.getText()+"','" + txtjournalRCBarcode.getText() + "','" + Global_Variable.category_id + "','" + labelDate.getText() + "','" + labeltime.getText() + "')";
+                                String queryz = "INSERT INTO `tbl_borrowinside` VALUES ('" + Global_Variable.injournalId + "','" + journal.getText() + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','"+copies.getText()+"','" + txtjournalRCBarcode.getText() + "','" + labelDate.getText() + "','" + labeltime.getText() + "')";
                                 executeSqlquery(queryz, "Journal Borrowed");
 
                                 txtjournalBarcode.setText("");
@@ -834,7 +834,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
 
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','" + txtjournalRCBarcode.getText() + "','" + borrowoutside.getText() + "','"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','" + txtjournalRCBarcode.getText() + "','" + borrowoutside.getText() + "')";
                             executeSqlquery(queries, "Transaction Added");
 
                             try {
@@ -847,7 +847,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
                             try {
                                 //SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
                                 String dated = s.format(datereq.getDate());
-                                String querys = "INSERT INTO `tbl_borrowoutside`VALUES ('" + Global_Variable.outjournalId + "','" + journal.getText() + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','" + txtjournalRCBarcode.getText() + "','" + dated + "','" + Global_Variable.category_id + "','" + labelDate.getText() + "','" + labeltime.getText() + "')";
+                                String querys = "INSERT INTO `tbl_borrowoutside`VALUES ('" + Global_Variable.outjournalId + "','" + journal.getText() + "','" + txtjournalAccNo.getText() + "','" + txtjournalBarcode.getText() + "','" + txtjournalRCBarcode.getText() + "','" + dated + "','" + labelDate.getText() + "','" + labeltime.getText() + "')";
                                 executeSqlquery(querys, "Journal Borrowed");
                                 txtjournalAccNo.setText("");
 
@@ -887,7 +887,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
         txtjournalBarcode.setEnabled(true);
         String accession = txtjournalAccNo.getText();
         try {
-            String query = "SELECT * FROM `tbl_journalaccession` WHERE accession= '"+accession+"' and category_id ='"+Global_Variable.category_id+"'";
+            String query = "SELECT * FROM `tbl_journalaccession` WHERE accession= '"+accession+"'";
             ResultSet rs;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
@@ -1023,7 +1023,7 @@ public class JOURNALBORROW extends javax.swing.JFrame {
         ResultSet rs;
         String query;
         try {
-            query = "select * from `tbl_journal` where ISBNBarcode='" + Barcode + "' and category_id=" + Global_Variable.category_id;
+            query = "select * from `tbl_journal` where ISBNBarcode='" + Barcode + "'";
             st = null;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);

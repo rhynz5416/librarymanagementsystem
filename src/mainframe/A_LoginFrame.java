@@ -1,21 +1,10 @@
 package mainframe;
 
 import Global_Variable.Global_Variable;
-import Module.dbConn;
-import java.awt.BorderLayout;
-import java.awt.Button;
-import java.awt.Frame;
-import java.awt.GridBagLayout;
+import Module.dbConn; 
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
-import java.sql.*;
-import java.awt.event.*; 
-import javax.swing.*; 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JLabel; 
-import java.awt.Panel;
-
+import java.sql.*;  
 public class A_LoginFrame extends javax.swing.JFrame {
 
     dbConn con = new dbConn();
@@ -28,8 +17,6 @@ public class A_LoginFrame extends javax.swing.JFrame {
         adminpassword.setEnabled(false);
         setExtendedState(JFrame.MAXIMIZED_BOTH);  
     }
-    
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -136,7 +123,6 @@ public class A_LoginFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-
         if (adminbarcode.getText().trim().isEmpty() || adminusername.getText().trim().isEmpty() || adminpassword.getPassword().toString().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Fill up the fields");
         } else {
@@ -164,10 +150,8 @@ public class A_LoginFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_btnloginKeyPressed
 
     private void adminbarcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminbarcodeKeyReleased
-
         adminusername.setEnabled(false);
-        adminpassword.setEnabled(true);
-
+        adminpassword.setEnabled(true); 
         try {
             ResultSet rs = null;
             String tempbarcode = adminbarcode.getText();
@@ -188,77 +172,34 @@ public class A_LoginFrame extends javax.swing.JFrame {
 
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
-
+        } 
     }//GEN-LAST:event_adminbarcodeKeyReleased
 
     private void adminbarcodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminbarcodeKeyTyped
 
     }//GEN-LAST:event_adminbarcodeKeyTyped
     private void login() {
-        try {
-
+        try { 
             st = null;
             st = con.dbconn().createStatement();
-            ResultSet rss = st.executeQuery("SELECT id,category_id,adminBarcode FROM `tbl_login` WHERE `Username`= '" + adminusername.getText() + "' and Password = '" + String.valueOf(adminpassword.getPassword()) + "'");
+            ResultSet rss = st.executeQuery("SELECT id,adminBarcode FROM `tbl_login` WHERE `Username`= '" + adminusername.getText() + "' and Password = '" + String.valueOf(adminpassword.getPassword()) + "'");
 
             if (rss.next()) {
-                global_var.id = rss.getString("id");
-                global_var.category_id = rss.getString("category_id");
+                global_var.id = rss.getString("id"); 
                 global_var.adminBarcode = rss.getString("adminBarcode");
 
                 LibraryMainFrame Lib = new LibraryMainFrame();
                 Lib.setVisible(true);
-                Lib.setLocationRelativeTo(null);
-                //JOptionPane.showMessageDialog(null,global_var.id+" "+global_var.category_id);
+                Lib.setLocationRelativeTo(null); 
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Wrong Log in!");
             }
         } catch (Exception e) {
+             e.printStackTrace();
         }
     }
-
-    private boolean validateBarcode(String Barcode) {
-        boolean queue = false;
-        ResultSet rs;
-        //String barcode = adminbarcode.getText();
-        String query;
-        try {
-            query = "select id from `tbl_login` where adminBarcode='" + Barcode + "'";
-            st = null;
-            st = con.dbconn().createStatement();
-            rs = st.executeQuery(query);
-            if (rs.next()) {
-                queue = true;
-                //rs.getString("adminBarcode");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return queue;
-    }
-
-    private String validateadmin() {
-        Statement st;
-        String id = "";
-        ResultSet rs;
-        String query;
-        try {
-            query = "select category_id from `tbl_login` where adminBarcode='" + adminbarcode.getText() + "'";
-            st = null;
-            st = con.dbconn().createStatement();
-            rs = st.executeQuery(query);
-            if (rs.next()) {
-                id = rs.getString("category_id");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return id;
-    }
-
+ 
     /**
      * @param args the command line arguments
      */
@@ -292,8 +233,7 @@ public class A_LoginFrame extends javax.swing.JFrame {
                 new A_LoginFrame().setVisible(true);
             }
         });
-    }
-
+    } 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField adminbarcode;
     private javax.swing.JPasswordField adminpassword;

@@ -21,7 +21,7 @@ Global_Variable glo = new Global_Variable();
         try {
 
             ResultSet rs = null;
-            String query = "SELECT `DateExpired` FROM `tbl_clientregistration` where category_id ='"+Global_Variable.category_id+"'";
+            String query = "SELECT `DateExpired` FROM `tbl_clientregistration` where ClientBarcode ='"+Global_Variable.client_id+"'";
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             Calendar now = Calendar.getInstance();
             st = con.dbconn().createStatement();

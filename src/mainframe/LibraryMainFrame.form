@@ -334,24 +334,11 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Lucida Fax" size="36" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="LIBRARY BORROWING MANAGEMENT SYSTEM"/>
+        <Property name="text" type="java.lang.String" value="BISU-BALILIHAN LIBRARY MANAGEMENT SYSTEM"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="540" y="170" width="890" height="50"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Lucida Fax" size="36" style="1"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="WITH BARCODE TECHNOLOGY"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="680" y="230" width="620" height="60"/>
+          <AbsoluteConstraints x="490" y="200" width="1010" height="50"/>
         </Constraint>
       </Constraints>
     </Component>

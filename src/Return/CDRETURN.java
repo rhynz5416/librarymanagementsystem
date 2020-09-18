@@ -626,7 +626,7 @@ public class CDRETURN extends javax.swing.JFrame {
 
             String tempbarcode = txt_return_cdAccNo.getText();
 
-            String query = "SELECT * FROM `tbl_cdaccession` WHERE accession ='"+tempbarcode+"' and category_id='"+Global_Variable.category_id+"' ";
+            String query = "SELECT * FROM `tbl_cdaccession` WHERE accession ='"+tempbarcode+"' ";
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy MMM d");
 
             st = con.dbconn().prepareStatement(query);
@@ -695,7 +695,7 @@ public class CDRETURN extends javax.swing.JFrame {
         ResultSet rs;
         String query;
         try {
-            query = "select * from `tbl_librarybook` where ISBNBarcode ='" + Barcode + "' and category_id=" + Global_Variable.category_id;
+            query = "select * from `tbl_librarybook` where ISBNBarcode ='" + Barcode + "'";
             st = null;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);

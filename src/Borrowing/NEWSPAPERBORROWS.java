@@ -63,7 +63,7 @@ public class NEWSPAPERBORROWS extends javax.swing.JFrame {
     public ArrayList<C_LibraryMaterialNewspaper> getnewspaperList() {
         ArrayList<C_LibraryMaterialNewspaper> papernews = new ArrayList<C_LibraryMaterialNewspaper>();
 
-        String query = "select * from `tbl_librarynewspaper` where category_id=" + Global_Variable.category_id;
+        String query = "select * from `tbl_librarynewspaper` where ISBNBarcode=" + Global_Variable.NewspaperId;
         ResultSet rs;
 
         try {
@@ -385,7 +385,7 @@ public class NEWSPAPERBORROWS extends javax.swing.JFrame {
         labelStatus.setText(txtborrowBarcode.getText() + " with accession number " + txt_Borrow_newspaperAccNo.getText() + " is now: ");
         status.setText("borrowed");
 
-        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_Borrow_newspaperAccNo.getText() + "','" + txtborrowBarcode.getText() + "','" + status.getText() + "', '"+Global_Variable.category_id+"')";
+        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_Borrow_newspaperAccNo.getText() + "','" + txtborrowBarcode.getText() + "','" + status.getText() + "')";
         executeSqLQuery(quer, "Monitored");
     }//GEN-LAST:event_borrowinsideActionPerformed
 
@@ -413,7 +413,7 @@ public class NEWSPAPERBORROWS extends javax.swing.JFrame {
                     ResultSet rs = null;
                     String tempbarcode = txtborrowBarcode.getText();
 
-                    String query = "SELECT * FROM `tbl_librarynewspaper` WHERE ISBNBarcode= '"+tempbarcode+"' and category_id='"+Global_Variable.category_id+"'";
+                    String query = "SELECT * FROM `tbl_librarynewspaper` WHERE ISBNBarcode= '"+tempbarcode+"'";
 
                     st = con.dbconn().prepareStatement(query);
                     rs = st.executeQuery(query);
@@ -476,7 +476,7 @@ public class NEWSPAPERBORROWS extends javax.swing.JFrame {
          txtborrowBarcode.setEnabled(false);
         String accession = txt_Borrow_newspaperAccNo.getText();
         try {
-            String query = "SELECT * FROM `tbl_newsaccession` WHERE accession='"+accession+"' and category_id ='"+Global_Variable.category_id+"' ";
+            String query = "SELECT * FROM `tbl_newsaccession` WHERE accession='"+accession+"'";
             ResultSet rs;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
@@ -697,7 +697,7 @@ public class NEWSPAPERBORROWS extends javax.swing.JFrame {
                         if (txt_Borrow_newspaperAccNo.getText().trim().isEmpty() || txt_Borrow_newspaperRCBarcode.getText().trim().isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Borrow_newspaperAccNo.getText() + "','" + txtborrowBarcode.getText() + "','" + txt_Borrow_newspaperRCBarcode.getText() + "','" + borrowinside.getText() + "','"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Borrow_newspaperAccNo.getText() + "','" + txtborrowBarcode.getText() + "','" + txt_Borrow_newspaperRCBarcode.getText() + "','" + borrowinside.getText() + "')";
                             executeSqLQuery(queries, "Transaction Added");
 
                             try {
@@ -709,7 +709,7 @@ public class NEWSPAPERBORROWS extends javax.swing.JFrame {
 
                             try {
 
-                                String querys = "INSERT INTO `tbl_borrowinside` VALUES ('" + Global_Variable.innewspaperId + "','" + newspaper.getText() + "','" + txt_Borrow_newspaperAccNo.getText() + "','" + txtborrowBarcode.getText() + "','" + copys.getText() + "','" + txt_Borrow_newspaperRCBarcode.getText() + "','" + Global_Variable.category_id + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
+                                String querys = "INSERT INTO `tbl_borrowinside` VALUES ('" + Global_Variable.innewspaperId + "','" + newspaper.getText() + "','" + txt_Borrow_newspaperAccNo.getText() + "','" + txtborrowBarcode.getText() + "','" + copys.getText() + "','" + txt_Borrow_newspaperRCBarcode.getText() + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
                                 executeSqLQuery(querys, "Newspaper Borrowed");
                                 txt_Borrow_newspaperAccNo.setText("");
                                 txtborrowBarcode.setText("");
@@ -777,7 +777,7 @@ public class NEWSPAPERBORROWS extends javax.swing.JFrame {
                         if (txt_Borrow_newspaperAccNo.getText().trim().isEmpty() || txt_Borrow_newspaperRCBarcode.getText().trim().isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Borrow_newspaperAccNo.getText() + "','" + txtborrowBarcode.getText() + "','" + txt_Borrow_newspaperRCBarcode.getText() + "','" + borrowoutside.getText() + "','"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Borrow_newspaperAccNo.getText() + "','" + txtborrowBarcode.getText() + "','" + txt_Borrow_newspaperRCBarcode.getText() + "','" + borrowoutside.getText() + "')";
                             executeSqLQuery(queries, "Transaction Added");
 
                             try {
@@ -792,7 +792,7 @@ public class NEWSPAPERBORROWS extends javax.swing.JFrame {
                                 //    SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
                                 String dating = s.format(datereq.getDate());
 
-                                String querys = "INSERT INTO `tbl_borrowoutside` VALUES ('" + Global_Variable.outrenewspaperId + "','" + newspaper.getText() + "','" + txt_Borrow_newspaperAccNo.getText() + "','" + txtborrowBarcode.getText() + "','" + txt_Borrow_newspaperRCBarcode.getText() + "','" + dating + "','" + Global_Variable.category_id + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
+                                String querys = "INSERT INTO `tbl_borrowoutside` VALUES ('" + Global_Variable.outrenewspaperId + "','" + newspaper.getText() + "','" + txt_Borrow_newspaperAccNo.getText() + "','" + txtborrowBarcode.getText() + "','" + txt_Borrow_newspaperRCBarcode.getText() + "','" + dating + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
                                 executeSqLQuery(querys, "Newspaper Borrowed");
                                 txtborrowBarcode.setText("");
                                 txt_Borrow_newspaperAccNo.setText("");
@@ -837,7 +837,7 @@ public class NEWSPAPERBORROWS extends javax.swing.JFrame {
         txtborrowBarcode.setEnabled(false);
         String accession = txt_Borrow_newspaperAccNo.getText();
         try {
-            String query = "SELECT * FROM `tbl_newsaccession` WHERE accession='"+accession+"' and category_id ='"+Global_Variable.category_id+"' ";
+            String query = "SELECT * FROM `tbl_newsaccession` WHERE accession='"+accession+"'";
             ResultSet rs;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
@@ -951,7 +951,7 @@ public class NEWSPAPERBORROWS extends javax.swing.JFrame {
         ResultSet rs;
         String query;
         try {
-            query = "select * from `tbl_librarynewspaper` where ISBNBarcode='" + Barcode + "' and category_id=" + Global_Variable.category_id;
+            query = "select * from `tbl_librarynewspaper` where ISBNBarcode='" + Barcode + "'";
             st = null;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);

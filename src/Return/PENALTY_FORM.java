@@ -29,7 +29,7 @@ public class PENALTY_FORM extends javax.swing.JFrame {
         try {
             Date l = null, a = null, b = null;
             ResultSet rs = null;
-            String query = "SELECT `date_to_return` FROM `tbl_borrowoutside` where category_id ='" + Global_Variable.category_id + "'";
+            String query = "SELECT `date_to_return` FROM `tbl_borrowoutside` where id ='" + Global_Variable.renewal_id + "'";
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             Calendar now = Calendar.getInstance();
             st = con.dbconn().createStatement();

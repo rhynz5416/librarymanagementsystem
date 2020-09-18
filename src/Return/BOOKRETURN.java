@@ -613,7 +613,7 @@ public class BOOKRETURN extends javax.swing.JFrame {
         ResultSet rs = null;
         Statement st = null;
         //dbConn con = new dbConn();
-        String query = "SELECT * FROM `tbl_clientregistration` where ClientBarcode = '"+txtBorrowRCBarcode.getText()+"' and category_id ='"+Global_Variable.category_id+"'" ;
+        String query = "SELECT * FROM `tbl_clientregistration` where ClientBarcode = '"+txtBorrowRCBarcode.getText()+"'" ;
         SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
         Calendar now = Calendar.getInstance();
         Date l = null, a = null, b = null;
@@ -646,7 +646,7 @@ public class BOOKRETURN extends javax.swing.JFrame {
                         if (txt_Return_BookBarcode.getText().trim().isEmpty() || txtBorrowRCBarcode.getText().trim().isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + returninside.getText() + "','"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + returninside.getText() + "')";
                             executesqlQuery(queries, "Transaction Added");
 
                             try {
@@ -709,7 +709,7 @@ public class BOOKRETURN extends javax.swing.JFrame {
         ResultSet rs = null;
         Statement st = null;
         //dbConn con = new dbConn();
-        String query = "SELECT * FROM `tbl_clientregistration` where ClientBarcode = '"+txtBorrowRCBarcode.getText()+"' and category_id ='"+Global_Variable.category_id+"'" ;
+        String query = "SELECT * FROM `tbl_clientregistration` where ClientBarcode = '"+txtBorrowRCBarcode.getText()+"'" ;
         SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
         Calendar now = Calendar.getInstance();
         Date l = null, a = null, b = null;
@@ -742,7 +742,7 @@ public class BOOKRETURN extends javax.swing.JFrame {
                         if (txt_Return_BookBarcode.getText().trim().isEmpty() || txtBorrowRCBarcode.getText().trim().isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + borrowoutside.getText() + "','"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + txtBorrowRCBarcode.getText() + "','" + borrowoutside.getText() + "')";
                             executesqlQuery(queries, "Transaction Added");
 
                             try {
@@ -795,7 +795,7 @@ public class BOOKRETURN extends javax.swing.JFrame {
         try {
             ResultSet rs = null;
             String tempbarcode = txt_Return_BookAccNo.getText();
-            String query = "SELECT * FROM `tbl_bookaccessions` WHERE accessID='" + tempbarcode + "' and category_id ='" + Global_Variable.category_id + "' ";
+            String query = "SELECT * FROM `tbl_bookaccessions` WHERE accessID='" + tempbarcode + "' ";
 
             st = con.dbconn().prepareStatement(query);
             rs = st.executeQuery(query);
@@ -834,14 +834,14 @@ public class BOOKRETURN extends javax.swing.JFrame {
                         labelstatus.setText(txt_Return_BookBarcode.getText() + " with accession number " + txt_Return_BookAccNo.getText() + " is now: ");
                         status.setText("available");
 
-                        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + status.getText() + "','"+Global_Variable.category_id+"')";
+                        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + status.getText() + "')";
                         executesqlQuery(quer, "Material Monitored");
                     } else if (choice == JOptionPane.NO_OPTION) {
                         txtBorrowRCBarcode.setEnabled(true);
                         labelstatus.setText(txt_Return_BookBarcode.getText() + " with accession number " + txt_Return_BookAccNo.getText() + " is now: ");
                         status.setText("available");
 
-                        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + status.getText() + "','"+Global_Variable.category_id+"')";
+                        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + status.getText() + "')";
                         executesqlQuery(quer, "Material Monitored");
                     } else if (choice == JOptionPane.CANCEL_OPTION) {
                         this.setVisible(true);
@@ -867,7 +867,7 @@ public class BOOKRETURN extends javax.swing.JFrame {
        try {
             ResultSet rs = null;
             String tempbarcode = txt_Return_BookAccNo.getText();
-            String query = "SELECT * FROM `tbl_bookaccessions` WHERE accessID='" + tempbarcode + "' and category_id ='" + Global_Variable.category_id + "' ";
+            String query = "SELECT * FROM `tbl_bookaccessions` WHERE accessID='" + tempbarcode + "'";
 
             st = con.dbconn().prepareStatement(query);
             rs = st.executeQuery(query);
@@ -906,14 +906,14 @@ public class BOOKRETURN extends javax.swing.JFrame {
                         labelstatus.setText(txt_Return_BookBarcode.getText() + " with accession number " + txt_Return_BookAccNo.getText() + " is now: ");
                         status.setText("available");
 
-                        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + status.getText() + "','"+Global_Variable.category_id+"')";
+                        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + status.getText() + "')";
                         executesqlQuery(quer, "Material Monitored");
                     } else if (choice == JOptionPane.NO_OPTION) {
                         txtBorrowRCBarcode.setEnabled(true);
                         labelstatus.setText(txt_Return_BookBarcode.getText() + " with accession number " + txt_Return_BookAccNo.getText() + " is now: ");
                         status.setText("available");
 
-                        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + status.getText() + "','"+Global_Variable.category_id+"')";
+                        String quer = "INSERT INTO `tbl_matmonitoring` VALUES ('" + Global_Variable.monitoring_id + "','" + txt_Return_BookAccNo.getText() + "','" + txt_Return_BookBarcode.getText() + "','" + status.getText() + "')";
                         executesqlQuery(quer, "Material Monitored");
                     } else if (choice == JOptionPane.CANCEL_OPTION) {
                         this.setVisible(true);
@@ -940,7 +940,7 @@ public class BOOKRETURN extends javax.swing.JFrame {
         ResultSet rs;
         String query;
         try {
-            query = "select * from `tbl_librarybook` where ISBNBarcode ='" + Barcode + "' and category_id=" + Global_Variable.category_id;
+            query = "select * from `tbl_librarybook` where ISBNBarcode ='" + Barcode + "'";
             st = null;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);

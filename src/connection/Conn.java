@@ -30,12 +30,11 @@ public class Conn {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
+    } 
     public Vector getUser() throws Exception {
         Vector<Vector<String>> useVector = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_librarybook where category_id=" + Global_Variable.category_id);
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_librarybook");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -47,8 +46,8 @@ public class Conn {
             user.add(rs.getString(5));
             user.add(rs.getString(14));
             user.add(rs.getString(15));
-            user.add(rs.getString(16));
-            user.add(rs.getString(18));
+            user.add(rs.getString(16)); 
+            user.add(rs.getString(17));
             useVector.add(user);
             useVector.add(user);
         }
@@ -62,7 +61,7 @@ public class Conn {
     public Vector getAccession() throws Exception {
         Vector<Vector<String>> accession = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_bookaccessions where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_bookaccessions");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -83,7 +82,7 @@ public class Conn {
     public Vector getCD() throws Exception {
         Vector<Vector<String>> cd = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_cd where category_id=" + Global_Variable.category_id);
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_cd");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -95,20 +94,19 @@ public class Conn {
             cds.add(rs.getString(10));
             cds.add(rs.getString(11));
             cds.add(rs.getString(12));
-            cds.add(rs.getString(14));
+            cds.add(rs.getString(13));
             cd.add(cds);
         }
         if (conn != null) {
             conn.close();
-        }
-
+        } 
         return cd;
     }
 
     public Vector getCDAccession() throws Exception {
         Vector<Vector<String>> cdaccess = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_cdaccession where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_cdaccession");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -130,7 +128,7 @@ public class Conn {
     public Vector getJournal() throws Exception {
         Vector<Vector<String>> journal = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_journal where category_id=" + Global_Variable.category_id);
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_journal");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -142,7 +140,7 @@ public class Conn {
             jour.add(rs.getString(12));
             jour.add(rs.getString(13));
             jour.add(rs.getString(14));
-            jour.add(rs.getString(16));
+            jour.add(rs.getString(15));
             journal.add(jour);
         }
         if (conn != null) {
@@ -155,7 +153,7 @@ public class Conn {
     public Vector getJournalAccession() throws Exception {
         Vector<Vector<String>> journalaccess = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_journalaccession where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_journalaccession");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -177,7 +175,7 @@ public class Conn {
     public Vector getMagazine() throws Exception {
         Vector<Vector<String>> magazine = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_magazine where category_id=" + Global_Variable.category_id);
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_magazine");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -189,7 +187,7 @@ public class Conn {
             magz.add(rs.getString(10));
             magz.add(rs.getString(11));
             magz.add(rs.getString(12));
-            magz.add(rs.getString(14));
+            magz.add(rs.getString(13));
             magazine.add(magz);
         }
         if (conn != null) {
@@ -202,7 +200,7 @@ public class Conn {
     public Vector getMagazineAccession() throws Exception {
         Vector<Vector<String>> magazineaccess = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_magazineaccession where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_magazineaccession");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -225,32 +223,29 @@ public class Conn {
     public Vector getNewspaper() throws Exception {
         Vector<Vector<String>> newspaper = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_librarynewspaper where category_id=" + Global_Variable.category_id);
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_librarynewspaper");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
-            Vector<String> news = new Vector<String>();
-
+            Vector<String> news = new Vector<String>(); 
             news.add(rs.getString(1));
             news.add(rs.getString(2));
             news.add(rs.getString(4));
             news.add(rs.getString(7));
             news.add(rs.getString(8));
             news.add(rs.getString(9));
-            news.add(rs.getString(11));
+            news.add(rs.getString(10));
             newspaper.add(news);
         }
         if (conn != null) {
             conn.close();
-        }
-
+        } 
         return newspaper;
-    }
-
+    } 
     public Vector getNewspaperAccession() throws Exception {
         Vector<Vector<String>> newspaperaccess = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_newsaccession where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_newsaccession");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -272,7 +267,7 @@ public class Conn {
     public Vector getClient() throws Exception {
         Vector<Vector<String>> client = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_clientregistration where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_clientregistration");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -309,8 +304,7 @@ public class Conn {
             Admin.add(rs.getString(3));
             Admin.add(rs.getString(4));
             Admin.add(rs.getString(5));
-            Admin.add(rs.getString(7));
-            Admin.add(rs.getString(12));
+            Admin.add(rs.getString(7)); 
             admin.add(Admin);
         }
         if (conn != null) {
@@ -323,7 +317,7 @@ public class Conn {
     public Vector gettransaction() throws Exception {
         Vector<Vector<String>> transact = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_transaction where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_transaction");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {

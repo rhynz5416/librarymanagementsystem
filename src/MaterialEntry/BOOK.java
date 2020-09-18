@@ -96,7 +96,7 @@ public class BOOK extends javax.swing.JFrame {
     public ArrayList<C_LibraryMaterialBook> getBookList() {
         ArrayList<C_LibraryMaterialBook> Material = new ArrayList<C_LibraryMaterialBook>();
 
-        String query = "select * from `tbl_librarybook` where category_id='" + Global_Variable.category_id + "'";
+        String query = "select * from `tbl_librarybook` where ISBNBarcode= '"+Global_Variable.BookId+"' ";
 
         ResultSet rs;
 
@@ -750,7 +750,7 @@ public class BOOK extends javax.swing.JFrame {
             String a = accession.getText();
             int access = Integer.valueOf(a);
             a = Integer.toString(++access);
-            String query = "Insert into tbl_bookaccessions values ('" + Global_Variable.accbookId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','" + txtBookTitle.getText() + "','" + txtauthor.getText() + "','" + txtPublisher.getText() + "','" + comboxtype.getSelectedItem() + "','" + totalcopies.getText() + "','"+Global_Variable.category_id+"')";
+            String query = "Insert into tbl_bookaccessions values ('" + Global_Variable.accbookId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','" + txtBookTitle.getText() + "','" + txtauthor.getText() + "','" + txtPublisher.getText() + "','" + comboxtype.getSelectedItem() + "','" + totalcopies.getText() + "')";
             executesqlQuery(query, "Successfully Added");
             accession.setText(a);
             CountBooks();
@@ -763,119 +763,15 @@ public class BOOK extends javax.swing.JFrame {
             executesqlQuery(queries, "updated");
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
-
+        } 
     }//GEN-LAST:event_saveAccessActionPerformed
 
     private void accessTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accessTableMouseClicked
-       /*  updatebook.show();
-        DateBook.hide();
-        txtBarcode.setEnabled(true);
-        txtBookTitle.setEnabled(true);
-        DateBook.setEnabled(true);
-        YearBook.setEnabled(true);
-        txtauthor.setEnabled(true);
-        txtedNumber.setEnabled(true);
-        txtPageVol.setEnabled(true);
-        txtPlace.setEnabled(true);
-        txtPublisher.setEnabled(true);
-        combobinding.setEnabled(true);
-        DateBook.setEnabled(true);
-        txtPrice.setEnabled(true);
-
-        comboxtype.setEnabled(true);
-        status.setEnabled(true);
-        days.setEnabled(true);
-        available.setEnabled(true);
-
-        Connection cn = null;
-        Statement st = null;
-        ResultSet rs = null;
-
-        btnEdit.setEnabled(true);
-        btndelete1.setEnabled(true);
-
-        try {
-            int row = accessTable.getSelectedRow();
-            String cell_click = (accessTable.getModel().getValueAt(row, 1).toString());
-
-            String query = "Select * from tbl_bookaccessions where accessID = '" + cell_click + "' and category_id=" + Global_Variable.category_id;
-
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
-            st = cn.prepareStatement(query);
-            rs = st.executeQuery(query);
  
-            if (rs.next()) {
-                //to display the data inside the txtfields
-                String barcode = rs.getString("ISBNBarcode");
-                txtBarcode.setText(barcode);
- 
-                String title = rs.getString("BookTitle");
-                txtBookTitle.setText(title);
-
-                String author = rs.getString("BookAuthor");
-                txtauthor.setText(author);
-
-                String pubisher = rs.getString("BookPublisher");
-                txtPublisher.setText(pubisher); 
-                
-                String bindings = rs.getString("BookType");
-                comboxtype.setSelectedItem(bindings); 
-                
-                validatebookType();  
-            }
-            
-            int rowsbook = accessTable.getSelectedRow();
-            String cell_clickbook = (accessTable.getModel().getValueAt(rowsbook, 2).toString());
-
-            String querybook = "Select * from tbl_librarybook where ISBNBarcode = '" + cell_clickbook + "' and category_id=" + Global_Variable.category_id;
-
-            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
-            st = cn.prepareStatement(querybook);
-            rs = st.executeQuery(querybook);
- 
-            if (rs.next()) {
-                //to display the data inside the txtfields
-                 String section = rs.getString("Pagevolume");
-                txtPageVol.setText(section);
-
-                String edition = rs.getString("EditionNumber");
-                txtedNumber.setText(edition);
-
-                String place = rs.getString("Place");
-                txtPlace.setText(place);
-
-                String year = rs.getString("Year");
-                txtPageVol.setText(year);
-
-                String binding = rs.getString("Binding");
-                combobinding.setSelectedItem(binding);
-                
-                 String bindings = rs.getString("Type");
-                comboxtype.setSelectedItem(bindings);
-
-                String price = rs.getString("Price");
-                txtPrice.setText(price);
-
-                String status = rs.getString("Status");
-                txtPlace.setText(status);
-
-                String day = rs.getString("days");
-                days.setSelectedItem(day);
-
-                validatebookType();
-
-                String availa = rs.getString("Availability");
-                available.setSelectedItem(availa);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }//GEN-LAST:event_accessTableMouseClicked
 
     private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
-        // TODO add your handling code here:
+     
     }//GEN-LAST:event_txtsearchActionPerformed
 
     private void table_bookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_bookMouseClicked
@@ -910,7 +806,7 @@ public class BOOK extends javax.swing.JFrame {
             int row = table_book.getSelectedRow();
             String cell_click = (table_book.getModel().getValueAt(row, 1).toString());
 
-            String query = "Select * from tbl_librarybook where ISBNBarcode = '" + cell_click + "' and category_id=" + Global_Variable.category_id;
+            String query = "Select * from tbl_librarybook where ISBNBarcode = '" + cell_click + "'";
 
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
             st = cn.prepareStatement(query);
@@ -980,8 +876,7 @@ public class BOOK extends javax.swing.JFrame {
             accessTable.setEnabled(false);
             accession.getText();
             totalcopies.getText();
-        }
-
+        } 
     }//GEN-LAST:event_table_bookMouseClicked
 
     private void btnClearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearMouseClicked
@@ -992,14 +887,12 @@ public class BOOK extends javax.swing.JFrame {
         txtPlace.setText("");
         txtPublisher.setText("");
         combobinding.setSelectedItem("");
-        txtPrice.setText("");
-
+        txtPrice.setText(""); 
         comboxtype.setSelectedItem("");
         txtBarcode.setText("");
     }//GEN-LAST:event_btnClearMouseClicked
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-
         txtBarcode.setEnabled(false);
         txtBookTitle.setEnabled(true);
         DateBook.setEnabled(true);
@@ -1011,8 +904,7 @@ public class BOOK extends javax.swing.JFrame {
         txtPublisher.setEnabled(true);
         combobinding.setEnabled(true);
         DateBook.setEnabled(true);
-        txtPrice.setEnabled(true);
-
+        txtPrice.setEnabled(true); 
         comboxtype.setEnabled(true);
         status.setEnabled(true);
         days.setEnabled(true);
@@ -1034,27 +926,24 @@ public class BOOK extends javax.swing.JFrame {
                 txtPlace.setText("");
                 txtPublisher.setText("");
                 combobinding.setSelectedItem("");
-                txtPrice.setText("");
-
+                txtPrice.setText(""); 
                 comboxtype.setSelectedItem("");
                 txtBarcode.setText("");
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-
+        } 
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         if (txtBarcode.getText().trim().isEmpty() || txtBookTitle.getText().trim().isEmpty() || txtauthor.getText().trim().isEmpty() || txtedNumber.getText().trim().isEmpty() || txtPageVol.getText().trim().isEmpty() || txtPlace.getText().trim().isEmpty() || txtPublisher.getText().trim().isEmpty() || txtPrice.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Fields cannot be empty");
-        } else {
-
+        } else { 
             String tempisbn = txtBarcode.getText();
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             String date = s.format(DateBook.getDate());
  
-            String query = "INSERT INTO `tbl_librarybook` VALUES ('" + Global_Variable.BookId + "','" + tempisbn + "','" + date + "','" + txtBookTitle.getText() + "','" + txtauthor.getText() + "','" + txtedNumber.getText() + "','" + txtPageVol.getText() + "','" + txtPlace.getText()+ "','" + txtPublisher.getText()+ "','" + YearBook.getYear() + "','" + combobinding.getSelectedItem() + "','" + txtPrice.getText() + "','" + comboxtype.getSelectedItem() + "','" + Global_Variable.category_id + "','" + totalcopies.getText() + "','" + status.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
+            String query = "INSERT INTO `tbl_librarybook` VALUES ('" + Global_Variable.BookId + "','" + tempisbn + "','" + date + "','" + txtBookTitle.getText() + "','" + txtauthor.getText() + "','" + txtedNumber.getText() + "','" + txtPageVol.getText() + "','" + txtPlace.getText()+ "','" + txtPublisher.getText()+ "','" + YearBook.getYear() + "','" + combobinding.getSelectedItem() + "','" + txtPrice.getText() + "','" + comboxtype.getSelectedItem() + "','" + totalcopies.getText() + "','" + status.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
             executesqlQuery(query, "Added");
            
             txtBarcode.setText("");
@@ -1094,8 +983,7 @@ public class BOOK extends javax.swing.JFrame {
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Cannot input letters");
-
+            JOptionPane.showMessageDialog(null, "Cannot input letters"); 
         }
     }//GEN-LAST:event_txtPriceKeyTyped
 
@@ -1120,8 +1008,7 @@ public class BOOK extends javax.swing.JFrame {
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Cannot input letters");
-
+            JOptionPane.showMessageDialog(null, "Cannot input letters"); 
         }
     }//GEN-LAST:event_txtPageVolKeyTyped
 
@@ -1130,8 +1017,7 @@ public class BOOK extends javax.swing.JFrame {
         if (!(Character.isDigit(c))) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Cannot input letters");
-
+            JOptionPane.showMessageDialog(null, "Cannot input letters"); 
         }
     }//GEN-LAST:event_txtedNumberKeyTyped
 
@@ -1140,7 +1026,6 @@ public class BOOK extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBarcodeKeyTyped
 
     private void txtBarcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBarcodeKeyReleased
-
         txtBarcode.setEnabled(true);
         txtBookTitle.setEnabled(true);
         DateBook.setEnabled(true);
@@ -1152,8 +1037,7 @@ public class BOOK extends javax.swing.JFrame {
         txtPublisher.setEnabled(true);
         combobinding.setEnabled(true);
         DateBook.setEnabled(true);
-        txtPrice.setEnabled(true);
-
+        txtPrice.setEnabled(true); 
         comboxtype.setEnabled(true);
         status.setEnabled(true);
         days.setEnabled(true);
@@ -1222,8 +1106,7 @@ public class BOOK extends javax.swing.JFrame {
         txtPlace.setText("");
         txtPublisher.setText("");
         combobinding.setSelectedItem("");
-        txtPrice.setText("");
-
+        txtPrice.setText(""); 
         comboxtype.setSelectedItem("");
         txtBarcode.setText("");
         updatebook.hide();
@@ -1303,7 +1186,7 @@ public class BOOK extends javax.swing.JFrame {
     }//GEN-LAST:event_btnaccessPrintActionPerformed
 
     private void btndelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndelete1ActionPerformed
-         updatebook.show();
+        updatebook.show();
         DateBook.hide();
         
         String query = "DELETE from tbl_librarybook where ISBNBarcode =" + txtBarcode.getText();
@@ -1338,8 +1221,6 @@ public class BOOK extends javax.swing.JFrame {
         days.setEnabled(false);
         available.setEnabled(false);
         updatebook.setEnabled(false);
-        //DateBook.show();
-       // updatebook.show();
     }//GEN-LAST:event_btndelete1ActionPerformed
 
     private void accessionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_accessionKeyReleased
@@ -1369,7 +1250,6 @@ public class BOOK extends javax.swing.JFrame {
                 status.setEnabled(false);
                 break;
         }
-
     }//GEN-LAST:event_statusItemStateChanged
 
     private void updatebookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebookActionPerformed
@@ -1436,7 +1316,7 @@ public class BOOK extends javax.swing.JFrame {
                 totalcopies.setText(rs.getString("ISBNBarcode"));
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1522,27 +1402,23 @@ public class BOOK extends javax.swing.JFrame {
                 user.add(rs.getString(14));
                 user.add(rs.getString(15));
                 user.add(rs.getString(16));
-                user.add(rs.getString(18));
-                useVector.add(user);
-
+                user.add(rs.getString(17));
+                useVector.add(user); 
             }
         } catch (Exception e) {
 
             JOptionPane.showMessageDialog(null, e.toString());
         }
         return useVector;
-    }
-
+    } 
     private Vector<Vector<String>> SearchAccession(String sqlSearch) {
         Vector<Vector<String>> accession = new Vector<Vector<String>>();
         Connection con = null;
-        Statement st = null;
-
+        Statement st = null; 
         try {
             con = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
             st = con.createStatement();
-            ResultSet rs = st.executeQuery(sqlSearch);
-
+            ResultSet rs = st.executeQuery(sqlSearch); 
             while (rs.next()) {
                 Vector<String> access = new Vector<String>();
                 access.add(rs.getString(1));
@@ -1555,6 +1431,5 @@ public class BOOK extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.toString());
         }
         return accession;
-    }
-
+    } 
 }

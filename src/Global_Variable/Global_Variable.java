@@ -23,7 +23,7 @@ public class Global_Variable {
     public static int acccdId;
     public static int accjournalId;
     public static int accmagazineId;
-    public static int accnewspaperId;
+    public static int accnewspaperId; 
 
     //for material borrow
     public static int inbookId;

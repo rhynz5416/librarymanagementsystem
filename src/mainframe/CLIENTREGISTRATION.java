@@ -10,24 +10,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
-import Global_Variable.Global_Variable;
-import MaterialEntry.CD;
+import Global_Variable.Global_Variable; 
 import java.text.MessageFormat;
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JTable;
-import jdk.nashorn.internal.scripts.JO;
+import javax.swing.JTable; 
 
 public class CLIENTREGISTRATION extends javax.swing.JFrame {
 
     Global_Variable global = new Global_Variable();
     private Vector<Vector<String>> data;
-    private Vector<String> header;
-
-    //dbConn con = new dbConn();
+    private Vector<String> header; 
     dbConn con = new dbConn();
     Statement st;
 
@@ -53,7 +45,7 @@ public class CLIENTREGISTRATION extends javax.swing.JFrame {
         String dateissue = sss.format(d);
         String data[] = dateissue.split("/");
         int a = Integer.parseInt(data[0]) + 1;
-        SimpleDateFormat ss = new SimpleDateFormat("MM-dd- ");
+        SimpleDateFormat ss = new SimpleDateFormat("MM-dd-");
 
         txtexpirydate.setText(ss.format(d) + " " + a);
         tbl_reg.removeColumn(tbl_reg.getColumnModel().getColumn(0));
@@ -72,34 +64,25 @@ public class CLIENTREGISTRATION extends javax.swing.JFrame {
         txtdateissue.setEnabled(false);
         txtpaymentfee.setEnabled(false);
         txtchange.setEnabled(false);
-        txtpaymentReceived.setEnabled(false);
-
-    }
-
-    //for the query
+        txtpaymentReceived.setEnabled(false); 
+    }  
     private void executesqlQuery(String query, String message) {
         try {
             st = null;
             st = con.dbconn().createStatement();
-            if ((st.executeUpdate(query)) == 1) {
-                //for tablebook
+            if ((st.executeUpdate(query)) == 1) { 
                 Conn connecting = new Conn();
-                data = connecting.getClient();
-                //for setting the table for model
+                data = connecting.getClient(); 
                 tbl_reg.setModel(new javax.swing.table.DefaultTableModel(data, header));
-
                 tbl_reg.removeColumn(tbl_reg.getColumnModel().getColumn(0));
-
                 JOptionPane.showMessageDialog(null, "Data " + message + " successfully");
             } else {
                 JOptionPane.showMessageDialog(null, "Data " + message + ".");
             }
-        } catch (Exception ex) {
-
+        } catch (Exception ex) { 
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-    }
-
+    } 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -495,7 +478,6 @@ public class CLIENTREGISTRATION extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboxBorrowTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboxBorrowTypeItemStateChanged
-    
         switch (comboxBorrowType.getSelectedItem().toString()) {
             case "BISU Balilihan Student":
                 comboxCourse.setEnabled(true);
@@ -557,17 +539,14 @@ public class CLIENTREGISTRATION extends javax.swing.JFrame {
             comboxBorrowType.setEnabled(true);
             comboxCourse.setEnabled(true);
             txtdateissue.setEditable(false);
-            txtexpirydate.setEditable(false);
-
+            txtexpirydate.setEditable(false); 
         }
     }//GEN-LAST:event_txtBarcodeActionPerformed
 
     private void txtBarcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBarcodeKeyReleased
-
         if (validateBarcode(txtBarcode.getText())) {
             JOptionPane.showMessageDialog(null, "Duplicate barcode!");
-        }
-
+        } 
         txtBarcode.setEnabled(true);
         txtName.setEnabled(true);
         dateofBirth.setEnabled(true);
@@ -609,25 +588,20 @@ public class CLIENTREGISTRATION extends javax.swing.JFrame {
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
         String temp1 = txtSearch.getText() + "%";
-
         data = theSearch("Select * from tbl_clientregistration where ClientBarcode like '" + temp1 + "' || Name like '" + temp1 + "'|| ClientType like '" + temp1 + "'|| Gender like '" + temp1 + "'|| Course like '" + temp1 + "'");
-
         tbl_reg.setModel(new javax.swing.table.DefaultTableModel(data, header));
-
-        tbl_reg.removeColumn(tbl_reg.getColumnModel().getColumn(0));
+    tbl_reg.removeColumn(tbl_reg.getColumnModel().getColumn(0));
     }//GEN-LAST:event_txtSearchKeyReleased
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
-     
         if (txtBarcode.getText().trim().isEmpty() || txtName.getText().trim().isEmpty() || dateofBirth.getDateFormatString().trim().isEmpty() || txtAddress.getText().trim().isEmpty() || txtdateissue.getText().trim().isEmpty() || txtexpirydate.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Fields cannot be empty");
-        } else {
-
+        } else { 
             String tempisbn = txtBarcode.getText();
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             String birthday = s.format(dateofBirth.getDate());
 
-            String q = "INSERT INTO `tbl_clientregistration` VALUES ('" + Global_Variable.client_id + "','" + tempisbn + "','" + txtName.getText() + "','" + birthday + "','" + comboxGender.getSelectedItem() + "','" + txtAddress.getText() + "','" + comboxBorrowType.getSelectedItem() + "','" + comboxCourse.getSelectedItem() + "','" + txtdateissue.getText() + "','" + txtexpirydate.getText() + "','" + txtusername.getText() + "','" + txtpassword.getText() + "','"+Global_Variable.category_id+"')";
+            String q = "INSERT INTO `tbl_clientregistration` VALUES ('" + Global_Variable.client_id + "','" + tempisbn + "','" + txtName.getText() + "','" + birthday + "','" + comboxGender.getSelectedItem() + "','" + txtAddress.getText() + "','" + comboxBorrowType.getSelectedItem() + "','" + comboxCourse.getSelectedItem() + "','" + txtdateissue.getText() + "','" + txtexpirydate.getText() + "','" + txtusername.getText() + "','" + txtpassword.getText() + "')";
             executesqlQuery(q, "added");
 
             txtBarcode.setText("");
@@ -827,8 +801,7 @@ public class CLIENTREGISTRATION extends javax.swing.JFrame {
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
         MessageFormat header = new MessageFormat("Client Registration Reports");
-        MessageFormat footer = new MessageFormat("page{0,number,integer}");
-
+        MessageFormat footer = new MessageFormat("page{0,number,integer}"); 
         try {
             tbl_reg.print(JTable.PrintMode.FIT_WIDTH, header, footer);
         } catch (java.awt.print.PrinterException e) {

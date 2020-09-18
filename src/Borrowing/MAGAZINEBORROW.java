@@ -64,7 +64,7 @@ public class MAGAZINEBORROW extends javax.swing.JFrame {
 
     public ArrayList<C_LibraryMaterialMagazine> getMagazineList() {
         ArrayList<C_LibraryMaterialMagazine> Mags = new ArrayList<C_LibraryMaterialMagazine>();
-        String query = "select * from `tbl_magazine` where category_id=" + Global_Variable.category_id;
+        String query = "select * from `tbl_magazine` where ISBNBarcode=" + Global_Variable.MagazineId;
         ResultSet rs;
 
         try {
@@ -424,7 +424,7 @@ public class MAGAZINEBORROW extends javax.swing.JFrame {
 
             String tempbarcode = txt_Borrow_magazineAccNo.getText();
 
-            String query = "SELECT * FROM `tbl_magazineaccession` WHERE accession= '"+tempbarcode+"' and category_id='"+Global_Variable.category_id+"'" ;
+            String query = "SELECT * FROM `tbl_magazineaccession` WHERE accession= '"+tempbarcode+"'" ;
             SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
 
             st = con.dbconn().createStatement();
@@ -593,7 +593,7 @@ public class MAGAZINEBORROW extends javax.swing.JFrame {
                         if (txt_Borrow_magazineBarcode.getText().trim().isEmpty() || txt_Borrow_magazineRCBarcode.getText().trim().isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Borrow_magazineAccNo.getText() + "','" + txt_Borrow_magazineBarcode.getText() + "','" + txt_Borrow_magazineRCBarcode.getText() + "','" + borrowinside.getText() + "','"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Borrow_magazineAccNo.getText() + "','" + txt_Borrow_magazineBarcode.getText() + "','" + txt_Borrow_magazineRCBarcode.getText() + "','" + borrowinside.getText() + "')";
                             executeSqlQuery(queries, "Transaction Added");
 
                             try {
@@ -604,7 +604,7 @@ public class MAGAZINEBORROW extends javax.swing.JFrame {
                             }
                             try {
 
-                                String querys = "INSERT INTO `tbl_borrowinside` VALUES ('" + Global_Variable.inmagazineId + "','" + magazine.getText() + "','" + txt_Borrow_magazineAccNo.getText() + "','" + txt_Borrow_magazineBarcode.getText() + "','" + copyIES.getText() + "','" + txt_Borrow_magazineRCBarcode.getText() + "','" + Global_Variable.category_id + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
+                                String querys = "INSERT INTO `tbl_borrowinside` VALUES ('" + Global_Variable.inmagazineId + "','" + magazine.getText() + "','" + txt_Borrow_magazineAccNo.getText() + "','" + txt_Borrow_magazineBarcode.getText() + "','" + copyIES.getText() + "','" + txt_Borrow_magazineRCBarcode.getText() + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
                                 executeSqlQuery(querys, "Magazine Borrowed");
                                 txt_Borrow_magazineAccNo.setText("");
                                 txt_Borrow_magazineBarcode.setText("");
@@ -642,7 +642,7 @@ public class MAGAZINEBORROW extends javax.swing.JFrame {
         txt_Borrow_magazineBarcode.setEnabled(true);
         String accession = txt_Borrow_magazineAccNo.getText();
         try {
-            String query = "SELECT * FROM `tbl_magazineaccession` WHERE accession ='"+accession+"' and category_id='"+Global_Variable.category_id+"' ";
+            String query = "SELECT * FROM `tbl_magazineaccession` WHERE accession ='"+accession+"'";
             ResultSet rs;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
@@ -737,7 +737,7 @@ public class MAGAZINEBORROW extends javax.swing.JFrame {
                         if (txt_Borrow_magazineBarcode.getText().trim().isEmpty() || txt_Borrow_magazineRCBarcode.getText().trim().isEmpty()) {
                             JOptionPane.showMessageDialog(null, "Please Scan the Barcode");
                         } else {
-                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Borrow_magazineAccNo.getText() + "','" + txt_Borrow_magazineBarcode.getText() + "','" + txt_Borrow_magazineRCBarcode.getText() + "','" + borrowinside.getText() + "','"+Global_Variable.category_id+"')";
+                            String queries = "INSERT INTO `tbl_transaction` VALUES ('" + Global_Variable.transact_id + "','" + txt_Borrow_magazineAccNo.getText() + "','" + txt_Borrow_magazineBarcode.getText() + "','" + txt_Borrow_magazineRCBarcode.getText() + "','" + borrowinside.getText() + "')";
                             executeSqlQuery(queries, "Transaction Added");
 
                             try {
@@ -750,7 +750,7 @@ public class MAGAZINEBORROW extends javax.swing.JFrame {
                             try {
                                 SimpleDateFormat ss = new SimpleDateFormat("MM-dd-yyyy");
                                 String dated = ss.format(datereq.getDate());
-                                String querys = "INSERT INTO `tbl_borrowoutside` VALUES ('" + Global_Variable.outremagazineId + "','" + magazine.getText() + "','" + txt_Borrow_magazineAccNo.getText() + "','" + txt_Borrow_magazineBarcode.getText() + "','" + txt_Borrow_magazineRCBarcode.getText() + "','" + dated + "','" + Global_Variable.category_id + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
+                                String querys = "INSERT INTO `tbl_borrowoutside` VALUES ('" + Global_Variable.outremagazineId + "','" + magazine.getText() + "','" + txt_Borrow_magazineAccNo.getText() + "','" + txt_Borrow_magazineBarcode.getText() + "','" + txt_Borrow_magazineRCBarcode.getText() + "','" + dated + "','" + labelDate.getText() + "','" + labelTime.getText() + "')";
                                 executeSqlQuery(querys, "Magazine Borrowed");
                                 txt_Borrow_magazineBarcode.setText("");
                                 txt_Borrow_magazineAccNo.setText("");
@@ -868,7 +868,7 @@ public class MAGAZINEBORROW extends javax.swing.JFrame {
         ResultSet rs;
         String query;
         try {
-            query = "select * from `tbl_magazine` where ISBNBarcode='" + Barcode + "' and category_id=" + Global_Variable.category_id;
+            query = "select * from `tbl_magazine` where ISBNBarcode='" + Barcode + "'";
             st = null;
             st = con.dbconn().createStatement();
             rs = st.executeQuery(query);
