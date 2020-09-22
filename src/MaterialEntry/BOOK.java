@@ -802,7 +802,7 @@ public class BOOK extends javax.swing.JFrame {
                     accession.setText("");
                 } 
                 else{
-                    String accessnum = rss.getString("accession");
+                    String accessnum = rss.getString("accessID");
                     accession.setText(accessnum); 
                 } 
             }

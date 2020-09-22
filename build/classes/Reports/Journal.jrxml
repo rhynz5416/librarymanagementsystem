@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b0f8d964-bc0d-4fe6-8d66-e4116c776485">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#000000" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
@@ -7,7 +10,7 @@
 	<style name="Row" mode="Transparent">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
-                        <style></style>
+			<style/>
 		</conditionalStyle>
 	</style>
 	<queryString language="SQL">
@@ -30,10 +33,6 @@
 	</background>
 	<title>
 		<band height="136" splitType="Stretch">
-                        <image>
-				<reportElement x="48" y="14" width="114" height="93" uuid="35ca31a6-e5fa-4276-84af-b075f3a48c05"/>
-				<imageExpression><![CDATA["bisu.png"]]></imageExpression>
-			</image>
 			<staticText>
 				<reportElement style="Title" x="200" y="0" width="423" height="43" uuid="c6fabb9c-f303-4c90-bf05-f80f77d66bb0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
@@ -55,13 +54,16 @@
 				</textElement>
 				<text><![CDATA[Balilihan Campus Magsija, Balilihan, Bohol]]></text>
 			</staticText>
-                        <line>
+			<line>
 				<reportElement positionType="FixRelativeToBottom" x="0" y="-74" width="802" height="1" uuid="c7492837-beff-406e-935f-eac3054afaf4"/>
 				<graphicElement>
 					<pen lineWidth="2.0" lineColor="#999999"/>
 				</graphicElement>
 			</line>
-			
+			<image>
+				<reportElement x="51" y="23" width="100" height="92" uuid="5283cdae-a2ad-49ae-a3f0-26b9428b20fd"/>
+				<imageExpression><![CDATA["D:\\other_laptop\\INSTALLER\\LIBRARY\\system\\LIBRARY_MANAGEMENT_SYSTEM\\src\\Reports\\bisu.png"]]></imageExpression>
+			</image>
 		</band>
 	</title>
 	<pageHeader>
@@ -117,7 +119,7 @@
 					<textElement textAlignment="Center"/>
 					<textFieldExpression><![CDATA[$F{Status}]]></textFieldExpression>
 				</textField>
-                                <line>
+				<line>
 					<reportElement positionType="FixRelativeToBottom" x="0" y="14" width="802" height="1" uuid="a042e2e3-21fb-46fe-a443-782db6a98463"/>
 					<graphicElement>
 						<pen lineWidth="2.0" lineColor="#999999"/>
