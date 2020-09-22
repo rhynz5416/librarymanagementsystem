@@ -64,7 +64,7 @@ public class CD extends javax.swing.JFrame {
         comboGenre.setEnabled(false);
         days.setEnabled(false);
         available.setEnabled(false);
-        status1.setEnabled(false);
+        status.setEnabled(false);
         updateCD.hide();
         accession.setEnabled(false);
         total.setEditable(false);
@@ -74,68 +74,6 @@ public class CD extends javax.swing.JFrame {
         tble_cd.removeColumn(tble_cd.getColumnModel().getColumn(0));
         tbl_access.removeColumn(tbl_access.getColumnModel().getColumn(0));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-    }
-
-    public ArrayList<C_LibraryMaterialCD> getcdList() {
-        ArrayList<C_LibraryMaterialCD> CD = new ArrayList<C_LibraryMaterialCD>();
-
-        String query = "select * from `tbl_cd` where cd_Barcode ='" + Global_Variable.CdId + "'";
-        ResultSet rs;
-        try {
-            st = null;
-            st = con.dbconn().createStatement();
-            rs = st.executeQuery(query);
-
-            C_LibraryMaterialCD Cd;
-            while (rs.next()) {
-                Cd = new C_LibraryMaterialCD(rs.getInt("id"), rs.getString("cd_Barcode"), rs.getString("cd_DateAcquisition"), rs.getString("cd_Title"), rs.getInt("cd_EditionNumber"), rs.getString("cd_Place"), rs.getString("cd_Producer"), rs.getInt("cd_Year"), rs.getString("cd_Genre"));
-                CD.add(Cd);
-            }
-        } catch (Exception a) {
-            a.printStackTrace();
-        }
-        return CD;
-    } 
-    public void LibraryCd() {
-        ArrayList<C_LibraryMaterialCD> cD = getcdList();
-        DefaultTableModel model = (DefaultTableModel) tble_cd.getModel();
-        Object[] row = new Object[2];
-        for (int b = 0; b < cD.size(); b++) {
-
-            row[0] = cD.get(b).getcd_barcode();
-            row[1] = cD.get(b).getcd_Title();
-            model.addRow(row);
-        }
-    } 
-    public ArrayList<C_CDAccession> getAccess() {
-        ArrayList<C_CDAccession> access = new ArrayList<C_CDAccession>();
-
-        String query = "select * from `tbl_cdaccession`";
-        ResultSet rs;
-        try {
-            st = null;
-            st = con.dbconn().createStatement();
-            rs = st.executeQuery(query);
-
-            C_CDAccession Cd;
-            while (rs.next()) {
-                Cd = new C_CDAccession(rs.getInt("id"), rs.getInt("accession"), rs.getString("Status"));
-                access.add(Cd);
-            }
-        } catch (Exception a) {
-            a.printStackTrace();
-        }
-        return access;
-    } 
-    public void CdAccess() {
-        ArrayList<C_CDAccession> accession = getAccess();
-        DefaultTableModel model = (DefaultTableModel) tbl_access.getModel();
-        Object[] row = new Object[1];
-        for (int b = 0; b < accession.size(); b++) {
-
-            row[0] = accession.get(b).getaccession();
-            model.addRow(row);
-        }
     } 
     //for cd query
     public void executeSQlquery(String query, String message) {
@@ -156,10 +94,10 @@ public class CD extends javax.swing.JFrame {
                 tbl_access.setModel(new javax.swing.table.DefaultTableModel(datas, headers));
 
                 tbl_access.removeColumn(tbl_access.getColumnModel().getColumn(0));
-                JOptionPane.showMessageDialog(null, "Data " + message + " successfully");
+                JOptionPane.showMessageDialog(null, message + " successfully");
 
             } else {
-                JOptionPane.showMessageDialog(null, "Data " + message + " successfully");
+                JOptionPane.showMessageDialog(null, message + ".");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -200,12 +138,12 @@ public class CD extends javax.swing.JFrame {
         jLabel59 = new javax.swing.JLabel();
         txtproducer = new javax.swing.JTextField();
         label3 = new javax.swing.JLabel();
-        status1 = new javax.swing.JComboBox();
         label1 = new javax.swing.JLabel();
-        days = new javax.swing.JComboBox();
         jLabel62 = new javax.swing.JLabel();
-        available = new javax.swing.JComboBox();
         updateCD = new javax.swing.JTextField();
+        status = new javax.swing.JComboBox();
+        days = new javax.swing.JComboBox();
+        available = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jLabel60 = new javax.swing.JLabel();
         jLabel55 = new javax.swing.JLabel();
@@ -214,8 +152,6 @@ public class CD extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jLabel58 = new javax.swing.JLabel();
         searchAccess = new javax.swing.JTextField();
-        btnPrintcd = new javax.swing.JButton();
-        btnPrintAccess = new javax.swing.JButton();
         book = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -312,7 +248,7 @@ public class CD extends javax.swing.JFrame {
             }
         });
         jPanel5.add(txtsearch);
-        txtsearch.setBounds(1180, 130, 180, 30);
+        txtsearch.setBounds(1180, 130, 300, 30);
 
         tbl_access.setModel(new javax.swing.table.DefaultTableModel(datas,headers));
         jScrollPane2.setViewportView(tbl_access);
@@ -460,43 +396,15 @@ public class CD extends javax.swing.JFrame {
         jPanel2.add(label3);
         label3.setBounds(140, 300, 70, 30);
 
-        status1.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        status1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Damaged", "Lost" }));
-        status1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        status1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                status1ItemStateChanged(evt);
-            }
-        });
-        status1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                status1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(status1);
-        status1.setBounds(200, 300, 130, 30);
-
         label1.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         label1.setText("No of days:");
         jPanel2.add(label1);
         label1.setBounds(110, 330, 80, 30);
 
-        days.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        days.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "----", "3", "2", "1" }));
-        days.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPanel2.add(days);
-        days.setBounds(200, 330, 130, 30);
-
         jLabel62.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         jLabel62.setText("Availability to be borrow outside:");
         jPanel2.add(jLabel62);
         jLabel62.setBounds(60, 360, 240, 30);
-
-        available.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        available.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "YES", "NO" }));
-        available.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPanel2.add(available);
-        available.setBounds(280, 360, 70, 30);
 
         updateCD.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         updateCD.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -512,6 +420,34 @@ public class CD extends javax.swing.JFrame {
         });
         jPanel2.add(updateCD);
         updateCD.setBounds(200, 90, 270, 30);
+
+        status.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
+        status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Damaged", "Lost" }));
+        status.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        status.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                statusItemStateChanged(evt);
+            }
+        });
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusActionPerformed(evt);
+            }
+        });
+        jPanel2.add(status);
+        status.setBounds(200, 300, 300, 30);
+
+        days.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
+        days.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---", "5", "4", "3", "2", "1" }));
+        days.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel2.add(days);
+        days.setBounds(200, 330, 90, 30);
+
+        available.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
+        available.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "YES", "NO" }));
+        available.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel2.add(available);
+        available.setBounds(270, 360, 70, 30);
 
         jPanel5.add(jPanel2);
         jPanel2.setBounds(230, 80, 560, 450);
@@ -577,33 +513,7 @@ public class CD extends javax.swing.JFrame {
             }
         });
         jPanel5.add(searchAccess);
-        searchAccess.setBounds(1220, 470, 180, 30);
-
-        btnPrintcd.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        btnPrintcd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
-        btnPrintcd.setText("Print");
-        btnPrintcd.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 255)));
-        btnPrintcd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnPrintcd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintcdActionPerformed(evt);
-            }
-        });
-        jPanel5.add(btnPrintcd);
-        btnPrintcd.setBounds(1380, 130, 100, 30);
-
-        btnPrintAccess.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        btnPrintAccess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
-        btnPrintAccess.setText("Print");
-        btnPrintAccess.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 255)));
-        btnPrintAccess.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnPrintAccess.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintAccessActionPerformed(evt);
-            }
-        });
-        jPanel5.add(btnPrintAccess);
-        btnPrintAccess.setBounds(1420, 470, 100, 30);
+        searchAccess.setBounds(1220, 470, 260, 30);
 
         book.setFont(new java.awt.Font("Lucida Fax", 1, 24)); // NOI18N
         book.setText("CD");
@@ -649,8 +559,8 @@ public class CD extends javax.swing.JFrame {
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             String datecd = s.format(dateCD.getDate());
             String tempcdBarcode = txtBarcode.getText();
-            String query = "INSERT INTO `tbl_cd` VALUES ('" + Global_Variable.CdId + "','" + tempcdBarcode + "','" + datecd + "','" + txtCdTitle.getText() + "','" + txtednum.getText() + "','" + txtplace.getText() + "','" + txtproducer.getText() + "','" + Year.getYear() + "','" + comboGenre.getSelectedItem()+ "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
-            executeSQlquery(query, "Added");
+            String query = "INSERT INTO `tbl_cd` VALUES ('" + Global_Variable.CdId + "','" + tempcdBarcode + "','" + datecd + "','" + txtCdTitle.getText() + "','" + txtednum.getText() + "','" + txtplace.getText() + "','" + txtproducer.getText() + "','" + Year.getYear() + "','" + comboGenre.getSelectedItem()+ "','" + total.getText() + "','" + status.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
+            executeSQlquery(query, txtCdTitle.getText()+" added");
 
             dateCD.setDateFormatString("");
             txtCdTitle.setText("");
@@ -659,8 +569,9 @@ public class CD extends javax.swing.JFrame {
             txtproducer.setText("");
             comboGenre.setSelectedItem("");
             txtBarcode.setText("");
+            accession.setText("");
 
-          /*  txtBarcode.setEnabled(true);
+            txtBarcode.setEnabled(true);
             dateCD.setEnabled(false);
             updateCD.setEnabled(false);
             txtCdTitle.setEnabled(false);
@@ -670,10 +581,10 @@ public class CD extends javax.swing.JFrame {
             comboGenre.setEnabled(false);
             days.setEnabled(false);
             available.setEnabled(false);
-            status1.setEnabled(false);
-            Year.setEnabled(false);*/
-
+            status.setEnabled(false);
+            Year.setEnabled(false); 
         }
+       
     }//GEN-LAST:event_btnsaveActionPerformed
 
     private void btneditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditActionPerformed
@@ -687,7 +598,7 @@ public class CD extends javax.swing.JFrame {
         updateCD.setEnabled(true);
         try {
             String query = "UPDATE `tbl_cd` SET `cd_Barcode`='" + txtBarcode.getText() + "',`cd_DateAcquisition`='" + updateCD.getText() + "',`cd_Title`='" + txtCdTitle.getText() + "',`cd_EditionNumber`='" + txtednum.getText() + "',`cd_Place`='" + txtplace.getText() + "',`cd_Producer`='" + txtproducer.getText() + "',`cd_Year`='" + Year.getYear() + "',`cd_Genre`='" + comboGenre.getSelectedItem() + "' WHERE cd_Barcode=" + txtBarcode.getText();
-            executeSQlquery(query, "Updated");
+            executeSQlquery(query, txtCdTitle.getText()+" updated");
         } catch (Exception e) {
             e.printStackTrace();
         } 
@@ -695,7 +606,7 @@ public class CD extends javax.swing.JFrame {
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         String query = "DELETE FROM `tbl_cd` WHERE `cd_Barcode`='" + txtBarcode.getText() + "'";
-        executeSQlquery(query, "Deleted");
+        executeSQlquery(query, txtCdTitle.getText()+" deleted");
         dateCD.setDateFormatString("");
         txtCdTitle.setText("");
         txtednum.setText("");
@@ -703,6 +614,8 @@ public class CD extends javax.swing.JFrame {
         txtproducer.setText("");
         comboGenre.setSelectedItem("");
         txtBarcode.setText(""); 
+         accession.setText("");
+        total.setText("");
         
         dateCD.setEnabled(false);
         txtCdTitle.setEnabled(false);
@@ -713,7 +626,7 @@ public class CD extends javax.swing.JFrame {
         txtBarcode.setEnabled(true);
         updateCD.setEnabled(false);
         Year.setEnabled(false);
-        status1.setEnabled(false);
+        status.setEnabled(false);
         days.setEnabled(false);
         available.setEnabled(false);
         dateCD.show();
@@ -772,11 +685,13 @@ public class CD extends javax.swing.JFrame {
         txtproducer.setEnabled(true);
         comboGenre.setEnabled(true);
         txtBarcode.setEnabled(true);
-        status1.setEnabled(true);
+        status.setEnabled(true);
         days.setEnabled(true);
         available.setEnabled(true);
         Year.setEnabled(true);
+        updateCD.setEnabled(true);
         try {
+            
             int row = tble_cd.getSelectedRow();
             String cell_click = (tble_cd.getModel().getValueAt(row, 1).toString());
 
@@ -810,8 +725,8 @@ public class CD extends javax.swing.JFrame {
                 String genre = rs.getString("cd_Genre");
                 comboGenre.setSelectedItem(genre);
 
-                String status = rs.getString("Status");
-                status1.setSelectedItem(status);
+                String statuss = rs.getString("Status");
+                status.setSelectedItem(statuss);
 
                 String  day = rs.getString("days");
                 days.setSelectedItem(day);
@@ -822,14 +737,39 @@ public class CD extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         } 
+         
         int choice;
         choice = JOptionPane.showConfirmDialog(null, "Add accession number?"); 
         if (choice == JOptionPane.YES_OPTION) {
-            CountCD();
+            CountCD();  
+            
             accession.setEnabled(true);
             tbl_access.setEnabled(false); 
             accession.getText(); 
-        } 
+        }  
+         Connection cnn = null;
+        Statement stt = null;
+        ResultSet rss = null;
+        
+        try { 
+            String query = "Select * from tbl_cdaccession"; 
+            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
+            stt = cnn.prepareStatement(query);
+            rss = stt.executeQuery(query); 
+            if (rss.next()) {  
+                int a;
+                a = Integer.parseInt(total.getText());
+                if (a == 0){
+                    accession.setText("");
+                } 
+                else{
+                    String accessnum = rss.getString("accession");
+                    accession.setText(accessnum); 
+                } 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_tble_cdMouseClicked
 
     private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
@@ -842,18 +782,18 @@ public class CD extends javax.swing.JFrame {
             int access = Integer.valueOf(a);
             a = Integer.toString(++access);
 
-            String queries = "Insert into tbl_cdaccession values ('" + Global_Variable.acccdId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','"+txtCdTitle.getText()+"','"+comboGenre.getSelectedItem()+"','"+total.getText()+"')";
-            executeSQlquery(queries, "Data Successfully Added");
+            String queries = "Insert into tbl_cdaccession values ('" + Global_Variable.acccdId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','"+txtCdTitle.getText()+"','"+comboGenre.getSelectedItem()+"')";
+            executeSQlquery(queries, "Accession number for " +txtCdTitle.getText()+" added");
             accession.setText(a);
             CountCD();
-            status1.setSelectedItem(null);
+            status.setSelectedItem(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         try {
-            String query = "UPDATE  `tbl_cd` SET  `NoOfCopies` ='" + total.getText() + "' WHERE  `cd_Barcode` =" + txtBarcode.getText();
-            executeSQlquery(query, "Number of cd's updated");
+            String query = "UPDATE  `tbl_cd` SET  `Copies` ='" + total.getText() + "' WHERE  `cd_Barcode` =" + txtBarcode.getText();
+            executeSQlquery(query, "Number of copies for "+txtCdTitle.getText()+" updated");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -875,28 +815,6 @@ public class CD extends javax.swing.JFrame {
         tbl_access.removeColumn(tbl_access.getColumnModel().getColumn(0));
     }//GEN-LAST:event_searchAccessKeyReleased
 
-    private void btnPrintcdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintcdActionPerformed
-        MessageFormat header = new MessageFormat("CD Reports");
-        MessageFormat footer = new MessageFormat("page{0,number,integer}");
-        try {
-
-            tble_cd.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-        } catch (java.awt.print.PrinterException e) {
-            System.err.format("can not print %s %n", e.getMessage());
-        }
-    }//GEN-LAST:event_btnPrintcdActionPerformed
-
-    private void btnPrintAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintAccessActionPerformed
-        MessageFormat header = new MessageFormat("Cd Accessions with ISBNBarcode");
-        MessageFormat footer = new MessageFormat("page{0,number,integer}");
-        try {
-
-            tbl_access.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-        } catch (java.awt.print.PrinterException e) {
-            System.err.format("can not print %s %n", e.getMessage());
-        }
-    }//GEN-LAST:event_btnPrintAccessActionPerformed
-
     private void searchAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchAccessActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchAccessActionPerformed
@@ -916,7 +834,7 @@ public class CD extends javax.swing.JFrame {
         comboGenre.setEnabled(true);
         days.setEnabled(true);
         available.setEnabled(true);
-        status1.setEnabled(true);
+        status.setEnabled(true);
         Year.setEnabled(true);
     }//GEN-LAST:event_txtBarcodeKeyReleased
 
@@ -926,34 +844,33 @@ public class CD extends javax.swing.JFrame {
      }
     }//GEN-LAST:event_accessionKeyReleased
 
-    private void status1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_status1ItemStateChanged
-        switch(status1.getSelectedItem().toString()){
-             case "Available":
-                days.setEnabled(true);
-                available.setEnabled(true);
-                
-                break;
-            case "Damaged":
-                days.setEnabled(false);
-                available.setEnabled(false);
-                break;
-            case "Lost":
-                days.setEnabled(false);
-                available.setEnabled(false);
-                break;
-            default:
-                status1.setEnabled(false);
-                break;
-        }
-    }//GEN-LAST:event_status1ItemStateChanged
-
     private void updateCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_updateCDActionPerformed
 
-    private void status1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_status1ActionPerformed
+    private void statusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_statusItemStateChanged
+        switch (status.getSelectedItem().toString()) {
+            case "Available":
+            days.setEnabled(true);
+            available.setEnabled(true);
+            break;
+            case "Damaged":
+            days.setEnabled(false);
+            available.setEnabled(false);
+            break;
+            case "Lost":
+            days.setEnabled(false);
+            available.setEnabled(false);
+            break;
+            default:
+            status.setEnabled(false);
+            break;
+        }
+    }//GEN-LAST:event_statusItemStateChanged
+
+    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_status1ActionPerformed
+    }//GEN-LAST:event_statusActionPerformed
 
     //to get the cd type for the database
     private String validatecdType() {
@@ -1012,8 +929,6 @@ public class CD extends javax.swing.JFrame {
     private javax.swing.JTextField accession;
     private javax.swing.JComboBox available;
     private javax.swing.JLabel book;
-    private javax.swing.JButton btnPrintAccess;
-    private javax.swing.JButton btnPrintcd;
     private javax.swing.JButton btnclear;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnedit;
@@ -1045,7 +960,7 @@ public class CD extends javax.swing.JFrame {
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label3;
     private javax.swing.JTextField searchAccess;
-    private javax.swing.JComboBox status1;
+    private javax.swing.JComboBox status;
     private javax.swing.JTable tbl_access;
     private javax.swing.JTable tble_cd;
     private javax.swing.JTextField total;

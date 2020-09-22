@@ -62,7 +62,7 @@ public class JOURNAL extends javax.swing.JFrame {
         txtsource.setEnabled(false);
         days.setEnabled(false);
         available.setEnabled(false);
-        status1.setEnabled(false);
+        status.setEnabled(false);
         txtaccession.setEnabled(false);
         Yearjournal.setEnabled(false);
         total.setEditable(false);
@@ -73,68 +73,7 @@ public class JOURNAL extends javax.swing.JFrame {
         tbl_access.removeColumn(tbl_access.getColumnModel().getColumn(0));
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
     }
-
-    public ArrayList<C_LibraryMaterialJournal> getJournalList() {
-        ArrayList<C_LibraryMaterialJournal> journal = new ArrayList<C_LibraryMaterialJournal>();
-        String query = "select * from `tbl_journal` where ISBNBarcode ='" + Global_Variable.CdId + "'";
-        ResultSet sr;
-        try {
-            st = null;
-            st = con.dbconn().createStatement();
-            sr = st.executeQuery(query);
-            C_LibraryMaterialJournal jour;
-            while (sr.next()) {
-                jour = new C_LibraryMaterialJournal(sr.getInt("id"), sr.getString("ISBNBarcode"), sr.getString("DateAcquisition"), sr.getString("J_Title"), sr.getString("J_Author"), sr.getString("J_Publisher"), sr.getInt("EditionNumber"), sr.getInt("Pagevol"), sr.getString("Place"), sr.getInt("Year"), sr.getString("Source"));
-                journal.add(jour);
-            }
-        } catch (Exception a) {
-            a.printStackTrace();
-        }
-        return journal;
-    }
-
-    //for journal table
-    public void LibraryJournal() {
-        ArrayList<C_LibraryMaterialJournal> journs = getJournalList();
-        DefaultTableModel model = (DefaultTableModel) tbl_journal.getModel();
-        Object[] row = new Object[2];
-        for (int b = 0; b < journs.size(); b++) {
-
-            row[0] = journs.get(b).getj_isbnBarcode();
-            row[1] = journs.get(b).getj_title();
-            model.addRow(row);
-        }
-    }
-
-    public ArrayList<C_JournalAccession> getJournalAccess() {
-        ArrayList<C_JournalAccession> access = new ArrayList<C_JournalAccession>();
-        String query = "select * from `tbl_journalaccession` ";
-        ResultSet sr;
-        try {
-            st = null;
-            st = con.dbconn().createStatement();
-            sr = st.executeQuery(query);
-            C_JournalAccession accession;
-            while (sr.next()) {
-                accession = new C_JournalAccession(sr.getInt("id"), sr.getInt("accession"), sr.getString("Status"));
-                access.add(accession);
-            }
-        } catch (Exception a) {
-            a.printStackTrace();
-        }
-        return access;
-    }
-
-    public void JournalAccess() {
-        ArrayList<C_JournalAccession> journs = getJournalAccess();
-        DefaultTableModel mode = (DefaultTableModel) tbl_access.getModel();
-        Object[] row = new Object[1];
-        for (int b = 0; b < journs.size(); b++) {
-
-            row[0] = journs.get(b).getaccession();
-            mode.addRow(row);
-        }
-    } 
+ 
     public void executeSqlquery(String query, String message) {
         try {
             st = null;
@@ -154,9 +93,9 @@ public class JOURNAL extends javax.swing.JFrame {
 
                 tbl_access.removeColumn(tbl_access.getColumnModel().getColumn(0));
 
-                JOptionPane.showMessageDialog(null, "Data " + message + " successfully");
+                JOptionPane.showMessageDialog(null, message + " successfully");
             } else {
-                JOptionPane.showMessageDialog(null, "Data " + message + ".");
+                JOptionPane.showMessageDialog(null, message + ".");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -192,10 +131,7 @@ public class JOURNAL extends javax.swing.JFrame {
         jLabel50 = new javax.swing.JLabel();
         label3 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
-        status1 = new javax.swing.JComboBox();
-        available = new javax.swing.JComboBox();
         label1 = new javax.swing.JLabel();
-        days = new javax.swing.JComboBox();
         txtsource = new javax.swing.JTextField();
         Yearjournal = new com.toedter.calendar.JYearChooser();
         txtplace = new javax.swing.JTextField();
@@ -207,6 +143,9 @@ public class JOURNAL extends javax.swing.JFrame {
         txtBarcode = new javax.swing.JTextField();
         dateJournal = new com.toedter.calendar.JDateChooser();
         updatejour = new javax.swing.JTextField();
+        status = new javax.swing.JComboBox();
+        days = new javax.swing.JComboBox();
+        available = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         txtaccession = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -215,8 +154,6 @@ public class JOURNAL extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
         searchAccess = new javax.swing.JTextField();
-        btnPrintJournal = new javax.swing.JButton();
-        btnPrintaccess = new javax.swing.JButton();
         book = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -227,7 +164,7 @@ public class JOURNAL extends javax.swing.JFrame {
         jLabel51.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         jLabel51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/b_search.png"))); // NOI18N
         jPanel4.add(jLabel51);
-        jLabel51.setBounds(1150, 540, 40, 30);
+        jLabel51.setBounds(1140, 540, 40, 30);
 
         jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel12.setLayout(null);
@@ -308,7 +245,7 @@ public class JOURNAL extends javax.swing.JFrame {
             }
         });
         jPanel4.add(txtsearch);
-        txtsearch.setBounds(1170, 170, 210, 30);
+        txtsearch.setBounds(1170, 170, 320, 30);
 
         tbl_access.setModel(new javax.swing.table.DefaultTableModel(datas,headers));
         jScrollPane2.setViewportView(tbl_access);
@@ -379,30 +316,10 @@ public class JOURNAL extends javax.swing.JFrame {
         jPanel2.add(jLabel62);
         jLabel62.setBounds(50, 430, 240, 30);
 
-        status1.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        status1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Damaged", "Lost" }));
-        status1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                status1ItemStateChanged(evt);
-            }
-        });
-        jPanel2.add(status1);
-        status1.setBounds(180, 370, 190, 30);
-
-        available.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        available.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "YES", "NO" }));
-        jPanel2.add(available);
-        available.setBounds(270, 430, 60, 30);
-
         label1.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         label1.setText("No of days:");
         jPanel2.add(label1);
         label1.setBounds(90, 400, 80, 30);
-
-        days.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        days.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "----", "3", "2", "1" }));
-        jPanel2.add(days);
-        days.setBounds(180, 400, 190, 30);
 
         txtsource.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         txtsource.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
@@ -525,6 +442,34 @@ public class JOURNAL extends javax.swing.JFrame {
         jPanel2.add(updatejour);
         updatejour.setBounds(180, 100, 230, 30);
 
+        status.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
+        status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Damaged", "Lost" }));
+        status.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        status.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                statusItemStateChanged(evt);
+            }
+        });
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusActionPerformed(evt);
+            }
+        });
+        jPanel2.add(status);
+        status.setBounds(200, 370, 300, 30);
+
+        days.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
+        days.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---", "5", "4", "3", "2", "1" }));
+        days.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel2.add(days);
+        days.setBounds(200, 400, 90, 30);
+
+        available.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
+        available.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "YES", "NO" }));
+        available.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel2.add(available);
+        available.setBounds(270, 430, 70, 30);
+
         jPanel4.add(jPanel2);
         jPanel2.setBounds(260, 100, 530, 510);
 
@@ -589,33 +534,7 @@ public class JOURNAL extends javax.swing.JFrame {
             }
         });
         jPanel4.add(searchAccess);
-        searchAccess.setBounds(1180, 540, 190, 30);
-
-        btnPrintJournal.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        btnPrintJournal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
-        btnPrintJournal.setText("Print");
-        btnPrintJournal.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 255)));
-        btnPrintJournal.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnPrintJournal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintJournalActionPerformed(evt);
-            }
-        });
-        jPanel4.add(btnPrintJournal);
-        btnPrintJournal.setBounds(1400, 170, 100, 33);
-
-        btnPrintaccess.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        btnPrintaccess.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
-        btnPrintaccess.setText("Print");
-        btnPrintaccess.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 255)));
-        btnPrintaccess.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnPrintaccess.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintaccessActionPerformed(evt);
-            }
-        });
-        jPanel4.add(btnPrintaccess);
-        btnPrintaccess.setBounds(1390, 540, 100, 33);
+        searchAccess.setBounds(1170, 540, 340, 30);
 
         book.setFont(new java.awt.Font("Lucida Fax", 1, 24)); // NOI18N
         book.setText("Journal");
@@ -636,16 +555,16 @@ public class JOURNAL extends javax.swing.JFrame {
             int access = Integer.valueOf(a);
             a = Integer.toString(++access);
 
-            String queries = "Insert into tbl_journalaccession values ('" + Global_Variable.accjournalId + "','" + txtaccession.getText() + "','" + txtBarcode.getText() + "','" + txtJournalTitle.getText() + "','" + txtAuthor.getText() + "','" + txtPublisher.getText() + "','"+total.getText()+"')";
-            executeSqlquery(queries, "Data Successfully Added");
+            String queries = "Insert into tbl_journalaccession values ('" + Global_Variable.accjournalId + "','" + txtaccession.getText() + "','" + txtBarcode.getText() + "','" + txtJournalTitle.getText() + "','" + txtAuthor.getText() + "','" + txtPublisher.getText() + "')";
+            executeSqlquery(queries, "Accession number for "+txtJournalTitle.getText()+" added");
             CountJournal();
             txtaccession.setText(a);
         } catch (Exception e) {
             e.printStackTrace();
         }
         try {
-            String queriy = "UPDATE `tbl_journal` SET  `NoOfCopies` ='" + total.getText() + "' WHERE  `ISBNBarcode` =" + txtBarcode.getText();
-            executeSqlquery(queriy, "updated");
+            String queriy = "UPDATE `tbl_journal` SET  `Copies` ='" + total.getText() + "' WHERE  `ISBNBarcode` =" + txtBarcode.getText();
+            executeSqlquery(queriy, "Number of copies for "+txtJournalTitle.getText()+" updated");
         } catch (Exception e) {
             e.printStackTrace();
         } 
@@ -677,8 +596,9 @@ public class JOURNAL extends javax.swing.JFrame {
         txtsource.setEnabled(true);
         days.setEnabled(true);
         available.setEnabled(true);
-        status1.setEnabled(true);
+        status.setEnabled(true);
         Yearjournal.setEnabled(true);
+        updatejour.setEnabled(true);
         try {
 
             int row = tbl_journal.getSelectedRow();
@@ -718,7 +638,7 @@ public class JOURNAL extends javax.swing.JFrame {
                 String source = rs.getString("Source");
                 txtsource.setText(source);
 
-                String copies = rs.getString("NoOfCopies");
+                String copies = rs.getString("Copies");
                 total.setText(copies);
 
                 String day = rs.getString("days");
@@ -738,6 +658,29 @@ public class JOURNAL extends javax.swing.JFrame {
             tbl_access.setEnabled(false);
             txtaccession.getText();
         } 
+        Connection cnn = null;
+        Statement stt = null;
+        ResultSet rss = null;
+        
+        try { 
+            String query = "Select * from tbl_journalaccession"; 
+            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
+            stt = cnn.prepareStatement(query);
+            rss = stt.executeQuery(query); 
+            if (rss.next()) {  
+                int a;
+                a = Integer.parseInt(total.getText());
+                if (a == 0){
+                    txtaccession.setText("");
+                } 
+                else{
+                    String accessnum = rss.getString("accession");
+                    txtaccession.setText(accessnum); 
+                } 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_tbl_journalMouseClicked
 
     private void btnclearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearActionPerformed
@@ -757,7 +700,7 @@ public class JOURNAL extends javax.swing.JFrame {
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         String query = "DELETE FROM `tbl_journal` WHERE ISBNBarcode = " + txtBarcode.getText();
-        executeSqlquery(query, "Deleted");
+        executeSqlquery(query, txtJournalTitle.getText()+" deleted");
 
         dateJournal.setDateFormatString("");
         txtJournalTitle.setText("");
@@ -769,6 +712,8 @@ public class JOURNAL extends javax.swing.JFrame {
         txtsource.setText("");
         txtBarcode.setText("");
         updatejour.setText("");
+         txtaccession.setText("");
+        total.setText("");
     }//GEN-LAST:event_btndeleteActionPerformed
 
     private void btnsaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnsaveActionPerformed
@@ -778,8 +723,8 @@ public class JOURNAL extends javax.swing.JFrame {
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             String datecd = s.format(dateJournal.getDate());
 
-            String query = "INSERT INTO `tbl_journal` VALUES ('" + Global_Variable.JournalId + "','" + txtBarcode.getText() + "','" + datecd + "','" + txtJournalTitle.getText() + "','" + txtAuthor.getText() + "','" + txtPublisher.getText() + "','" + txtedNo.getText() + "','" + txtpagevol.getText() + "','" + txtplace.getText() + "','" + Yearjournal.getYear() + "','" + txtsource.getText() + "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
-            executeSqlquery(query, "added");
+            String query = "INSERT INTO `tbl_journal` VALUES ('" + Global_Variable.JournalId + "','" + txtBarcode.getText() + "','" + datecd + "','" + txtJournalTitle.getText() + "','" + txtAuthor.getText() + "','" + txtPublisher.getText() + "','" + txtedNo.getText() + "','" + txtpagevol.getText() + "','" + txtplace.getText() + "','" + Yearjournal.getYear() + "','" + txtsource.getText() + "','" + total.getText() + "','" + status.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
+            executeSqlquery(query, txtJournalTitle.getText()+" added");
 
             dateJournal.setDateFormatString("");
             txtJournalTitle.setText("");
@@ -791,19 +736,19 @@ public class JOURNAL extends javax.swing.JFrame {
             txtsource.setText("");
             txtBarcode.setText("");
 
-            /* txtBarcode.setEnabled(true);
-             dateJournal.setEnabled(false);
-             txtJournalTitle.setEnabled(false);
-             txtAuthor.setEnabled(false);
-             txtPublisher.setEnabled(false);
-             txtedNo.setEnabled(false);
-             txtpagevol.setEnabled(false);
-             txtplace.setEnabled(false);
-             txtsource.setEnabled(false);
-             days.setEnabled(false);
-             available.setEnabled(false);
-             status1.setEnabled(false);
-             Yearjournal.setEnabled(false);*/
+            txtBarcode.setEnabled(true);
+            dateJournal.setEnabled(false);
+            txtJournalTitle.setEnabled(false);
+            txtAuthor.setEnabled(false);
+            txtPublisher.setEnabled(false);
+            txtedNo.setEnabled(false);
+            txtpagevol.setEnabled(false);
+            txtplace.setEnabled(false);
+            txtsource.setEnabled(false);
+            days.setEnabled(false);
+            available.setEnabled(false);
+            status.setEnabled(false);
+            Yearjournal.setEnabled(false); 
         }
     }//GEN-LAST:event_btnsaveActionPerformed
 
@@ -915,41 +860,19 @@ public class JOURNAL extends javax.swing.JFrame {
         txtpagevol.setEnabled(true);
         txtplace.setEnabled(true);
         txtsource.setEnabled(true);
-        status1.setEnabled(true);
+        status.setEnabled(true);
         days.setEnabled(true);
         available.setEnabled(true);
         Yearjournal.setEnabled(true);
         updatejour.setEnabled(true);
 
         try {
-            String query = "UPDATE `tbl_journal` SET `id`='" + Global_Variable.JournalId + "',`ISBNBarcode`='" + txtBarcode.getText() + "',`DateAcquisition`='" + updatejour.getText() + "',`J_Title`='" + txtJournalTitle.getText() + "',`J_Author`='" + txtAuthor.getText() + "',`J_Publisher`='" + txtPublisher.getText() + "',`EditionNumber`='" + txtedNo.getText() + "',`Pagevol`='" + txtpagevol.getText() + "',`Place`='" + txtplace.getText() + "',`Year`='" + Yearjournal.getYear() + "',`Source`='" + txtsource.getText() + "' ,`NoOfCopies`='" + total.getText() + "',`Status`='" + status1.getSelectedItem() + "',`days`='" + days.getSelectedItem() + "',`Availability`='" + available.getSelectedItem() + "' WHERE ISBNBarcode=" + txtBarcode.getText();
-            executeSqlquery(query, "Updated");
+            String query = "UPDATE `tbl_journal` SET `id`='" + Global_Variable.JournalId + "',`ISBNBarcode`='" + txtBarcode.getText() + "',`DateAcquisition`='" + updatejour.getText() + "',`J_Title`='" + txtJournalTitle.getText() + "',`J_Author`='" + txtAuthor.getText() + "',`J_Publisher`='" + txtPublisher.getText() + "',`EditionNumber`='" + txtedNo.getText() + "',`Pagevol`='" + txtpagevol.getText() + "',`Place`='" + txtplace.getText() + "',`Year`='" + Yearjournal.getYear() + "',`Source`='" + txtsource.getText() + "' ,`Copies`='" + total.getText() + "',`Status`='" + status.getSelectedItem() + "',`days`='" + days.getSelectedItem() + "',`Availability`='" + available.getSelectedItem() + "' WHERE ISBNBarcode=" + txtBarcode.getText();
+            executeSqlquery(query, txtJournalTitle.getText()+" updated");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnEditActionPerformed
-
-    private void btnPrintJournalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintJournalActionPerformed
-        MessageFormat header = new MessageFormat("Journal Reports");
-        MessageFormat footer = new MessageFormat("page{0,number,integer}");
-        try {
-
-            tbl_journal.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-        } catch (java.awt.print.PrinterException e) {
-            System.err.format("can not print %s %n", e.getMessage());
-        }
-    }//GEN-LAST:event_btnPrintJournalActionPerformed
-
-    private void btnPrintaccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintaccessActionPerformed
-        MessageFormat header = new MessageFormat("Journal accessions with ISBN Barcode Reports");
-        MessageFormat footer = new MessageFormat("page{0,number,integer}");
-        try {
-
-            tbl_access.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-        } catch (java.awt.print.PrinterException e) {
-            System.err.format("can not print %s %n", e.getMessage());
-        }
-    }//GEN-LAST:event_btnPrintaccessActionPerformed
 
     private void txtBarcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBarcodeKeyReleased
         txtBarcode.setEnabled(true);
@@ -963,7 +886,7 @@ public class JOURNAL extends javax.swing.JFrame {
         txtsource.setEnabled(true);
         days.setEnabled(true);
         available.setEnabled(true);
-        status1.setEnabled(true);
+        status.setEnabled(true);
         Yearjournal.setEnabled(true);
     }//GEN-LAST:event_txtBarcodeKeyReleased
 
@@ -977,25 +900,29 @@ public class JOURNAL extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tbl_journalMouseEntered
 
-    private void status1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_status1ItemStateChanged
-       switch (status1.getSelectedItem().toString()) {
+    private void statusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_statusItemStateChanged
+        switch (status.getSelectedItem().toString()) {
             case "Available":
-                days.setEnabled(true);
-                available.setEnabled(true);
-                break;
+            days.setEnabled(true);
+            available.setEnabled(true);
+            break;
             case "Damaged":
-                days.setEnabled(false);
-                available.setEnabled(false);
-                break;
+            days.setEnabled(false);
+            available.setEnabled(false);
+            break;
             case "Lost":
-                days.setEnabled(false);
-                available.setEnabled(false);
-                break;
+            days.setEnabled(false);
+            available.setEnabled(false);
+            break;
             default:
-                status1.setEnabled(false);
-                break;
+            status.setEnabled(false);
+            break;
         }
-    }//GEN-LAST:event_status1ItemStateChanged
+    }//GEN-LAST:event_statusItemStateChanged
+
+    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusActionPerformed
 
     private void CountJournal() {
         try {
@@ -1033,8 +960,6 @@ public class JOURNAL extends javax.swing.JFrame {
     private javax.swing.JComboBox available;
     private javax.swing.JLabel book;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnPrintJournal;
-    private javax.swing.JButton btnPrintaccess;
     private javax.swing.JButton btnclear;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnsave;
@@ -1065,7 +990,7 @@ public class JOURNAL extends javax.swing.JFrame {
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label3;
     private javax.swing.JTextField searchAccess;
-    private javax.swing.JComboBox status1;
+    private javax.swing.JComboBox status;
     private javax.swing.JTable tbl_access;
     private javax.swing.JTable tbl_journal;
     private javax.swing.JTextField total;

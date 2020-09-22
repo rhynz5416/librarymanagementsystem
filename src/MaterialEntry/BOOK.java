@@ -1,34 +1,33 @@
 package MaterialEntry;
 
-import Classes.C_LibraryMaterialBook;
 import Global_Variable.Global_Variable;
 import Module.dbConn;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.table.TableModel;
-import Accession_Classes.C_BookAccession;
+import java.text.SimpleDateFormat; 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.Vector;
 import connection.Conn;
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.*;
 import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/*import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperCompileManager;
  import net.sf.jasperreports.engine.JasperFillManager;
  import net.sf.jasperreports.engine.JasperPrint;
  import net.sf.jasperreports.engine.JasperReport;
  import net.sf.jasperreports.engine.design.JasperDesign;
  import net.sf.jasperreports.engine.xml.JRXmlLoader;
  import net.sf.jasperreports.view.JasperViewer;
- import net.sf.jasperreports.engine.design.JRDesignQuery;*/
+ import net.sf.jasperreports.engine.design.JRDesignQuery;
+
 public class BOOK extends javax.swing.JFrame {
 
     Statement st = null;
@@ -43,7 +42,7 @@ public class BOOK extends javax.swing.JFrame {
     public BOOK() throws Exception {
 
         Conn connection = new Conn();
-        data = connection.getUser();
+        data = connection.getBook();
         header = new Vector<String>();
 
         Conn connections = new Conn();
@@ -53,8 +52,7 @@ public class BOOK extends javax.swing.JFrame {
         header.add("id");
         header.add("Barcode");
         header.add("Title");
-        header.add("Author");
-        header.add("Lib_Id");
+        header.add("Author"); 
         header.add("Copies");
         header.add("Status");
         header.add("Availability");
@@ -88,71 +86,8 @@ public class BOOK extends javax.swing.JFrame {
 
         table_book.removeColumn(table_book.getColumnModel().getColumn(0));
         accessTable.removeColumn(accessTable.getColumnModel().getColumn(0));
-        setExtendedState(JFrame.MAXIMIZED_BOTH);  
-
-    }
-
-    //this is for bookpane:
-    public ArrayList<C_LibraryMaterialBook> getBookList() {
-        ArrayList<C_LibraryMaterialBook> Material = new ArrayList<C_LibraryMaterialBook>();
-
-        String query = "select * from `tbl_librarybook` where ISBNBarcode= '"+Global_Variable.BookId+"' ";
-
-        ResultSet rs;
-
-        try {
-            st = null;
-            st = con.dbconn().createStatement();
-            rs = st.executeQuery(query);
-
-            C_LibraryMaterialBook libbook;
-            while (rs.next()) {
-
-                libbook = new C_LibraryMaterialBook(rs.getInt("id"), rs.getString("ISBNBarcode"), rs.getString("DateAcquisition"), rs.getString("BookTitle"), rs.getString("BookAuthor"), rs.getInt("EditionNumber"), rs.getInt("Pagevolume"), rs.getString("Place"), rs.getString("BookPublisher"), rs.getInt("Year"), rs.getString("Binding"), rs.getDouble("Price"), rs.getString("BookType"));
-                Material.add(libbook);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Material;
-    }
-
-    public ArrayList<C_BookAccession> getAccess() {
-        ArrayList<C_BookAccession> access = new ArrayList<C_BookAccession>();
-
-        String query = "select * from `tbl_bookaccessions`";
-
-        ResultSet rs;
-
-        try {
-            st = null;
-            st = con.dbconn().createStatement();
-            rs = st.executeQuery(query);
-
-            C_BookAccession accession;
-            while (rs.next()) {
-
-                accession = new C_BookAccession(rs.getInt("id"), rs.getInt("accessID"), rs.getString("Status"));
-                access.add(accession);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return access;
-    }
-
-    public void LibraryBook() {
-        ArrayList<C_LibraryMaterialBook> book = getBookList();
-        DefaultTableModel model = (DefaultTableModel) table_book.getModel();
-        Object[] row = new Object[2];
-        for (int b = 0; b < book.size(); b++) {
-
-            row[0] = book.get(b).getisbnBarcode();
-            row[1] = book.get(b).getbookTitle();
-            model.addRow(row);
-        }
-    }
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH);   
+    }  
     //for the query
     private void executesqlQuery(String query, String message) {
         try {
@@ -161,10 +96,9 @@ public class BOOK extends javax.swing.JFrame {
             if ((st.executeUpdate(query)) == 1) {
                 //for tablebook
                 Conn connecting = new Conn();
-                data = connecting.getUser();
+                data = connecting.getBook();
                 //for setting the table for model
-                table_book.setModel(new javax.swing.table.DefaultTableModel(data, header));
-
+                table_book.setModel(new javax.swing.table.DefaultTableModel(data, header)); 
                 table_book.removeColumn(table_book.getColumnModel().getColumn(0));
 
                 Conn connectn = new Conn();
@@ -174,9 +108,9 @@ public class BOOK extends javax.swing.JFrame {
 
                 accessTable.removeColumn(accessTable.getColumnModel().getColumn(0));
 
-                JOptionPane.showMessageDialog(null, "Data " + message + " successfully");
+                JOptionPane.showMessageDialog(null,  message + " Successfully");
             } else {
-                JOptionPane.showMessageDialog(null, "Data " + message + ".");
+                JOptionPane.showMessageDialog(null,  message + ".");
             }
         } catch (Exception ex) {
 
@@ -247,8 +181,6 @@ public class BOOK extends javax.swing.JFrame {
         accession = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         totalcopies = new javax.swing.JTextField();
-        btnPrint = new javax.swing.JButton();
-        btnaccessPrint = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -284,7 +216,7 @@ public class BOOK extends javax.swing.JFrame {
         jLabel37.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         jLabel37.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/b_search.png"))); // NOI18N
         jPanel2.add(jLabel37);
-        jLabel37.setBounds(1210, 590, 40, 30);
+        jLabel37.setBounds(1190, 590, 40, 30);
 
         table_book.setFont(new java.awt.Font("Lucida Sans", 1, 12));
         table_book.setModel(new javax.swing.table.DefaultTableModel(data,header));
@@ -310,7 +242,7 @@ public class BOOK extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtsearch);
-        txtsearch.setBounds(1180, 180, 220, 30);
+        txtsearch.setBounds(1180, 180, 330, 30);
 
         book.setFont(new java.awt.Font("Lucida Fax", 1, 24)); // NOI18N
         book.setText("Book");
@@ -389,7 +321,7 @@ public class BOOK extends javax.swing.JFrame {
         btndelete1.setBounds(300, 20, 110, 40);
 
         jPanel2.add(jPanel6);
-        jPanel6.setBounds(140, 710, 590, 80);
+        jPanel6.setBounds(180, 710, 590, 80);
 
         txtaccession.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         txtaccession.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -398,7 +330,7 @@ public class BOOK extends javax.swing.JFrame {
             }
         });
         jPanel2.add(txtaccession);
-        txtaccession.setBounds(1240, 590, 140, 30);
+        txtaccession.setBounds(1220, 590, 250, 30);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel4.setLayout(null);
@@ -709,32 +641,6 @@ public class BOOK extends javax.swing.JFrame {
         jPanel2.add(jPanel5);
         jPanel5.setBounds(1110, 460, 430, 100);
 
-        btnPrint.setFont(new java.awt.Font("Lucida Fax", 1, 10)); // NOI18N
-        btnPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
-        btnPrint.setText("PRINT");
-        btnPrint.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 255)));
-        btnPrint.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnPrint);
-        btnPrint.setBounds(1420, 180, 100, 30);
-
-        btnaccessPrint.setFont(new java.awt.Font("Lucida Fax", 1, 10)); // NOI18N
-        btnaccessPrint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
-        btnaccessPrint.setText("Print");
-        btnaccessPrint.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 255)));
-        btnaccessPrint.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnaccessPrint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnaccessPrintActionPerformed(evt);
-            }
-        });
-        jPanel2.add(btnaccessPrint);
-        btnaccessPrint.setBounds(1390, 590, 100, 30);
-
         jPanel1.add(jPanel2);
         jPanel2.setBounds(0, 0, 1820, 880);
 
@@ -746,12 +652,13 @@ public class BOOK extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveAccessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAccessActionPerformed
-        try {
+         String booktitle = txtBookTitle.getText();
+        try { 
             String a = accession.getText();
             int access = Integer.valueOf(a);
             a = Integer.toString(++access);
-            String query = "Insert into tbl_bookaccessions values ('" + Global_Variable.accbookId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','" + txtBookTitle.getText() + "','" + txtauthor.getText() + "','" + txtPublisher.getText() + "','" + comboxtype.getSelectedItem() + "','" + totalcopies.getText() + "')";
-            executesqlQuery(query, "Successfully Added");
+            String query = "Insert into tbl_bookaccessions values ('" + Global_Variable.accbookId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','" + txtBookTitle.getText() + "','" + txtauthor.getText() + "','" + txtPublisher.getText() + "','" + comboxtype.getSelectedItem() + "')";
+            executesqlQuery(query, "Accession number for "+booktitle+" added");
             accession.setText(a);
             CountBooks();
         } catch (Exception e) {
@@ -759,15 +666,15 @@ public class BOOK extends javax.swing.JFrame {
         }
 
         try {
-            String queries = "UPDATE `tbl_librarybook` SET  `NoOfCopies` ='" + totalcopies.getText() + "' WHERE  `ISBNBarcode` =" + txtBarcode.getText();
-            executesqlQuery(queries, "updated");
+            String queries = "UPDATE `tbl_librarybook` SET  `Copies` ='" + totalcopies.getText() + "' WHERE  `ISBNBarcode` =" + txtBarcode.getText();
+            executesqlQuery(queries, "Number of copies for "+booktitle+" updated");
         } catch (Exception e) {
             e.printStackTrace();
         } 
     }//GEN-LAST:event_saveAccessActionPerformed
 
     private void accessTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accessTableMouseClicked
- 
+        
     }//GEN-LAST:event_accessTableMouseClicked
 
     private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
@@ -788,12 +695,12 @@ public class BOOK extends javax.swing.JFrame {
         txtPublisher.setEnabled(true);
         combobinding.setEnabled(true);
         DateBook.setEnabled(true);
-        txtPrice.setEnabled(true);
-
+        txtPrice.setEnabled(true);  
         comboxtype.setEnabled(true);
         status.setEnabled(true);
         days.setEnabled(true);
         available.setEnabled(true);
+        updatebook.setEnabled(true);
 
         Connection cn = null;
         Statement st = null;
@@ -810,9 +717,7 @@ public class BOOK extends javax.swing.JFrame {
 
             cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
             st = cn.prepareStatement(query);
-            rs = st.executeQuery(query);
-
-            //SimpleDateFormat s = new SimpleDateFormat("yyyy MMM d");
+            rs = st.executeQuery(query); 
             if (rs.next()) {
                 //to display the data inside the txtfields
                 String barcode = rs.getString("ISBNBarcode");
@@ -875,8 +780,35 @@ public class BOOK extends javax.swing.JFrame {
             accession.setEnabled(true);
             accessTable.setEnabled(false);
             accession.getText();
-            totalcopies.getText();
-        } 
+            totalcopies.getText(); 
+        }
+        
+        Connection cnn = null;
+        Statement stt = null;
+        ResultSet rss = null;
+
+        btnEdit.setEnabled(true);
+        btndelete1.setEnabled(true);
+
+        try { 
+            String query = "Select * from tbl_bookaccessions"; 
+            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
+            stt = cnn.prepareStatement(query);
+            rss = stt.executeQuery(query); 
+            if (rss.next()) { 
+                int a;
+                a = Integer.parseInt(totalcopies.getText());
+                if (a == 0){
+                    accession.setText("");
+                } 
+                else{
+                    String accessnum = rss.getString("accession");
+                    accession.setText(accessnum); 
+                } 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_table_bookMouseClicked
 
     private void btnClearMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnClearMouseClicked
@@ -915,7 +847,7 @@ public class BOOK extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Fields cannot be empty");
             } else {
                 String query = "UPDATE `tbl_librarybook` SET `ISBNBarcode`='" + txtBarcode.getText() + "',`DateAcquisition`='" + DateBook.getDateFormatString() + "',`BookTitle`='" + txtBookTitle.getText() + "',`BookAuthor`='" + txtauthor.getText() + "',`EditionNumber`='" + txtedNumber.getText() + "',`Pagevolume`='" + txtPageVol.getText() + "',`Place`='" + txtPlace.getText() + "',`BookPublisher`='" + txtPublisher.getText() + "',`Year`='" + YearBook.getYear() + "',`Binding`='" + combobinding.getSelectedItem() + "',`Price`='" + txtPrice.getText() + "',`Type`='" + comboxtype.getSelectedItem() + "',`ISBNBarcode`='" + txtBarcode.getText() + "' WHERE ISBNBarcode=" + txtBarcode.getText();
-                executesqlQuery(query, "updated");
+                executesqlQuery(query, txtBookTitle.getText()+" updated");
 
                 days.setEnabled(true);
                 available.setEnabled(true);
@@ -944,7 +876,7 @@ public class BOOK extends javax.swing.JFrame {
             String date = s.format(DateBook.getDate());
  
             String query = "INSERT INTO `tbl_librarybook` VALUES ('" + Global_Variable.BookId + "','" + tempisbn + "','" + date + "','" + txtBookTitle.getText() + "','" + txtauthor.getText() + "','" + txtedNumber.getText() + "','" + txtPageVol.getText() + "','" + txtPlace.getText()+ "','" + txtPublisher.getText()+ "','" + YearBook.getYear() + "','" + combobinding.getSelectedItem() + "','" + txtPrice.getText() + "','" + comboxtype.getSelectedItem() + "','" + totalcopies.getText() + "','" + status.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
-            executesqlQuery(query, "Added");
+            executesqlQuery(query, txtBookTitle.getText()+" Added");
            
             txtBarcode.setText("");
             txtBookTitle.setText("");
@@ -957,8 +889,9 @@ public class BOOK extends javax.swing.JFrame {
             DateBook.setDateFormatString("");
             txtPrice.setText(""); 
             comboxtype.setSelectedItem("");
+            accession.setText("");
 
-            /* txtBarcode.setEnabled(true);
+             txtBarcode.setEnabled(true);
              txtBookTitle.setEnabled(false);
              DateBook.setEnabled(false);
              YearBook.setEnabled(false);
@@ -970,11 +903,11 @@ public class BOOK extends javax.swing.JFrame {
              combobinding.setEnabled(false);
              DateBook.setEnabled(false);
              txtPrice.setEnabled(false);
-             txtSource.setEnabled(false);
              comboxtype.setEnabled(false);
              status.setEnabled(false);
              days.setEnabled(false);
-             available.setEnabled(false);*/
+             available.setEnabled(false);
+             updatebook.setEnabled(false);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -1127,70 +1060,12 @@ public class BOOK extends javax.swing.JFrame {
         accessTable.removeColumn(accessTable.getColumnModel().getColumn(0));
     }//GEN-LAST:event_txtaccessionKeyReleased
 
-    private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-        /*  String temp = txtsearch.getText() + "%";
-         Connection connect = null;
-      
-         //Map param = new HashMap();
-         try {
-         connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagesystem?zeroDateTimeBehavior=convertToNull", "root", "");
-         JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/Reports/Rose.jrxml"));
-         String sql = "Select * from tbl_borrowinside where ISBNBarcode like " + temp + "  ";
-         JRDesignQuery newQuery = new JRDesignQuery();
-         newQuery.setText(sql);
-         jd.setQuery(newQuery);
-         JasperReport jr = JasperCompileManager.compileReport(jd);
-         JasperPrint jp = JasperFillManager.fillReport(jr, null, connect);
-         JasperViewer.viewReport(jp, false);
-         } catch (Exception e) {
-         e.printStackTrace();
-         }*/
-
-        MessageFormat header = new MessageFormat("Library Book Reports");
-        MessageFormat footer = new MessageFormat("page{0,number,integer}");
-
-        try {
-            table_book.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-        } catch (java.awt.print.PrinterException e) {
-            System.err.format("can not print %s %n", e.getMessage());
-        }
-    }//GEN-LAST:event_btnPrintActionPerformed
-
-    private void btnaccessPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnaccessPrintActionPerformed
-        /*   String temp = txtaccession.getText() + "%";
-         Connection connect = null;
-      
-         //Map param = new HashMap();
-         try {
-         connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagesystem?zeroDateTimeBehavior=convertToNull", "root", "");
-         JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/Reports/BookAccessions.jrxml"));
-         String sql = "Select * from tbl_bookaccessions where accessID like " + temp + " || ISBNBarcode like " + temp + " ";
-         JRDesignQuery newQuery = new JRDesignQuery();
-         newQuery.setText(sql);
-         jd.setQuery(newQuery);
-         JasperReport jr = JasperCompileManager.compileReport(jd);
-         JasperPrint jp = JasperFillManager.fillReport(jr, null, connect);
-         JasperViewer.viewReport(jp, false);
-         } catch (Exception e) {
-         e.printStackTrace();
-         }*/
-
-        MessageFormat header = new MessageFormat("Book accessions with ISBNBarcode Reports");
-        MessageFormat footer = new MessageFormat("page{0,number,integer}");
-        try {
-
-            accessTable.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-        } catch (java.awt.print.PrinterException e) {
-            System.err.format("can not print %s %n", e.getMessage());
-        }
-    }//GEN-LAST:event_btnaccessPrintActionPerformed
-
     private void btndelete1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndelete1ActionPerformed
         updatebook.show();
         DateBook.hide();
         
         String query = "DELETE from tbl_librarybook where ISBNBarcode =" + txtBarcode.getText();
-        executesqlQuery(query, "Deleted");
+        executesqlQuery(query, txtBookTitle.getText()+" deleted");
         txtBookTitle.setText("");
         txtauthor.setText("");
         txtedNumber.setText("");
@@ -1203,6 +1078,8 @@ public class BOOK extends javax.swing.JFrame {
         txtBarcode.setText("");
         updatebook.setText("");
         DateBook.setDateFormatString("");
+        accession.setText("");
+        totalcopies.setText("");
         
         txtBarcode.setEnabled(true);
         txtBookTitle.setEnabled(false);
@@ -1328,9 +1205,7 @@ public class BOOK extends javax.swing.JFrame {
     private javax.swing.JLabel book;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnEdit;
-    private javax.swing.JButton btnPrint;
     private javax.swing.JButton btnSave;
-    private javax.swing.JButton btnaccessPrint;
     private javax.swing.JButton btndelete1;
     private javax.swing.JComboBox combobinding;
     private javax.swing.JComboBox comboxtype;
