@@ -4,16 +4,26 @@ import Global_Variable.Global_Variable;
 import Module.Data;
 import Module.dbConn;
 import connection.Conn;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class ADMIN extends javax.swing.JFrame {
 
@@ -363,8 +373,39 @@ public class ADMIN extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTrannsactKeyReleased
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-
-        switch (searchItem.getSelectedItem().toString()) {
+          Connection connect = null;  
+        
+         try {
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
+         //JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/Reports/librarybook.jrxml"));
+         //String sql = "Select * from tbl_librarybook where ISBNBarcode like " + temp + "  ";
+         // Map param = new HashMap();
+         //JRDesignQuery newQuery = new JRDesignQuery();
+         //newQuery.setText(sql);
+         //jd.setQuery(newQuery);
+         //JasperReport jr = JasperCompileManager.compileReport(jd);
+         //JasperPrint jp = JasperFillManager.fillReport(jr, param, connect);
+         //JasperViewer.viewReport(jp, false);*/
+           // String fileName="./src/Reports/book.jrxml";
+            //String filetoFill="./src/Reports/book.jasper";
+            
+            Map param= new HashMap();
+            
+            InputStream file = getClass().getResourceAsStream("/Reports/book.jrxml");
+            JasperDesign jasperdesign = JRXmlLoader.load(file);
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperdesign);
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, param,connect);
+            JasperViewer.viewReport(jasperPrint,false);
+            
+// JasperCompileManager.compileReport(file);
+            //Map param= new HashMap();
+            //JasperFillManager.fillReport(filetoFill, param, connect);
+            //JasperPrint jp=JasperFillManager.fillReport(filetoFill, param,connect);
+           // JasperViewer.viewReport(jp,false);
+         } catch (Exception e) {
+         e.printStackTrace();
+         }
+       /* switch (searchItem.getSelectedItem().toString()) {
             case "Borrow_Inside":
 
                 MessageFormat header = new MessageFormat("Borrow Inside Transaction Reports");
@@ -478,7 +519,7 @@ public class ADMIN extends javax.swing.JFrame {
             default:
                 searchItem.setEnabled(false);
                 break;
-        }
+        }*/
 
     }//GEN-LAST:event_btnPrintActionPerformed
 

@@ -545,7 +545,7 @@ public class CLIENTREGISTRATION extends javax.swing.JFrame {
 
     private void txtBarcodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBarcodeKeyReleased
         if (validateBarcode(txtBarcode.getText())) {
-            JOptionPane.showMessageDialog(null, "Duplicate barcode!");
+            JOptionPane.showMessageDialog(null, "Duplicate barcode!");  
         } 
         txtBarcode.setEnabled(true);
         txtName.setEnabled(true);
@@ -561,6 +561,8 @@ public class CLIENTREGISTRATION extends javax.swing.JFrame {
         txtpaymentfee.setEnabled(true);
         txtchange.setEnabled(true);
         txtpaymentReceived.setEnabled(true);
+        
+        
     }//GEN-LAST:event_txtBarcodeKeyReleased
 
     private void txtBarcodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBarcodeKeyTyped

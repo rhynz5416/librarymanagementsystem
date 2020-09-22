@@ -31,7 +31,7 @@ public class Conn {
             ex.printStackTrace();
         }
     } 
-    public Vector getUser() throws Exception {
+    public Vector getBook() throws Exception {
         Vector<Vector<String>> useVector = new Vector<Vector<String>>();
         Connection conn = connect();
         PreparedStatement pre = conn.prepareStatement("Select * from tbl_librarybook");
@@ -45,11 +45,9 @@ public class Conn {
             user.add(rs.getString(4));
             user.add(rs.getString(5));
             user.add(rs.getString(14));
-            user.add(rs.getString(15));
-            user.add(rs.getString(16)); 
+            user.add(rs.getString(15)); 
             user.add(rs.getString(17));
-            useVector.add(user);
-            useVector.add(user);
+            useVector.add(user); 
         }
         if (conn != null) {
             conn.close();
@@ -92,8 +90,7 @@ public class Conn {
             cds.add(rs.getString(2));
             cds.add(rs.getString(4));
             cds.add(rs.getString(10));
-            cds.add(rs.getString(11));
-            cds.add(rs.getString(12));
+            cds.add(rs.getString(11)); 
             cds.add(rs.getString(13));
             cd.add(cds);
         }
@@ -138,8 +135,7 @@ public class Conn {
             jour.add(rs.getString(2));
             jour.add(rs.getString(4));
             jour.add(rs.getString(12));
-            jour.add(rs.getString(13));
-            jour.add(rs.getString(14));
+            jour.add(rs.getString(13)); 
             jour.add(rs.getString(15));
             journal.add(jour);
         }
@@ -166,8 +162,7 @@ public class Conn {
         }
         if (conn != null) {
             conn.close();
-        }
-
+        } 
         return journalaccess;
     }
 
@@ -185,8 +180,7 @@ public class Conn {
             magz.add(rs.getString(2));
             magz.add(rs.getString(4));
             magz.add(rs.getString(10));
-            magz.add(rs.getString(11));
-            magz.add(rs.getString(12));
+            magz.add(rs.getString(11)); 
             magz.add(rs.getString(13));
             magazine.add(magz);
         }
@@ -232,8 +226,7 @@ public class Conn {
             news.add(rs.getString(2));
             news.add(rs.getString(4));
             news.add(rs.getString(7));
-            news.add(rs.getString(8));
-            news.add(rs.getString(9));
+            news.add(rs.getString(8)); 
             news.add(rs.getString(10));
             newspaper.add(news);
         }
@@ -340,7 +333,7 @@ public class Conn {
     public Vector getBorrowInside() throws Exception {
         Vector<Vector<String>> borrowinside = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_borrowinside where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_borrowinside");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -365,7 +358,7 @@ public class Conn {
     public Vector getBorrowOutside() throws Exception {
         Vector<Vector<String>> borrowoutside = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_borrowoutside where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_borrowoutside");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -435,7 +428,7 @@ public class Conn {
     public Vector getMatmonitoring() throws Exception {
         Vector<Vector<String>> material = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_matmonitoring where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_matmonitoring");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {
@@ -527,7 +520,7 @@ public class Conn {
     public Vector getRenewed() throws Exception {
         Vector<Vector<String>> renew = new Vector<Vector<String>>();
         Connection conn = connect();
-        PreparedStatement pre = conn.prepareStatement("Select * from tbl_clientrenewal where category_id='" + Global_Variable.category_id + "'");
+        PreparedStatement pre = conn.prepareStatement("Select * from tbl_clientrenewal");
         ResultSet rs = pre.executeQuery();
 
         while (rs.next()) {

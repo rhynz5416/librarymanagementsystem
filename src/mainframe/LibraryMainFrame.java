@@ -21,10 +21,23 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import Global_Variable.Global_Variable;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+
+import net.sf.jasperreports.engine.JasperCompileManager;
+ import net.sf.jasperreports.engine.JasperFillManager;
+ import net.sf.jasperreports.engine.JasperPrint;
+ import net.sf.jasperreports.engine.JasperReport;
+ import net.sf.jasperreports.engine.design.JasperDesign;
+ import net.sf.jasperreports.engine.xml.JRXmlLoader;
+ import net.sf.jasperreports.view.JasperViewer;
+ import net.sf.jasperreports.engine.design.JRDesignQuery;
 
 public class LibraryMainFrame extends javax.swing.JFrame { 
     
@@ -68,6 +81,8 @@ public class LibraryMainFrame extends javax.swing.JFrame {
         jMenu4 = new javax.swing.JMenu();
         jMenu15 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu27 = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -327,6 +342,19 @@ public class LibraryMainFrame extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu6);
 
+        jMenu7.setText("Reports");
+        jMenu7.setFont(new java.awt.Font("Lucida Fax", 3, 12)); // NOI18N
+
+        jMenu27.setText("Book Report");
+        jMenu27.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenu27ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenu27);
+
+        jMenuBar1.add(jMenu7);
+
         setJMenuBar(jMenuBar1);
 
         setSize(new java.awt.Dimension(1578, 831));
@@ -538,10 +566,12 @@ public class LibraryMainFrame extends javax.swing.JFrame {
             this.setVisible(true);
         } else if (choicelogout == JOptionPane.CANCEL_OPTION) {
             this.setVisible(true);
-        } else if (choicelogout == JOptionPane.CLOSED_OPTION) {
-            System.exit(0);
-        }
+        } 
     }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void jMenu27ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu27ActionPerformed
+    
+    }//GEN-LAST:event_jMenu27ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -602,10 +632,12 @@ public class LibraryMainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu24;
     private javax.swing.JMenu jMenu25;
     private javax.swing.JMenu jMenu26;
+    private javax.swing.JMenu jMenu27;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;

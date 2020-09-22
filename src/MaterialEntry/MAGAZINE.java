@@ -59,7 +59,7 @@ public class MAGAZINE extends javax.swing.JFrame {
         txtpageVol.setEnabled(false);
         txtplace.setEnabled(false);
         yearMagazine.setEnabled(false);
-        status1.setEnabled(false);
+        status.setEnabled(false);
         days.setEnabled(false);
         available.setEnabled(false);
         accession.setEnabled(false);
@@ -71,69 +71,7 @@ public class MAGAZINE extends javax.swing.JFrame {
         tbl_searchMag.removeColumn(tbl_searchMag.getColumnModel().getColumn(0));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
-
-    public ArrayList<C_LibraryMaterialMagazine> getMagazineList() {
-        ArrayList<C_LibraryMaterialMagazine> Mags = new ArrayList<C_LibraryMaterialMagazine>();
-        String query = "select * from `tbl_magazine` where ISBNBarcode ='" + Global_Variable.MagazineId + "'";
-        ResultSet rs;
-        try {
-            st = null;
-            st = con.dbconn().createStatement();
-            rs = st.executeQuery(query);
-
-            C_LibraryMaterialMagazine magazine;
-            while (rs.next()) {
-                magazine = new C_LibraryMaterialMagazine(rs.getInt("id"), rs.getString("ISBNBarcode"), rs.getString("DateAcquisition"), rs.getString("M_Title"), rs.getString("M_Publisher"), rs.getInt("EditionNumber"), rs.getInt("PageVolume"), rs.getString("Place"), rs.getInt("Year"));
-                Mags.add(magazine);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return Mags;
-    } 
-    //for magazine table
-    public void LibraryMagazine() {
-        ArrayList<C_LibraryMaterialMagazine> maGazine = getMagazineList();
-        DefaultTableModel model = (DefaultTableModel) tbl_mag.getModel();
-        Object[] row = new Object[2];
-        for (int i = 0; i < maGazine.size(); i++) {
-            row[0] = maGazine.get(i).getisbnBarcode();
-            row[2] = maGazine.get(i).getmagazineTitle();
-
-            model.addRow(row);
-        } 
-    }
-
-    public ArrayList<C_MagazineAccession> getmagazineAccess() {
-        ArrayList<C_MagazineAccession> access = new ArrayList<C_MagazineAccession>();
-        String query = "select * from `tbl_magazineaccession`";
-        ResultSet rs;
-        try {
-            st = null;
-            st = con.dbconn().createStatement();
-            rs = st.executeQuery(query);
-
-            C_MagazineAccession accession;
-            while (rs.next()) {
-                accession = new C_MagazineAccession(rs.getInt("id"), rs.getInt("accession"));
-                access.add(accession);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return access;
-    }
-
-    public void MagazineAccession() {
-        ArrayList<C_MagazineAccession> maGazine = getmagazineAccess();
-        DefaultTableModel model = (DefaultTableModel) tbl_mag.getModel();
-        Object[] row = new Object[2];
-        for (int i = 0; i < maGazine.size(); i++) {
-            row[0] = maGazine.get(i).getaccession();
-
-            model.addRow(row);
-        } 
-    }
+ 
     //for magazine query 
     public void executeSqlQuery(String query, String message) {
         try {
@@ -155,9 +93,9 @@ public class MAGAZINE extends javax.swing.JFrame {
 
                 tbl_searchMag.removeColumn(tbl_searchMag.getColumnModel().getColumn(0));
 
-                JOptionPane.showMessageDialog(null, "Data " + message + " successfully");
+                JOptionPane.showMessageDialog(null, message + " successfully");
             } else {
-                JOptionPane.showMessageDialog(null, "Data" + message + ".");
+                JOptionPane.showMessageDialog(null, message + ".");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -191,10 +129,7 @@ public class MAGAZINE extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         label3 = new javax.swing.JLabel();
         jLabel62 = new javax.swing.JLabel();
-        status1 = new javax.swing.JComboBox();
-        available = new javax.swing.JComboBox();
         label1 = new javax.swing.JLabel();
-        days = new javax.swing.JComboBox();
         yearMagazine = new com.toedter.calendar.JYearChooser();
         txtplace = new javax.swing.JTextField();
         txtpageVol = new javax.swing.JTextField();
@@ -204,6 +139,9 @@ public class MAGAZINE extends javax.swing.JFrame {
         magazineDate = new com.toedter.calendar.JDateChooser();
         txtBarcode = new javax.swing.JTextField();
         updateDate = new javax.swing.JTextField();
+        status = new javax.swing.JComboBox();
+        days = new javax.swing.JComboBox();
+        available = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jLabel46 = new javax.swing.JLabel();
         total = new javax.swing.JTextField();
@@ -212,8 +150,6 @@ public class MAGAZINE extends javax.swing.JFrame {
         jLabel48 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
         accessSearch = new javax.swing.JTextField();
-        btnPrintmaga = new javax.swing.JButton();
-        btnAccessprint = new javax.swing.JButton();
         book = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -316,7 +252,7 @@ public class MAGAZINE extends javax.swing.JFrame {
             }
         });
         jPanel3.add(txtsearch);
-        txtsearch.setBounds(1120, 140, 210, 30);
+        txtsearch.setBounds(1120, 140, 300, 30);
 
         tbl_searchMag.setModel(new javax.swing.table.DefaultTableModel(datas,headers));
         jScrollPane2.setViewportView(tbl_searchMag);
@@ -377,38 +313,10 @@ public class MAGAZINE extends javax.swing.JFrame {
         jPanel2.add(jLabel62);
         jLabel62.setBounds(50, 390, 240, 30);
 
-        status1.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        status1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Damaged", "Lost" }));
-        status1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        status1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                status1ItemStateChanged(evt);
-            }
-        });
-        status1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                status1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(status1);
-        status1.setBounds(190, 330, 170, 30);
-
-        available.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        available.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "YES", "NO" }));
-        available.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPanel2.add(available);
-        available.setBounds(270, 390, 90, 30);
-
         label1.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         label1.setText("No of days:");
         jPanel2.add(label1);
         label1.setBounds(100, 360, 80, 30);
-
-        days.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        days.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "----", "3", "2", "1" }));
-        days.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        jPanel2.add(days);
-        days.setBounds(190, 360, 90, 30);
 
         yearMagazine.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel2.add(yearMagazine);
@@ -508,6 +416,34 @@ public class MAGAZINE extends javax.swing.JFrame {
         jPanel2.add(updateDate);
         updateDate.setBounds(190, 120, 180, 30);
 
+        status.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
+        status.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Damaged", "Lost" }));
+        status.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        status.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                statusItemStateChanged(evt);
+            }
+        });
+        status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusActionPerformed(evt);
+            }
+        });
+        jPanel2.add(status);
+        status.setBounds(190, 330, 300, 30);
+
+        days.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
+        days.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "---", "5", "4", "3", "2", "1" }));
+        days.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel2.add(days);
+        days.setBounds(190, 360, 90, 30);
+
+        available.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
+        available.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "YES", "NO" }));
+        available.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel2.add(available);
+        available.setBounds(260, 390, 70, 30);
+
         jPanel3.add(jPanel2);
         jPanel2.setBounds(220, 90, 530, 510);
 
@@ -573,31 +509,7 @@ public class MAGAZINE extends javax.swing.JFrame {
             }
         });
         jPanel3.add(accessSearch);
-        accessSearch.setBounds(1120, 530, 200, 30);
-
-        btnPrintmaga.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        btnPrintmaga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
-        btnPrintmaga.setText("Print");
-        btnPrintmaga.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 255)));
-        btnPrintmaga.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPrintmagaActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnPrintmaga);
-        btnPrintmaga.setBounds(1340, 140, 90, 30);
-
-        btnAccessprint.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        btnAccessprint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/print.png"))); // NOI18N
-        btnAccessprint.setText("Print");
-        btnAccessprint.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(102, 102, 255)));
-        btnAccessprint.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAccessprintActionPerformed(evt);
-            }
-        });
-        jPanel3.add(btnAccessprint);
-        btnAccessprint.setBounds(1340, 530, 90, 30);
+        accessSearch.setBounds(1120, 530, 290, 30);
 
         book.setFont(new java.awt.Font("Lucida Fax", 1, 24)); // NOI18N
         book.setText("Magazine");
@@ -678,7 +590,7 @@ public class MAGAZINE extends javax.swing.JFrame {
 
     private void btndeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteActionPerformed
         String query = "DELETE FROM `tbl_magazine` WHERE ISBNBarcode = " + txtBarcode.getText();
-        executeSqlQuery(query, "Deleted");
+        executeSqlQuery(query, txtMagazineTitle.getText()+" deleted");
 
         txtBarcode.setText("");
         magazineDate.setDateFormatString("");
@@ -688,6 +600,8 @@ public class MAGAZINE extends javax.swing.JFrame {
         txtpageVol.setText("");
         txtplace.setText("");
         updateDate.setText("");
+         accession.setText("");
+        total.setText("");
         
         txtBarcode.setEnabled(true);
         magazineDate.setEnabled(false);
@@ -697,7 +611,7 @@ public class MAGAZINE extends javax.swing.JFrame {
         txtpageVol.setEnabled(false);
         txtplace.setEnabled(false);
         days.setEnabled(false);
-        status1.setEnabled(false);
+        status.setEnabled(false);
         available.setEnabled(false);
         yearMagazine.setEnabled(false);
         updateDate.setEnabled(false);
@@ -712,13 +626,13 @@ public class MAGAZINE extends javax.swing.JFrame {
         txtpageVol.setEnabled(false);
         txtplace.setEnabled(false);
         days.setEnabled(false);
-        status1.setEnabled(false);
+        status.setEnabled(false);
         available.setEnabled(false);
         yearMagazine.setEnabled(false);
         updateDate.setEnabled(false); 
         try {
             String query = "UPDATE `tbl_magazine` SET `ISBNBarcode`='" + txtBarcode.getText() + "',`DateAcquisition`='" + updateDate.getText() + "',`M_Title`='" + txtMagazineTitle.getText() + "',`M_Publisher`='" + txtPublisher.getText() + "',`EditionNumber`='" + txtedNum.getText() + "',`PageVolume`='" + txtpageVol.getText() + "',`Place`='" + txtplace.getText() + "',`Year`='" + yearMagazine.getYear() + "'WHERE ISBNBarcode =" + txtBarcode.getText();
-            executeSqlQuery(query, "Update");
+            executeSqlQuery(query, txtMagazineTitle.getText()+" update");
             
             txtBarcode.setText("");
             magazineDate.setDateFormatString("");
@@ -742,8 +656,8 @@ public class MAGAZINE extends javax.swing.JFrame {
             SimpleDateFormat s = new SimpleDateFormat("MM-dd-yyyy");
             String dateBook = s.format(magazineDate.getDate());
             String tempisbnBarcode = txtBarcode.getText();
-            String query = "INSERT INTO `tbl_magazine` VALUES ('" + Global_Variable.mat_id + "','" + tempisbnBarcode + "','" + dateBook + "','" + txtMagazineTitle.getText() + "','" + txtPublisher.getText() + "','" + txtedNum.getText() + "','" + txtpageVol.getText() + "','" + txtplace.getText() + "','" + yearMagazine.getYear() + "','" + total.getText() + "','" + status1.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
-            executeSqlQuery(query, "Added");
+            String query = "INSERT INTO `tbl_magazine` VALUES ('" + Global_Variable.mat_id + "','" + tempisbnBarcode + "','" + dateBook + "','" + txtMagazineTitle.getText() + "','" + txtPublisher.getText() + "','" + txtedNum.getText() + "','" + txtpageVol.getText() + "','" + txtplace.getText() + "','" + yearMagazine.getYear() + "','" + total.getText() + "','" + status.getSelectedItem() + "','" + days.getSelectedItem() + "','" + available.getSelectedItem() + "')";
+            executeSqlQuery(query, txtMagazineTitle.getText()+" added");
 
             txtBarcode.setText("");
             magazineDate.setDateFormatString("");
@@ -753,7 +667,7 @@ public class MAGAZINE extends javax.swing.JFrame {
             txtpageVol.setText("");
             txtplace.setText("");
 
-          /*  txtBarcode.setEnabled(true);
+            txtBarcode.setEnabled(true);
             updateDate.setEnabled(false);
             magazineDate.setEnabled(false);
             txtMagazineTitle.setEnabled(false);
@@ -762,9 +676,9 @@ public class MAGAZINE extends javax.swing.JFrame {
             txtpageVol.setEnabled(false);
             txtplace.setEnabled(false);
             yearMagazine.setEnabled(false);
-            status1.setEnabled(false);
+            status.setEnabled(false);
             days.setEnabled(false);
-            available.setEnabled(false);*/ 
+            available.setEnabled(false); 
         }
     }//GEN-LAST:event_btnsaveActionPerformed
 
@@ -781,9 +695,10 @@ public class MAGAZINE extends javax.swing.JFrame {
         txtpageVol.setEnabled(true);
         txtplace.setEnabled(true);
         yearMagazine.setEnabled(true);
-        status1.setEnabled(true);
+        status.setEnabled(true);
         days.setEnabled(true);
         available.setEnabled(true);
+        updateDate.setEnabled(true);
         
         Connection cn = null;
         Statement st = null;
@@ -827,8 +742,8 @@ public class MAGAZINE extends javax.swing.JFrame {
                 int year = rs.getInt("Year");
                 yearMagazine.setYear(year);
 
-                String status = rs.getString("Status");
-                status1.setSelectedItem(status);
+                String statuss = rs.getString("Status");
+                status.setSelectedItem(statuss);
 
                 String day = rs.getString("days");
                 days.setSelectedItem(day);
@@ -851,6 +766,29 @@ public class MAGAZINE extends javax.swing.JFrame {
             accession.getText();
 
         }
+        Connection cnn = null;
+        Statement stt = null;
+        ResultSet rss = null;
+        
+        try { 
+            String query = "Select * from tbl_magazineaccession"; 
+            cnn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
+            stt = cnn.prepareStatement(query);
+            rss = stt.executeQuery(query); 
+            if (rss.next()) {  
+                int a;
+                a = Integer.parseInt(total.getText());
+                if (a == 0){
+                    accession.setText("");
+                } 
+                else{
+                    String accessnum = rss.getString("accession");
+                    accession.setText(accessnum); 
+                } 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_tbl_magMouseClicked
 
     private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
@@ -863,8 +801,8 @@ public class MAGAZINE extends javax.swing.JFrame {
             int access = Integer.valueOf(a);
             a = Integer.toString(++access);
 
-            String query = "Insert into tbl_magazineaccession values ('" + Global_Variable.accmagazineId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','"+txtMagazineTitle.getText()+"','"+txtedNum.getText()+"','"+txtPublisher.getText()+"','"+total.getText()+"')";
-            executeSqlQuery(query, "Successfully Added");
+            String query = "Insert into tbl_magazineaccession values ('" + Global_Variable.accmagazineId + "','" + accession.getText() + "','" + txtBarcode.getText() + "','"+txtMagazineTitle.getText()+"','"+txtedNum.getText()+"','"+txtPublisher.getText()+"')";
+            executeSqlQuery(query, "Accession number for "+txtMagazineTitle.getText()+" added");
             accession.setText(a);
             CountMagazine();
         } catch (Exception e) {
@@ -872,8 +810,8 @@ public class MAGAZINE extends javax.swing.JFrame {
         }
 
         try {
-            String queries = "UPDATE `tbl_magazine` SET  `NoofCopies` ='" + total.getText() + "' WHERE  `ISBNBarcode` =" + txtBarcode.getText();
-            executeSqlQuery(queries, "updated");
+            String queries = "UPDATE `tbl_magazine` SET  `Copies` ='" + total.getText() + "' WHERE  `ISBNBarcode` =" + txtBarcode.getText();
+            executeSqlQuery(queries, "Number of Copies for " +txtMagazineTitle.getText()+" updated");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -903,30 +841,6 @@ public class MAGAZINE extends javax.swing.JFrame {
         tbl_searchMag.removeColumn(tbl_searchMag.getColumnModel().getColumn(0));
     }//GEN-LAST:event_accessSearchKeyReleased
 
-    private void btnPrintmagaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintmagaActionPerformed
-        MessageFormat header = new MessageFormat("Magazine Reports");
-        MessageFormat footer = new MessageFormat("page{0,number,integer}");
-        try {
-            tbl_mag.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-        } catch (java.awt.print.PrinterException e) {
-            System.err.format("can not print %s %n", e.getMessage());
-        }
-    }//GEN-LAST:event_btnPrintmagaActionPerformed
-
-    private void btnAccessprintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAccessprintActionPerformed
-        MessageFormat header = new MessageFormat("Magazine accessions with ISBNBarcode Reports");
-        MessageFormat footer = new MessageFormat("page{0,number,integer}");
-        try {
-            tbl_searchMag.print(JTable.PrintMode.FIT_WIDTH, header, footer);
-        } catch (java.awt.print.PrinterException e) {
-            System.err.format("can not print %s %n", e.getMessage());
-        }
-    }//GEN-LAST:event_btnAccessprintActionPerformed
-
-    private void status1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_status1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_status1ActionPerformed
-
     private void accessSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessSearchActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_accessSearchActionPerformed
@@ -940,7 +854,7 @@ public class MAGAZINE extends javax.swing.JFrame {
         txtpageVol.setEnabled(true);
         txtplace.setEnabled(true);
         yearMagazine.setEnabled(true);
-        status1.setEnabled(true);
+        status.setEnabled(true);
         days.setEnabled(true);
         available.setEnabled(true);
     }//GEN-LAST:event_txtBarcodeKeyReleased
@@ -951,25 +865,29 @@ public class MAGAZINE extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_accessionKeyReleased
 
-    private void status1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_status1ItemStateChanged
-       switch (status1.getSelectedItem().toString()) {
+    private void statusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_statusItemStateChanged
+        switch (status.getSelectedItem().toString()) {
             case "Available":
-                days.setEnabled(true);
-                available.setEnabled(true);
-                break;
+            days.setEnabled(true);
+            available.setEnabled(true);
+            break;
             case "Damaged":
-                days.setEnabled(false);
-                available.setEnabled(false);
-                break;
+            days.setEnabled(false);
+            available.setEnabled(false);
+            break;
             case "Lost":
-                days.setEnabled(false);
-                available.setEnabled(false);
-                break;
+            days.setEnabled(false);
+            available.setEnabled(false);
+            break;
             default:
-                status1.setEnabled(false);
-                break;
+            status.setEnabled(false);
+            break;
         }
-    }//GEN-LAST:event_status1ItemStateChanged
+    }//GEN-LAST:event_statusItemStateChanged
+
+    private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusActionPerformed
 
     private void CountMagazine() {
         try {
@@ -1011,8 +929,6 @@ public class MAGAZINE extends javax.swing.JFrame {
     private javax.swing.JComboBox available;
     private javax.swing.JLabel book;
     private javax.swing.JButton btnAcccess;
-    private javax.swing.JButton btnAccessprint;
-    private javax.swing.JButton btnPrintmaga;
     private javax.swing.JButton btnclear;
     private javax.swing.JButton btndelete;
     private javax.swing.JButton btnedit;
@@ -1041,7 +957,7 @@ public class MAGAZINE extends javax.swing.JFrame {
     private javax.swing.JLabel label1;
     private javax.swing.JLabel label3;
     private com.toedter.calendar.JDateChooser magazineDate;
-    private javax.swing.JComboBox status1;
+    private javax.swing.JComboBox status;
     private javax.swing.JTable tbl_mag;
     private javax.swing.JTable tbl_searchMag;
     private javax.swing.JTextField total;

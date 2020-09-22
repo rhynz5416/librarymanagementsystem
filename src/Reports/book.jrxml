@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d56e6c36-17a1-44df-8d3b-37a0a4430bde">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Times New Roman" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#000000" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#000000" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Row" mode="Transparent">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style/>
+		</conditionalStyle>
+	</style>
+	<queryString language="SQL">
+		<![CDATA[Select * from `tbl_librarybook`]]>
+	</queryString>
+	<field name="ISBNBarcode" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="BookTitle" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Type" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Copies" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="133" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="198" y="0" width="423" height="43" uuid="9acb3732-04b8-415f-a0d3-d66a480dc2c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Bohol Island State University]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="198" y="43" width="423" height="22" uuid="dc7d6ddb-a44e-4359-a1a1-0c287a1b86e8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="16" isBold="false" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Balilihan Campus Magsija, Balilihan, Bohol]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="219" y="101" width="383" height="23" uuid="aff308f2-9d52-4ea6-98f7-a2435c6c2d85"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LIBRARY BOOK REPORT]]></text>
+			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="-74" width="802" height="1" uuid="c7492837-beff-406e-935f-eac3054afaf4"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<image>
+				<reportElement x="59" y="18" width="100" height="92" uuid="998d6fee-ee94-44b3-aaa6-a1c231d1fb09"/>
+				<imageExpression><![CDATA["D:\\other_laptop\\INSTALLER\\LIBRARY\\system\\LIBRARY_MANAGEMENT_SYSTEM\\src\\Reports\\bisu.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="802" height="1" uuid="3f9b3b47-1fc2-46a1-aa7e-8161d34f4c95"/>
+				<graphicElement>
+					<pen lineWidth="2.0" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="160" y="0" width="160" height="15" forecolor="#000000" uuid="a1dfc5ab-e8b9-46fd-93db-cc0b298ce238"/>
+				<text><![CDATA[BookTitle]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="320" y="0" width="160" height="15" forecolor="#000000" uuid="27dcf15c-20dc-4a6b-8e4a-b1f3357dc9e3"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Type]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="480" y="0" width="160" height="15" forecolor="#000000" uuid="b48595eb-6c59-4c05-8015-d1be691dd91e"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Copies]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="640" y="0" width="160" height="15" forecolor="#000000" uuid="1a0c78cd-fe79-4417-9932-d838a8af5208"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="0" y="0" width="160" height="15" forecolor="#000000" uuid="ffdbecaf-8463-4e98-8ebb-887f172626af"/>
+				<text><![CDATA[Barcode]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<frame>
+				<reportElement style="Row" mode="Opaque" x="0" y="0" width="802" height="15" uuid="6bfe8fb0-a1ba-46d7-815f-1aef877f9fb1"/>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="640" y="0" width="160" height="15" uuid="b86234c0-3cc4-44a0-91ea-76d1572eba1e"/>
+					<textElement textAlignment="Center"/>
+					<textFieldExpression><![CDATA[$F{Status}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement style="Detail" x="0" y="0" width="160" height="15" uuid="5ae309e0-21b0-4f50-8314-1520ba248f72"/>
+					<textFieldExpression><![CDATA[$F{ISBNBarcode}]]></textFieldExpression>
+				</textField>
+				<line>
+					<reportElement positionType="FixRelativeToBottom" x="0" y="14" width="802" height="1" uuid="a042e2e3-21fb-46fe-a443-782db6a98463"/>
+					<graphicElement>
+						<pen lineWidth="2.0" lineColor="#999999"/>
+					</graphicElement>
+				</line>
+			</frame>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="160" y="0" width="160" height="15" uuid="73525b30-f101-4036-a3b3-b20a5b052ef5"/>
+				<textFieldExpression><![CDATA[$F{BookTitle}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="320" y="0" width="160" height="15" uuid="a25581c1-c81a-4935-bd30-3f904200661a"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Type}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement style="Detail" x="480" y="0" width="160" height="15" uuid="a162f68c-ddf1-4d6c-a000-bfe178ba0708"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Copies}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="68" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="802" height="1" uuid="f0dc7712-9011-4b8f-88d4-c930aecc1cd2"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="534" y="18" width="73" height="17" uuid="a9adba33-f825-4aea-9490-603140a58dda"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Prepared by: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="599" y="31" width="170" height="18" uuid="60be5c02-12f0-42b9-b4d8-3b25a2e651a9"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Mrs. Virginia S. Ponollera]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="599" y="46" width="170" height="18" uuid="282d7c5e-8a79-44d9-9aa0-341491839076"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Campus Head Librarian]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="-21" y="1" width="843" height="24" forecolor="#000000" backcolor="#FFFFFF" uuid="89ea0564-e3b7-47b8-813e-dad8dca7610b"/>
+				<textField evaluationTime="Report">
+					<reportElement style="Column header" x="783" y="1" width="40" height="20" forecolor="#000000" uuid="68946fff-abf2-43ea-b7ec-8da153b17c16"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement style="Column header" x="703" y="1" width="80" height="20" forecolor="#000000" uuid="fe9d5a7e-7fed-4871-ad5e-cc335e72445c"/>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+				</textField>
+				<textField pattern="EEEEE dd MMMMM yyyy">
+					<reportElement style="Column header" x="22" y="1" width="197" height="20" forecolor="#000000" uuid="b314ade8-c2e6-473f-8008-a664320451c8"/>
+					<textElement verticalAlignment="Middle">
+						<font size="10" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

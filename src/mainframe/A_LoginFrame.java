@@ -194,6 +194,7 @@ public class A_LoginFrame extends javax.swing.JFrame {
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Wrong Log in!");
+                adminpassword.setText("");
             }
         } catch (Exception e) {
              e.printStackTrace();

@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/mainframe/LibraryMainFrame.java</file>
-            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/Classes/C_LibraryLogInClass.java</file>
+            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/mainframe/CLIENTREGISTRATION.java</file>
             <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/MaterialEntry/BOOK.java</file>
-            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/mainframe/REGISTERADMIN.java</file>
-            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/Global_Variable/Global_Variable.java</file>
-            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/mainframe/A_LoginFrame.java</file>
-            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/connection/Conn.java</file>
-            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/Global_Variable/GetId.java</file>
+            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/mainframe/LibraryMainFrame.java</file>
+            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/mainframe/ADMIN.java</file>
+            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/Reports/book.jrxml</file>
+            <file>file:/D:/other_laptop/INSTALLER/LIBRARY/system/LIBRARY_MANAGEMENT_SYSTEM/src/Reports/cd.jrxml</file>
         </group>
     </open-files>
 </project-private>
