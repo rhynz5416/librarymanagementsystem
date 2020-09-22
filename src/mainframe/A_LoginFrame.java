@@ -229,10 +229,8 @@ public class A_LoginFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new A_LoginFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new A_LoginFrame().setVisible(true);
         });
     } 
     // Variables declaration - do not modify//GEN-BEGIN:variables

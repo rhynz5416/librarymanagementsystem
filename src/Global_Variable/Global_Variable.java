@@ -2,6 +2,8 @@ package Global_Variable;
 
 public class Global_Variable {
 
+    public static String system_title;
+    
     public static String category_id;
     public static String id;
     public static String adminBarcode;
