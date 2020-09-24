@@ -22,9 +22,19 @@ import Return.CDRETURN;
 import Return.JOURNALRETURN;
 import Return.MAGAZINERETURN;
 import Return.NEWSPAPERRETURN;
+import com.alee.extended.button.WebSplitButton;
+import com.alee.extended.panel.GroupPanel;
+import com.alee.laf.WebLookAndFeel;
+import com.alee.laf.menu.WebMenu;
 import com.alee.laf.menu.WebMenuBar;
+import com.alee.laf.menu.WebMenuItem;
+import com.alee.laf.menu.WebPopupMenu;
 import com.alee.laf.rootpane.WebFrame;
+import com.alee.managers.hotkey.Hotkey;
+import java.awt.Component;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,7 +71,7 @@ public class LibraryMainFramev2 extends WebFrame {
             imag.setIcon(iconLogo);
         }
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,307 +84,19 @@ public class LibraryMainFramev2 extends WebFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         imag = new javax.swing.JLabel();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu12 = new javax.swing.JMenu();
-        jMenu8 = new javax.swing.JMenu();
-        jMenu9 = new javax.swing.JMenu();
-        jMenu11 = new javax.swing.JMenu();
-        jMenu10 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
-        clientreg = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenu13 = new javax.swing.JMenu();
-        jMenu17 = new javax.swing.JMenu();
-        jMenu18 = new javax.swing.JMenu();
-        jMenu19 = new javax.swing.JMenu();
-        jMenu20 = new javax.swing.JMenu();
-        jMenu21 = new javax.swing.JMenu();
-        jMenu14 = new javax.swing.JMenu();
-        jMenu22 = new javax.swing.JMenu();
-        jMenu23 = new javax.swing.JMenu();
-        jMenu24 = new javax.swing.JMenu();
-        jMenu25 = new javax.swing.JMenu();
-        jMenu26 = new javax.swing.JMenu();
-        jMenu5 = new javax.swing.JMenu();
-        jMenu16 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jMenu15 = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jLabel2.setFont(new java.awt.Font("Lucida Fax", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("LIBRARY BORROWING MANAGEMENT SYSTEM");
+        jLabel2.setText("BISU-BALILIHAN LIBRARY");
 
         jLabel3.setFont(new java.awt.Font("Lucida Fax", 1, 36)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("WITH BARCODE TECHNOLOGY");
+        jLabel3.setText("MANAGEMENT SYSTEM");
 
         imag.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
-        jMenuBar1.setPreferredSize(new java.awt.Dimension(507, 30));
-
-        jMenu1.setText("Library Materials");
-        jMenu1.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-
-        jMenu12.setText("BOOK");
-        jMenu12.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu12.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenu12MenuSelected(evt);
-            }
-        });
-        jMenu12.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu12MouseClicked(evt);
-            }
-        });
-        jMenu12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu12ActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jMenu12);
-
-        jMenu8.setText("CD");
-        jMenu8.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu8.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenu8MenuSelected(evt);
-            }
-        });
-        jMenu8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu8MouseClicked(evt);
-            }
-        });
-        jMenu1.add(jMenu8);
-
-        jMenu9.setText("MAGAZINE");
-        jMenu9.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu9MouseClicked(evt);
-            }
-        });
-        jMenu1.add(jMenu9);
-
-        jMenu11.setText("JOURNAL");
-        jMenu11.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu11MouseClicked(evt);
-            }
-        });
-        jMenu1.add(jMenu11);
-
-        jMenu10.setText("NEWSPAPER");
-        jMenu10.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu10.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu10MouseClicked(evt);
-            }
-        });
-        jMenu1.add(jMenu10);
-
-        jMenu2.setText("Client Registration");
-        jMenu2.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-
-        clientreg.setText("REGISTRATION");
-        clientreg.setFont(new java.awt.Font("Lucida Fax", 3, 12)); // NOI18N
-        clientreg.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clientregMouseClicked(evt);
-            }
-        });
-        jMenu2.add(clientreg);
-
-        jMenu1.add(jMenu2);
-
-        jMenuBar1.add(jMenu1);
-
-        jMenu3.setText("Transaction Menu");
-        jMenu3.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-
-        jMenu13.setText("BORROW");
-        jMenu13.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-
-        jMenu17.setText("BOOK");
-        jMenu17.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu17.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu17MouseClicked(evt);
-            }
-        });
-        jMenu13.add(jMenu17);
-
-        jMenu18.setText("CD");
-        jMenu18.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu18.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu18MouseClicked(evt);
-            }
-        });
-        jMenu13.add(jMenu18);
-
-        jMenu19.setText("JOURNAL");
-        jMenu19.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu19.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu19MouseClicked(evt);
-            }
-        });
-        jMenu13.add(jMenu19);
-
-        jMenu20.setText("MAGAZINE");
-        jMenu20.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu20.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu20MouseClicked(evt);
-            }
-        });
-        jMenu13.add(jMenu20);
-
-        jMenu21.setText("NEWSPAPER");
-        jMenu21.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu21.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu21MouseClicked(evt);
-            }
-        });
-        jMenu13.add(jMenu21);
-
-        jMenu3.add(jMenu13);
-
-        jMenu14.setText("RETURN");
-        jMenu14.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-
-        jMenu22.setText("BOOK");
-        jMenu22.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu22.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu22MouseClicked(evt);
-            }
-        });
-        jMenu22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenu22ActionPerformed(evt);
-            }
-        });
-        jMenu14.add(jMenu22);
-
-        jMenu23.setText("CD");
-        jMenu23.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu23.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu23MouseClicked(evt);
-            }
-        });
-        jMenu14.add(jMenu23);
-
-        jMenu24.setText("JOURNAL");
-        jMenu24.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu24.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu24MouseClicked(evt);
-            }
-        });
-        jMenu14.add(jMenu24);
-
-        jMenu25.setText("MAGAZINE");
-        jMenu25.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu25.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu25MouseClicked(evt);
-            }
-        });
-        jMenu14.add(jMenu25);
-
-        jMenu26.setText("NEWSPAPER");
-        jMenu26.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu26.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu26MouseClicked(evt);
-            }
-        });
-        jMenu14.add(jMenu26);
-
-        jMenu3.add(jMenu14);
-
-        jMenu5.setText("Admin Menu");
-        jMenu5.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-
-        jMenu16.setText("UPDATE ADMIN");
-        jMenu16.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu16.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu16MouseClicked(evt);
-            }
-        });
-        jMenu5.add(jMenu16);
-
-        jMenu4.setText("REGISTER ADMIN");
-        jMenu4.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu4MouseClicked(evt);
-            }
-        });
-        jMenu5.add(jMenu4);
-
-        jMenu15.setText("TRANSACTION MONITORING");
-        jMenu15.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu15.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu15MouseClicked(evt);
-            }
-        });
-        jMenu5.add(jMenu15);
-
-        jMenu3.add(jMenu5);
-
-        jMenu7.setText("BOOK");
-        jMenu7.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu7.addMenuListener(new javax.swing.event.MenuListener() {
-            public void menuCanceled(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuDeselected(javax.swing.event.MenuEvent evt) {
-            }
-            public void menuSelected(javax.swing.event.MenuEvent evt) {
-                jMenu7MenuSelected(evt);
-            }
-        });
-        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenu7MouseClicked(evt);
-            }
-        });
-        jMenu3.add(jMenu7);
-
-        jMenuBar1.add(jMenu3);
-
-        jMenu6.setText("Logout");
-        jMenu6.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jMenu6MousePressed(evt);
-            }
-        });
-        jMenuBar1.add(jMenu6);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -398,218 +120,6 @@ public class LibraryMainFramev2 extends WebFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenu12MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu12MenuSelected
-        /*try {
-            BOOK book = new BOOK();
-            book.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-    }//GEN-LAST:event_jMenu12MenuSelected
-
-    private void jMenu12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu12MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu12MouseClicked
-
-    private void jMenu12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu12ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu12ActionPerformed
-
-    private void jMenu8MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu8MenuSelected
-
-    }//GEN-LAST:event_jMenu8MenuSelected
-
-    private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
-        try {
-            CD cd = new CD();
-            cd.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu8MouseClicked
-
-    private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
-        try {
-            MAGAZINE magazine = new MAGAZINE();
-            magazine.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu9MouseClicked
-
-    private void jMenu11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu11MouseClicked
-        try {
-            JOURNAL journal = new JOURNAL();
-            journal.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu11MouseClicked
-
-    private void jMenu10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu10MouseClicked
-        try {
-            NEWSPAPER news = new NEWSPAPER();
-            news.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu10MouseClicked
-
-    private void clientregMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientregMouseClicked
-
-        try {
-            CLIENTREGISTRATION borrower = new CLIENTREGISTRATION();
-
-            borrower.setVisible(true);
-            borrower.setLocationRelativeTo(null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }//GEN-LAST:event_clientregMouseClicked
-
-    private void jMenu17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu17MouseClicked
-        try {
-            BOOKBORROW BOOK = new BOOKBORROW();
-            BOOK.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu17MouseClicked
-
-    private void jMenu18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu18MouseClicked
-        try {
-            CDBORROW CD = new CDBORROW();
-            CD.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu18MouseClicked
-
-    private void jMenu19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu19MouseClicked
-        try {
-            JOURNALBORROW JOURNAL = new JOURNALBORROW();
-            JOURNAL.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu19MouseClicked
-
-    private void jMenu20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu20MouseClicked
-        try {
-            MAGAZINEBORROW MAGAZINE = new MAGAZINEBORROW();
-            MAGAZINE.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu20MouseClicked
-
-    private void jMenu21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu21MouseClicked
-        try {
-            NEWSPAPERBORROWS NEWSPAPER = new NEWSPAPERBORROWS();
-            NEWSPAPER.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu21MouseClicked
-
-    private void jMenu22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu22MouseClicked
-        try {
-            BOOKRETURN RETURN = new BOOKRETURN();
-            RETURN.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu22MouseClicked
-
-    private void jMenu22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenu22ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenu22ActionPerformed
-
-    private void jMenu23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu23MouseClicked
-        try {
-            CDRETURN RETURN = new CDRETURN();
-            RETURN.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu23MouseClicked
-
-    private void jMenu24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu24MouseClicked
-        try {
-            JOURNALRETURN RETURN = new JOURNALRETURN();
-            RETURN.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu24MouseClicked
-
-    private void jMenu25MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu25MouseClicked
-        try {
-            MAGAZINERETURN RETURN = new MAGAZINERETURN();
-            RETURN.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu25MouseClicked
-
-    private void jMenu26MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu26MouseClicked
-        try {
-            NEWSPAPERRETURN RETURN = new NEWSPAPERRETURN();
-            RETURN.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu26MouseClicked
-
-    private void jMenu16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu16MouseClicked
-        try {
-            ADMIN ADMINS = new ADMIN();
-            ADMINS.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu16MouseClicked
-
-    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
-        try {
-            REGISTERADMIN admin = new REGISTERADMIN();
-            admin.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu4MouseClicked
-
-    private void jMenu15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu15MouseClicked
-        try {
-            CheckingForm admin = new CheckingForm();
-            admin.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu15MouseClicked
-
-    private void jMenu7MenuSelected(javax.swing.event.MenuEvent evt) {//GEN-FIRST:event_jMenu7MenuSelected
-
-    }//GEN-LAST:event_jMenu7MenuSelected
-
-    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
-        try {
-            BOOK book = new BOOK();
-            book.setVisible(true);
-        } catch (Exception ex) {
-            Logger.getLogger(LibraryMainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jMenu7MouseClicked
-
-    private void jMenu6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MousePressed
-        // TODO add your handling code here:
-        int val = JOptionPane.showConfirmDialog(null,"Are you sure you want to logout?","Logout Confirm Dialog",JOptionPane.YES_NO_OPTION);
-        if(val == 0){
-            System.exit(0);
-        }
-    }//GEN-LAST:event_jMenu6MousePressed
 
     /**
      * @param args the command line arguments
@@ -647,36 +157,8 @@ public class LibraryMainFramev2 extends WebFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu clientreg;
     private javax.swing.JLabel imag;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu10;
-    private javax.swing.JMenu jMenu11;
-    private javax.swing.JMenu jMenu12;
-    private javax.swing.JMenu jMenu13;
-    private javax.swing.JMenu jMenu14;
-    private javax.swing.JMenu jMenu15;
-    private javax.swing.JMenu jMenu16;
-    private javax.swing.JMenu jMenu17;
-    private javax.swing.JMenu jMenu18;
-    private javax.swing.JMenu jMenu19;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu20;
-    private javax.swing.JMenu jMenu21;
-    private javax.swing.JMenu jMenu22;
-    private javax.swing.JMenu jMenu23;
-    private javax.swing.JMenu jMenu24;
-    private javax.swing.JMenu jMenu25;
-    private javax.swing.JMenu jMenu26;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenu jMenu7;
-    private javax.swing.JMenu jMenu8;
-    private javax.swing.JMenu jMenu9;
-    private javax.swing.JMenuBar jMenuBar1;
     // End of variables declaration//GEN-END:variables
 }
