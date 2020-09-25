@@ -6,11 +6,14 @@
 
 package Classes;
 
+import MaterialEntry.BOOK;
 import com.alee.laf.menu.WebMenu;
 import com.alee.laf.menu.WebMenuBar;
 import com.alee.laf.menu.WebMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Menus implements ActionListener{
     WebMenu menuLibraryMaterials, menuTransaction, submenuRegistration, submenuBorrow, submenuReturn, submenuAdmin, menuLogout;
@@ -134,7 +137,14 @@ public class Menus implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == book){
             System.out.println("Book");
-            // function here
+            BOOK book;
+            try {
+                book = new BOOK();
+                book.setVisible(true);
+            } catch (Exception ex) {
+                Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
+            }
+           
         }
         if(e.getSource() == cd){
             System.out.println("Cd");

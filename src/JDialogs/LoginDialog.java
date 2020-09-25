@@ -321,11 +321,10 @@ public class LoginDialog extends WebDialog {
 
             st = null;
             st = con.dbconn().createStatement();
-            ResultSet rss = st.executeQuery("SELECT id,category_id,adminBarcode FROM `tbl_login` WHERE `Username`= '" + adminusername.getText() + "' and Password = '" + String.valueOf(adminpassword.getPassword()) + "'");
+            ResultSet rss = st.executeQuery("SELECT id,adminBarcode FROM `tbl_login` WHERE `Username`= '" + adminusername.getText() + "' and Password = '" + String.valueOf(adminpassword.getPassword()) + "'");
 
             if (rss.next()) {
-                global_var.id = rss.getString("id");
-                global_var.category_id = rss.getString("category_id");
+                global_var.id = rss.getString("id"); 
                 global_var.adminBarcode = rss.getString("adminBarcode");
                 
                 LibraryMainFramev2 Lib = new LibraryMainFramev2();
