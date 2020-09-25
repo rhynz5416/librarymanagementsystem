@@ -6,15 +6,16 @@
 
 package JDialogs;
 
+import Classes.Menus;
 import Global_Variable.Global_Variable;
 import JFrames.LibraryMainFramev2;
 import Module.dbConn;
 import com.alee.laf.rootpane.WebDialog;
+import static java.awt.event.KeyEvent.VK_ENTER;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import mainframe.LibraryMainFrame;
 
 /**
  *
@@ -40,7 +41,7 @@ public class LoginDialog extends WebDialog {
         adminpassword.setEnabled(false);
         this.setTitle(Global_Variable.system_title);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,8 +64,6 @@ public class LoginDialog extends WebDialog {
         adminpassword = new javax.swing.JPasswordField();
         btnlogin = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel5.setFont(new java.awt.Font("Lucida Fax", 1, 36)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -105,6 +104,11 @@ public class LoginDialog extends WebDialog {
         adminpassword.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         adminpassword.setBorder(null);
         adminpassword.setMargin(new java.awt.Insets(2, 0, 2, 2));
+        adminpassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                adminpasswordKeyTyped(evt);
+            }
+        });
 
         btnlogin.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
         btnlogin.setText("LOG IN");
@@ -262,6 +266,8 @@ public class LoginDialog extends WebDialog {
                     //to display the data inside the txtfields
                     String username = rs.getString("Username");
                     adminusername.setText(username);
+                    adminpassword.requestFocus(true);
+                    
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -278,7 +284,6 @@ public class LoginDialog extends WebDialog {
     }//GEN-LAST:event_adminbarcodeKeyTyped
 
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
-
         if (adminbarcode.getText().trim().isEmpty() || adminusername.getText().trim().isEmpty() || adminpassword.getPassword().toString().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Fill up the fields");
         } else {
@@ -287,7 +292,7 @@ public class LoginDialog extends WebDialog {
     }//GEN-LAST:event_btnloginActionPerformed
 
     private void btnloginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnloginKeyPressed
-        login();
+        
     }//GEN-LAST:event_btnloginKeyPressed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -305,6 +310,12 @@ public class LoginDialog extends WebDialog {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void adminpasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminpasswordKeyTyped
+        if(evt.getKeyChar() == VK_ENTER ){
+            login();
+        }
+    }//GEN-LAST:event_adminpasswordKeyTyped
+
     private void login() {
         try {
 
@@ -316,11 +327,12 @@ public class LoginDialog extends WebDialog {
                 global_var.id = rss.getString("id");
                 global_var.category_id = rss.getString("category_id");
                 global_var.adminBarcode = rss.getString("adminBarcode");
-
+                
                 LibraryMainFramev2 Lib = new LibraryMainFramev2();
                 Lib.setVisible(true);
                 Lib.setLocationRelativeTo(null);
                 Lib.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                Lib.setJMenuBar(new Menus().MenuBar());
                 //JOptionPane.showMessageDialog(null,global_var.id+" "+global_var.category_id);
                 this.dispose();
             } else {
