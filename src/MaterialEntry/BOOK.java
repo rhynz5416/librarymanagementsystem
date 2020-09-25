@@ -2,6 +2,7 @@ package MaterialEntry;
 
 import Global_Variable.Global_Variable;
 import Module.dbConn;
+import com.alee.laf.rootpane.WebFrame;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -28,7 +29,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
  import net.sf.jasperreports.view.JasperViewer;
  import net.sf.jasperreports.engine.design.JRDesignQuery;
 
-public class BOOK extends javax.swing.JFrame {
+public class BOOK extends WebFrame {
 
     Statement st = null;
     dbConn con = new dbConn();

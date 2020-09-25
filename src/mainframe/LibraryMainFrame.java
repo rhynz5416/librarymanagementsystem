@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import Global_Variable.Global_Variable;
+import com.alee.laf.rootpane.WebFrame;
 import java.awt.Image;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -39,11 +40,11 @@ import net.sf.jasperreports.engine.JasperCompileManager;
  import net.sf.jasperreports.view.JasperViewer;
  import net.sf.jasperreports.engine.design.JRDesignQuery;
 
-public class LibraryMainFrame extends javax.swing.JFrame { 
+public class LibraryMainFrame extends WebFrame {
     
     public LibraryMainFrame() {
         initComponents(); 
-        ImageIcon iconLogo = new ImageIcon("Images/bisub.png");
+        ImageIcon iconLogo = new ImageIcon("Images/bisu.png");
         imag.setIcon(iconLogo);  
         setExtendedState(JFrame.MAXIMIZED_BOTH);  
     } 

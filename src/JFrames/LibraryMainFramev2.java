@@ -62,14 +62,9 @@ public class LibraryMainFramev2 extends WebFrame {
         initComponents();
         this.setTitle(Global_Variable.system_title);
         this.setAttachButtons(false);
-        int i = Integer.parseInt(Global_Variable.category_id.toString());
-        if( i == 1){
-            ImageIcon iconLogo = new ImageIcon("Images/Congressional.jpg");
-            imag.setIcon(iconLogo);
-        }else if(i ==2){
-            ImageIcon iconLogo = new ImageIcon("Images/bisub.png");
-            imag.setIcon(iconLogo);
-        }
+        
+        ImageIcon iconLogo = new ImageIcon("Images/bisu.png");
+        imag.setIcon(iconLogo); 
     }
     
     /**
