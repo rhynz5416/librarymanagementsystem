@@ -7,21 +7,28 @@
 package JDialogs;
 
 import Classes.Menus;
+import Classes.Themes;
 import Global_Variable.Global_Variable;
 import JFrames.LibraryMainFramev2;
 import Module.dbConn;
 import com.alee.laf.rootpane.WebDialog;
+import connection.DAObject;
+import java.awt.HeadlessException;
 import static java.awt.event.KeyEvent.VK_ENTER;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Properties;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import librarymanagementsystem.LibraryManagementSystem;
+import mainframe.LibraryMainFrame;
 
 /**
  *
  * @author Gerardo Socias Jr
  */
-public class LoginDialog extends WebDialog {
+public class LoginDialog extends javax.swing.JDialog{
 
     /**
      * Creates new form LoginDialog
@@ -32,14 +39,21 @@ public class LoginDialog extends WebDialog {
     dbConn con = new dbConn();
     Global_Variable global_var = new Global_Variable();
     Statement st = null;
+    Themes theme = new Themes();
     
     public LoginDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.setAttachButtons(false);
         adminusername.setEnabled(false);
         adminpassword.setEnabled(false);
         this.setTitle(Global_Variable.system_title);
+        
+        theme.setFontTitle(label_title, "plain");
+        theme.setFontLabel(label_admin);
+        theme.setFontLabel(label_username);
+        theme.setFontLabel(label_password);
+        
+        theme.setBtnColor(btnlogin);
     }
     
     /**
@@ -52,22 +66,22 @@ public class LoginDialog extends WebDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        label_title = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         adminbarcode = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        label_admin = new javax.swing.JLabel();
+        label_username = new javax.swing.JLabel();
         adminusername = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        label_password = new javax.swing.JLabel();
         adminpassword = new javax.swing.JPasswordField();
         btnlogin = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btnExit = new javax.swing.JButton();
 
-        jLabel5.setFont(new java.awt.Font("Lucida Fax", 1, 36)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("LIBRARY ADMINISTRATOR LOGIN ");
+        label_title.setFont(new java.awt.Font("Lucida Fax", 1, 36)); // NOI18N
+        label_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label_title.setText("LIBRARY ADMINISTRATOR LOGIN ");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Image_admin.png"))); // NOI18N
 
@@ -86,20 +100,20 @@ public class LoginDialog extends WebDialog {
             }
         });
 
-        jLabel2.setBackground(new java.awt.Color(255, 204, 255));
-        jLabel2.setFont(new java.awt.Font("Lucida Fax", 1, 14)); // NOI18N
-        jLabel2.setText("Admin Barcode:");
+        label_admin.setBackground(new java.awt.Color(255, 204, 255));
+        label_admin.setFont(new java.awt.Font("Lucida Fax", 1, 14)); // NOI18N
+        label_admin.setText("Admin Barcode:");
 
-        jLabel6.setBackground(new java.awt.Color(255, 204, 255));
-        jLabel6.setFont(new java.awt.Font("Lucida Fax", 1, 14)); // NOI18N
-        jLabel6.setText("Username:");
+        label_username.setBackground(new java.awt.Color(255, 204, 255));
+        label_username.setFont(new java.awt.Font("Lucida Fax", 1, 14)); // NOI18N
+        label_username.setText("Username:");
 
         adminusername.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         adminusername.setBorder(null);
         adminusername.setMargin(new java.awt.Insets(2, 0, 2, 2));
 
-        jLabel3.setFont(new java.awt.Font("Lucida Fax", 1, 14)); // NOI18N
-        jLabel3.setText("Password:");
+        label_password.setFont(new java.awt.Font("Lucida Fax", 1, 14)); // NOI18N
+        label_password.setText("Password:");
 
         adminpassword.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         adminpassword.setBorder(null);
@@ -125,14 +139,14 @@ public class LoginDialog extends WebDialog {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jButton4.setText("EXIT");
-        jButton4.setBorder(null);
-        jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton4.setPreferredSize(new java.awt.Dimension(51, 17));
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnExit.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        btnExit.setText("EXIT");
+        btnExit.setBorder(null);
+        btnExit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnExit.setPreferredSize(new java.awt.Dimension(51, 17));
+        btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnExitActionPerformed(evt);
             }
         });
 
@@ -147,8 +161,8 @@ public class LoginDialog extends WebDialog {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
+                                    .addComponent(label_password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(label_admin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -157,10 +171,10 @@ public class LoginDialog extends WebDialog {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(adminbarcode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(adminpassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(label_username, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 89, Short.MAX_VALUE)
                         .addComponent(adminusername, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -170,22 +184,22 @@ public class LoginDialog extends WebDialog {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(label_admin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(adminbarcode, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(adminusername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(label_username, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(label_password, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(adminpassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -220,14 +234,14 @@ public class LoginDialog extends WebDialog {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(label_title, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(label_title, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -259,16 +273,18 @@ public class LoginDialog extends WebDialog {
             String tempbarcode = adminbarcode.getText();
             String query = "SELECT * FROM `tbl_login` WHERE adminBarcode = " + tempbarcode;
 
-            st = con.dbconn().createStatement();
-            rs = st.executeQuery(query);
             try {
+                st = con.dbconn().createStatement();
+                rs = st.executeQuery(query);
+
                 if (rs.next()) {
                     //to display the data inside the txtfields
                     String username = rs.getString("Username");
                     adminusername.setText(username);
                     adminpassword.requestFocus(true);
-                    
+
                 }
+                    
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -287,7 +303,13 @@ public class LoginDialog extends WebDialog {
         if (adminbarcode.getText().trim().isEmpty() || adminusername.getText().trim().isEmpty() || adminpassword.getPassword().toString().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Fill up the fields");
         } else {
-            login();
+            
+            if(con.dbconn() != null){
+                System.out.println("connected");
+                login();
+            }else{
+                JOptionPane.showMessageDialog(null, "The system could not connect to the server!" , "Error Message", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnloginActionPerformed
 
@@ -295,7 +317,7 @@ public class LoginDialog extends WebDialog {
         
     }//GEN-LAST:event_btnloginKeyPressed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         int choice;
         choice = JOptionPane.showConfirmDialog(null, "Do you really want to exit?");
 
@@ -308,7 +330,7 @@ public class LoginDialog extends WebDialog {
         } else if (choice == JOptionPane.CLOSED_OPTION) {
             System.exit(0);
         }
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnExitActionPerformed
 
     private void adminpasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_adminpasswordKeyTyped
         if(evt.getKeyChar() == VK_ENTER ){
@@ -318,7 +340,7 @@ public class LoginDialog extends WebDialog {
 
     private void login() {
         try {
-
+               
             st = null;
             st = con.dbconn().createStatement();
             ResultSet rss = st.executeQuery("SELECT id,adminBarcode FROM `tbl_login` WHERE `Username`= '" + adminusername.getText() + "' and Password = '" + String.valueOf(adminpassword.getPassword()) + "'");
@@ -327,17 +349,17 @@ public class LoginDialog extends WebDialog {
                 global_var.id = rss.getString("id"); 
                 global_var.adminBarcode = rss.getString("adminBarcode");
                 
-                LibraryMainFramev2 Lib = new LibraryMainFramev2();
+                LibraryMainFrame Lib = new LibraryMainFrame();
                 Lib.setVisible(true);
                 Lib.setLocationRelativeTo(null);
                 Lib.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                Lib.setJMenuBar(new Menus().MenuBar());
+//                Lib.setJMenuBar(new Menus().MenuBar());
                 //JOptionPane.showMessageDialog(null,global_var.id+" "+global_var.category_id);
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Wrong Log in!");
             }
-        } catch (Exception e) {
+        } catch (HeadlessException | SQLException e) {
         }
     }
 
@@ -428,15 +450,15 @@ public class LoginDialog extends WebDialog {
     private javax.swing.JTextField adminbarcode;
     private javax.swing.JPasswordField adminpassword;
     private javax.swing.JTextField adminusername;
+    private javax.swing.JButton btnExit;
     private javax.swing.JButton btnlogin;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel label_admin;
+    private javax.swing.JLabel label_password;
+    private javax.swing.JLabel label_title;
+    private javax.swing.JLabel label_username;
     // End of variables declaration//GEN-END:variables
 }
