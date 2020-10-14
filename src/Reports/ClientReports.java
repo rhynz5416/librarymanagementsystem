@@ -37,22 +37,31 @@ import java.util.Date;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-public class ReportFrame extends javax.swing.JFrame { 
+public class ClientReports extends javax.swing.JFrame { 
     Statement st = null;
     dbConn con = new dbConn();
     ResultSet rs = null;
     private Vector<Vector<String>> data;
     private Vector<String> header; 
     
-    public ReportFrame() throws Exception { 
+    public ClientReports() throws Exception { 
        
-        
-        initComponents(); 
-        
+        Conn connections = new Conn();
+        data = connections.getClient();
+        header = new Vector<String>();
+
+        header.add("id");
+        header.add("Barcode");
+        header.add("Name");
+        header.add("Gender"); 
+        header.add("Client Type");
+        header.add("Date Issue");
+        header.add("Date Expired");
+        initComponents();  
         setExtendedState(JFrame.MAXIMIZED_BOTH); 
                 
     }
-      
+    
      public void executeSQlquery(String query, String message) {
         try {
             st = null;
@@ -79,7 +88,6 @@ public class ReportFrame extends javax.swing.JFrame {
 
         label1 = new java.awt.Label();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_book = new javax.swing.JTable();
@@ -89,31 +97,22 @@ public class ReportFrame extends javax.swing.JFrame {
         getContentPane().setLayout(null);
 
         label1.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
-        label1.setText("Library Reports");
+        label1.setText("Client Reports");
         getContentPane().add(label1);
-        label1.setBounds(380, 50, 270, 60);
+        label1.setBounds(490, 50, 270, 60);
 
         jDateChooser1.setDateFormatString("MM-dd-yyyy");
         getContentPane().add(jDateChooser1);
-        jDateChooser1.setBounds(510, 190, 280, 40);
+        jDateChooser1.setBounds(250, 270, 280, 40);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Book", "Cd", "Journal", "Magazine", "Newspaper" }));
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
-            }
-        });
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(70, 190, 280, 40);
-
-        jButton1.setText("LOad");
+        jButton1.setText("Load");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(500, 280, 110, 40);
+        jButton1.setBounds(570, 270, 110, 40);
 
         table_book.setFont(new java.awt.Font("Lucida Sans", 1, 12));
         table_book.setModel(new javax.swing.table.DefaultTableModel(data,header));
@@ -125,7 +124,7 @@ public class ReportFrame extends javax.swing.JFrame {
         jScrollPane1.setViewportView(table_book);
 
         getContentPane().add(jScrollPane1);
-        jScrollPane1.setBounds(120, 350, 870, 90);
+        jScrollPane1.setBounds(80, 350, 1080, 300);
 
         jButton2.setText("Print");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -134,7 +133,7 @@ public class ReportFrame extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(890, 180, 110, 40);
+        jButton2.setBounds(740, 270, 110, 40);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -199,7 +198,14 @@ public class ReportFrame extends javax.swing.JFrame {
             
         }catch(Exception w){
         
-        }*/ 
+        }*/
+        
+        SimpleDateFormat sd = new SimpleDateFormat("MM-dd-yyyy"); 
+        String dated = sd.format(jDateChooser1.getDate())+ "%";  
+        
+        data = theSearch("Select * from tbl_clientregistration where DateIssued like '" + dated + "'");
+        table_book.setModel(new javax.swing.table.DefaultTableModel(data, header));
+        //table_book.removeColumn(table_book.getColumnModel().getColumn(0));
        
        /* try {
             java.util.Date date = new SimpleDateFormat("MM-dd-yyyy").parse(((JTextField)jDateChooser1.getDateEditor().getUiComponent()).getText());
@@ -222,14 +228,8 @@ public class ReportFrame extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(ReportFrame.class.getName()).log(Level.SEVERE, null, ex);
         }*/
-       // jComboBox1.getSelectedItem().toString();
 
-         SimpleDateFormat sd = new SimpleDateFormat("MM-dd-yyyy"); 
-        String dated = sd.format(jDateChooser1.getDate())+ "%"; 
         
-        data = theSearch("Select * from tbl_librarybook where DateAcquisition like '" + dated + "'");
-        table_book.setModel(new javax.swing.table.DefaultTableModel(data, header));
-        table_book.removeColumn(table_book.getColumnModel().getColumn(0)); 
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void table_bookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_table_bookMouseClicked
@@ -240,123 +240,27 @@ public class ReportFrame extends javax.swing.JFrame {
         Connection connect = null;  
         SimpleDateFormat sd = new SimpleDateFormat("MM-dd-yyyy"); 
         String dated = sd.format(jDateChooser1.getDate())+ "%";
-        //DateFormat sds = new SimpleDateFormat("MM"); 
-        //String dateds = sds.format(jDateChooser1.getDate())+ "%"; 
+       
          
         try {
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
-            String sql = "Select * from tbl_librarybook where DateAcquisition like '" + dated + "'";
+            String sql = "Select * from tbl_clientregistration where DateIssued like '" + dated + "'";
             Map param= new HashMap();
             JRDesignQuery newQuery = new JRDesignQuery();
             newQuery.setText(sql); 
             
-            InputStream file = getClass().getResourceAsStream("/Reports/book.jrxml");
+            InputStream file = getClass().getResourceAsStream("/Reports/clientreg.jrxml");
             JasperDesign jasperdesign = JRXmlLoader.load(file);
             jasperdesign.setQuery(newQuery);
             
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperdesign);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, param,connect);
             JasperViewer.viewReport(jasperPrint,false); 
-            
-            //JasperDesign jd = JRXmlLoader.load(getClass().getResourceAsStream("/Reports/librarybook.jrxml"));
-            //String sql = "Select * from tbl_librarybook where DateAcquisition like " + temp + "  ";
-            // Map param = new HashMap();
-            //JRDesignQuery newQuery = new JRDesignQuery();
-            //newQuery.setText(sql);
-            //jd.setQuery(newQuery);
-            //JasperReport jr = JasperCompileManager.compileReport(jd);
-            //JasperPrint jp = JasperFillManager.fillReport(jr, param, connect);
-            //JasperViewer.viewReport(jp, false);*/
-            // String fileName="./src/Reports/book.jrxml";
-            //String filetoFill="./src/Reports/book.jasper";  
-            // JasperCompileManager.compileReport(file);
-            //Map param= new HashMap();
-            //JasperFillManager.fillReport(filetoFill, param, connect);
-            //JasperPrint jp=JasperFillManager.fillReport(filetoFill, param,connect);
-            // JasperViewer.viewReport(jp,false);
+          
          } catch (Exception e) {
          e.printStackTrace();
          }
     }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
-        
-        Conn connection = new Conn(); 
-        header = new Vector<String>(); 
-        try {
-            data = connection.getBook();
-        } catch (Exception ex) {
-            Logger.getLogger(ReportFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        switch (jComboBox1.getSelectedItem().toString()) {
-            case "Book":   
-                header.add("id");
-                header.add("Barcode");
-                header.add("Title"); 
-                header.add("Copies");
-                header.add("Status");
-                header.add("Availability");
-                
-                data = theSearch("Select * from tbl_librarybook");
-                table_book.setModel(new javax.swing.table.DefaultTableModel(data, header));
-                table_book.removeColumn(table_book.getColumnModel().getColumn(0)); 
-              
-                break;
-            case "Cd":
-               header.add("id");
-               header.add("Barcode");
-               header.add("Title"); 
-               header.add("Copies");
-               header.add("Status");
-               header.add("Availability");
-
-               data = theSearchJorMag("Select * from tbl_journal");
-               table_book.setModel(new javax.swing.table.DefaultTableModel(data, header)); 
-               table_book.removeColumn(table_book.getColumnModel().getColumn(0));
-               break;
-            case "Journal":
-                header.add("id");
-                header.add("Barcode");
-                header.add("Title"); 
-                header.add("Copies");
-                header.add("Status"); 
-                header.add("Availability");
-                
-               data = theSearchJorMag("Select * from tbl_journal");
-                table_book.setModel(new javax.swing.table.DefaultTableModel(data, header)); 
-                table_book.removeColumn(table_book.getColumnModel().getColumn(0));
-                break;
-            case "Magazine":
-                header.add("id");
-                header.add("Barcode");
-                header.add("Title"); 
-                header.add("Copies");
-                header.add("Status");
-                header.add("Availability");
-                
-                data = theSearchJorMag("Select * from tbl_magazine");
-                table_book.setModel(new javax.swing.table.DefaultTableModel(data, header));
-                table_book.removeColumn(table_book.getColumnModel().getColumn(0));
-                break;
-            case "Newspaper":
-                header.add("id");
-                header.add("Barcode");
-                header.add("Type");
-                header.add("Heading"); 
-                header.add("Copies");
-                header.add("Status");
-                header.add("Availability");
-                
-                data = theSearch("Select * from tbl_librarynewspaper");
-                table_book.setModel(new javax.swing.table.DefaultTableModel(data, header)); 
-                table_book.removeColumn(table_book.getColumnModel().getColumn(0));
-                break; 
-            default:
-                jComboBox1.setEnabled(true);
-                break;
-        }
-       
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -375,23 +279,24 @@ public class ReportFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ReportFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientReports.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ReportFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientReports.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ReportFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientReports.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ReportFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ClientReports.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new ReportFrame().setVisible(true);
+                    new ClientReports().setVisible(true);
                 } catch (Exception ex) {
-                    Logger.getLogger(ReportFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ClientReports.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -400,7 +305,6 @@ public class ReportFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
@@ -420,10 +324,11 @@ public class ReportFrame extends javax.swing.JFrame {
                 Vector<String> user = new Vector<String>();
                 user.add(rs.getString(1));
                 user.add(rs.getString(2));
-                user.add(rs.getString(4));
-                user.add(rs.getString(14));
-                user.add(rs.getString(15)); 
-                user.add(rs.getString(17));
+                user.add(rs.getString(3));
+                user.add(rs.getString(5));
+                user.add(rs.getString(7)); 
+                user.add(rs.getString(9));
+                user.add(rs.getString(10));
                 useVector.add(user); 
             }
         } catch (Exception e) {
@@ -431,33 +336,5 @@ public class ReportFrame extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, e.toString());
         }
         return useVector;
-    }
-  
-    private Vector<Vector<String>> theSearchJorMag(String sqlSearchJorMag) {
-        Vector<Vector<String>> useVectorJorMag = new Vector<Vector<String>>();
-        Connection con = null;
-        Statement st = null;
-
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
-            st = con.createStatement();
-            ResultSet rs = st.executeQuery(sqlSearchJorMag);
-
-            while (rs.next()) {
-                Vector<String> userjormag = new Vector<String>();
-                userjormag.add(rs.getString(1));
-                userjormag.add(rs.getString(2));
-                userjormag.add(rs.getString(4));
-                userjormag.add(rs.getString(12));
-                userjormag.add(rs.getString(13)); 
-                userjormag.add(rs.getString(15));
-                useVectorJorMag.add(userjormag); 
-            }
-        } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(null, e.toString());
-        }
-        return useVectorJorMag;
-    }
-     
+    } 
 } 

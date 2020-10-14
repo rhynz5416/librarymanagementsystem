@@ -29,7 +29,7 @@ import net.sf.jasperreports.engine.JasperCompileManager;
  import net.sf.jasperreports.view.JasperViewer;
  import net.sf.jasperreports.engine.design.JRDesignQuery;
 
-public class BOOK extends WebFrame {
+public class BOOK extends javax.swing.JFrame{
 
     Statement st = null;
     dbConn con = new dbConn();
@@ -171,10 +171,10 @@ public class BOOK extends WebFrame {
         jLabel8 = new javax.swing.JLabel();
         txtBookTitle = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        DateBook = new com.toedter.calendar.JDateChooser();
         jLabel6 = new javax.swing.JLabel();
         txtBarcode = new javax.swing.JTextField();
         updatebook = new javax.swing.JTextField();
+        DateBook = new com.toedter.calendar.JDateChooser();
         jLabel38 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         saveAccess = new javax.swing.JButton();
@@ -544,17 +544,6 @@ public class BOOK extends WebFrame {
         jPanel4.add(jLabel7);
         jLabel7.setBounds(60, 100, 130, 40);
 
-        DateBook.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        DateBook.setDateFormatString("MM-dd-yyyy");
-        DateBook.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
-        DateBook.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                DateBookPropertyChange(evt);
-            }
-        });
-        jPanel4.add(DateBook);
-        DateBook.setBounds(200, 100, 300, 30);
-
         jLabel6.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         jLabel6.setText("ISBN Barcode:");
         jPanel4.add(jLabel6);
@@ -589,10 +578,14 @@ public class BOOK extends WebFrame {
             }
         });
         jPanel4.add(updatebook);
-        updatebook.setBounds(200, 100, 300, 30);
+        updatebook.setBounds(200, 100, 280, 30);
+
+        DateBook.setDateFormatString("MM-dd-yyyy");
+        jPanel4.add(DateBook);
+        DateBook.setBounds(200, 100, 300, 30);
 
         jPanel2.add(jPanel4);
-        jPanel4.setBounds(140, 80, 680, 590);
+        jPanel4.setBounds(150, 80, 680, 590);
 
         jLabel38.setFont(new java.awt.Font("Lucida Fax", 1, 12)); // NOI18N
         jLabel38.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/b_search.png"))); // NOI18N
@@ -675,7 +668,40 @@ public class BOOK extends WebFrame {
     }//GEN-LAST:event_saveAccessActionPerformed
 
     private void accessTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accessTableMouseClicked
+        Connection cn = null;
+        Statement st = null;
+        ResultSet rs = null;
+
+        btnEdit.setEnabled(true);
+        btndelete1.setEnabled(true);
+
+        try {
+            int row = accessTable.getSelectedRow();
+            String cell_click = (accessTable.getModel().getValueAt(row, 1).toString());
+
+            String query = "Select * from tbl_bookaccessions where accessID = '" + cell_click + "'";
+
+            cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
+            st = cn.prepareStatement(query);
+            rs = st.executeQuery(query); 
+            if (rs.next()) {
+                //to display the data inside the txtfields
+                String accessid = rs.getString("accessID");
+                accession.setText(accessid);  
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         
+        int choice;
+        choice = JOptionPane.showConfirmDialog(null, "Add accession number?");
+
+        if (choice == JOptionPane.YES_OPTION) {
+            accession.setEnabled(true);
+            accessTable.setEnabled(false);
+            accession.getText();
+            totalcopies.getText(); 
+        }
     }//GEN-LAST:event_accessTableMouseClicked
 
     private void txtsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsearchActionPerformed
@@ -1105,11 +1131,6 @@ public class BOOK extends WebFrame {
       
     }//GEN-LAST:event_accessionKeyReleased
 
-    private void updatebookKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_updatebookKeyReleased
-        updatebook.hide();
-        DateBook.show();
-    }//GEN-LAST:event_updatebookKeyReleased
-
     private void statusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_statusItemStateChanged
         switch (status.getSelectedItem().toString()) {
             case "Available":
@@ -1130,17 +1151,18 @@ public class BOOK extends WebFrame {
         }
     }//GEN-LAST:event_statusItemStateChanged
 
-    private void updatebookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebookActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_updatebookActionPerformed
-
     private void statusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_statusActionPerformed
 
-    private void DateBookPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_DateBookPropertyChange
+    private void updatebookKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_updatebookKeyReleased
+        updatebook.hide();
+        DateBook.show();
+    }//GEN-LAST:event_updatebookKeyReleased
+
+    private void updatebookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updatebookActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_DateBookPropertyChange
+    }//GEN-LAST:event_updatebookActionPerformed
     //to get the book type for the database
 
     private String validatebookType() {
@@ -1197,6 +1219,7 @@ public class BOOK extends WebFrame {
             e.printStackTrace();
         }
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser DateBook;
     private com.toedter.calendar.JYearChooser YearBook;

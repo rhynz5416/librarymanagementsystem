@@ -373,7 +373,7 @@ public class ADMIN extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTrannsactKeyReleased
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
-          Connection connect = null;  
+        Connection connect = null;  
         
          try {
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
@@ -397,7 +397,7 @@ public class ADMIN extends javax.swing.JFrame {
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, param,connect);
             JasperViewer.viewReport(jasperPrint,false);
             
-// JasperCompileManager.compileReport(file);
+            // JasperCompileManager.compileReport(file);
             //Map param= new HashMap();
             //JasperFillManager.fillReport(filetoFill, param, connect);
             //JasperPrint jp=JasperFillManager.fillReport(filetoFill, param,connect);
