@@ -1,82 +1,71 @@
-package Module;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package connection;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Properties;
-import javax.swing.JOptionPane;
-import librarymanagementsystem.LibraryManagementSystem;
-import static librarymanagementsystem.LibraryManagementSystem.prop;
 
-public final class dbConn {
-
+/**
+ *
+ * @author Gerardo Socias Jr
+ */
+public class DAObject {
     private String server;
     private String user;
     private String pass;
     private String database;
     private Connection conn;
-    private Properties prop;
-    
-    public dbConn(){
-        
-        
-        prop = LibraryManagementSystem.getSystemSettings();
-            
-        String h = prop.getProperty("host");
-        String d = prop.getProperty("database");
-        String u = prop.getProperty("user");
 
-        if(h != null){
-            this.dbConn(h, u, "", d);
-            this.connect();
-        }else{
-            server = "localhost";
-            user = "root";
-            pass = "";
-            database = "librarymanagementsystem";
-        }
+    public DAObject(){
+        server = "localhost";
+        user = "root";
+        pass = "";
+        database = "librarymanagementsystem";
     }
     
-    public void dbConn(String server, String user, String pass, String db){
+    public DAObject(String server, String user, String pass, String db){
         this.server = server;
         this.user = user;
         this.pass = pass;
         this.database = db;
     }
     
-    public Connection connect(){
+    public DAObject(String server, String user, String db){
+        this.server = server;
+        this.database = db;
+        this.user = user;
+    }
+    
+    public Connection Connect(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
+            
             conn = DriverManager.getConnection("jdbc:mysql://"+server+"/"+database+"?zeroDateTimeBehavior=convertToNull", user, pass);
+            
+            return conn;
         } catch (SQLException ex) {
             // handle any errors
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
-        } catch(ClassNotFoundException e){
+        } catch(Exception e){
             System.out.println("Exception: " + e.getMessage());
         }
-        return conn;
+        return null;
     }
     
-//    public Connection dbconn() {
-//        conn = null;
-//        try {
-//            Class.forName("com.mysql.jdbc.Driver");
-//            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/librarymanagementsystem?zeroDateTimeBehavior=convertToNull", "root", "");
-//        } catch (Exception e) {
-//            JOptionPane.showMessageDialog(null, "Your not Connected");
-//        }
-//        return conn;
-//    }
-
     public void executeQuery(String query) {
         Statement st;
         try {
-            st = dbconn().createStatement();
+            st = Connect().createStatement();
             st.executeUpdate(query);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -141,16 +130,16 @@ public final class dbConn {
     }
 
     /**
+     * @return the conn
+     */
+    public Connection getConn() {
+        return conn;
+    }
+
+    /**
      * @param conn the conn to set
      */
     public void setConn(Connection conn) {
         this.conn = conn;
     }
-    
-    public Connection dbconn(){
-        return conn;
-    }
-    
-
 }
-

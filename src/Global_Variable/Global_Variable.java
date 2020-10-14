@@ -1,8 +1,17 @@
 package Global_Variable;
 
+import java.io.InputStream;
+
 public class Global_Variable {
 
     public static String system_title;
+    public static String selected_theme;
+    
+    public static InputStream fontStream;
+    public static float titleSize;
+    public static float labelSize;
+    public static float fieldSize;
+    public static float menuSize;
     
     public static String category_id;
     public static String id;
