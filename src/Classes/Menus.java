@@ -6,14 +6,18 @@
 
 package Classes;
 
+import JDialogs.LoginDialog;
 import MaterialEntry.BOOK;
+import MaterialEntry.Bookv2;
 import com.alee.laf.menu.WebMenu;
 import com.alee.laf.menu.WebMenuBar;
 import com.alee.laf.menu.WebMenuItem;
+import com.alee.laf.rootpane.WebDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class Menus implements ActionListener{
     WebMenu menuLibraryMaterials, menuTransaction, submenuRegistration, submenuBorrow, submenuReturn, submenuAdmin, menuLogout;
@@ -21,7 +25,9 @@ public class Menus implements ActionListener{
     WebMenuItem book, cd, magazine, journal, newspaper, registration,
             borrow_b, borrow_c, borrow_m, borrow_j, borrow_n,
             return_b, return_c, return_m, return_j, return_n,
-            admin_u, admin_r, admin_t;
+            admin_u, admin_r, admin_t,
+            logout;
+    
 
     public Menus(){}
 
@@ -97,8 +103,11 @@ public class Menus implements ActionListener{
         menuTransaction.add(submenuAdmin);
 
         // Logout
-        menuLogout = new WebMenu("Logout");
-
+        menuLogout = new WebMenu("Options");
+        logout = new WebMenuItem("Logout");
+        
+        menuLogout.add(logout);
+        
         // initialize menu bar
         menubar.add(menuLibraryMaterials);
         menubar.add(menuTransaction);
@@ -128,23 +137,23 @@ public class Menus implements ActionListener{
         admin_r.addActionListener(this);
         admin_t.addActionListener(this);
                     
-        menuLogout.addActionListener(this);
+        logout.addActionListener(this);
             
         return menubar;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println(e.getSource());
+        
         if(e.getSource() == book){
-            System.out.println("Book");
-            BOOK book;
             try {
-                book = new BOOK();
+                Bookv2 book = new Bookv2(new javax.swing.JFrame(), true);
+                book.setLocationRelativeTo(null);
                 book.setVisible(true);
             } catch (Exception ex) {
                 Logger.getLogger(Menus.class.getName()).log(Level.SEVERE, null, ex);
             }
-           
         }
         if(e.getSource() == cd){
             System.out.println("Cd");
@@ -210,8 +219,13 @@ public class Menus implements ActionListener{
         }
         
         // Logout
-        if(e.getSource() == menuLogout){
-            // function for logout
+        if(e.getSource() == logout){
+            System.out.println("Logging out...");
+            int choice;
+            choice = JOptionPane.showConfirmDialog(null, "Do you really want to exit?");
+            if (choice == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
         }
     }
 }

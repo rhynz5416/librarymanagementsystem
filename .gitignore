@@ -2,3 +2,6 @@
 nbproject/private/*.xml
 nbproject/project.properties
 jarFiles/jasperreports-project/
+*.class
+nbproject/private/private.properties
+nbproject/private/private.xml
